@@ -34,7 +34,6 @@ h2{font-size:14px;color:var(--sub);font-weight:400;margin-bottom:10px;}
 .adjrow{display:none;gap:6px;margin-top:7px;align-items:center;flex-wrap:wrap;}
 .adjrow input{width:90px;background:#0d1420;border:1px solid var(--line);border-radius:6px;padding:6px 8px;color:var(--text);font-size:12px;}
 .adjrow.show{display:flex;}
-#cmd{width:100%;background:#0d1420;border:1px dashed var(--line);border-radius:8px;padding:10px;color:var(--gold);font-size:12px;min-height:56px;margin-top:8px;word-break:break-all;}
 .tip{color:var(--sub);font-size:12px;line-height:1.7;margin-top:8px;}
 .tip b{color:var(--gold);}
 a{color:var(--accent);text-decoration:none;}
@@ -46,7 +45,6 @@ a{color:var(--accent);text-decoration:none;}
 <a class="back" href="index.html">← 返回研究台</a>
 <h1>💼 持仓与个股跟踪</h1>
 <div class="sub">支持加仓/减仓：点持仓旁的「＋加仓」「－减仓」，股数与成本自动重算</div>
-<div id="syncTip" class="tip">🔄 任何改动会自动同步到研究台首页（各版块同步，无信息差）</div>
 
 <div class="card">
   <h2>① 录入（选类型后操作）</h2>
@@ -66,19 +64,10 @@ a{color:var(--accent);text-decoration:none;}
   <div id="list"></div>
 </div>
 
-<div class="card" style="opacity:.85">
-  <h2>② 兜底：手动发 AI（仅在同步失败时用）</h2>
-  <button class="btn gold" onclick="genCmd()">生成指令（含变动明细）</button>
-  <button class="btn" onclick="copyCmd(event)">📋 一键复制</button>
-  <button class="btn gray" onclick="openWb()">打开 WorkBuddy 对话</button>
-  <textarea id="cmd" readonly placeholder="点「生成指令」后复制，粘贴到 WorkBuddy「股票市场」工作区发送"></textarea>
-  <div class="tip">AI 收到后：<b>新增</b>→落盘建档；<b>加仓</b>→股数累加+成本加权自动重算；<b>减仓</b>→股数扣减——全部进每日哨兵监测与持仓分析。</div>
-</div>
-
 <div class="card" style="padding:8px;">
-  <h2 style="padding:6px 6px 0;">③ 持仓分析（随一键刷新自动更新）</h2>
+  <h2 style="padding:6px 6px 0;">② 持仓分析（每日 15:20 自动更新）</h2>
   <iframe id="ana" src="" style="width:100%;height:75vh;border:none;border-radius:10px;"></iframe>
-  <div id="ana-empty" class="empty">今日分析尚未生成（发送变动指令后自动出现）</div>
+  <div id="ana-empty" class="empty">今日分析尚未生成（每日 15:20 盘后自动出现）</div>
 </div>
 
 <script>
@@ -106,7 +95,7 @@ function syncToCloud(){
     .then(function(d){
       setTip(d&&d.ok?('✅ 已同步到研究台首页（'+new Date().toLocaleTimeString('zh-CN')+'）'):'⚠️ 同步失败，数据仅存本机');
     })
-    .catch(function(){setTip('⚠️ 同步失败（仅存本机）——可用下方「生成指令」手动发 AI');});
+    .catch(function(){setTip('⚠️ 同步失败（仅存本机）——请检查网络后刷新页面重试');});
   },400);
 }
 function loadCloud(){
@@ -171,24 +160,6 @@ function addItem(){
   var a=load(curKey());a.push({name:n,shares:s,cost:c,date:d});save(curKey(),a);render();
   document.getElementById('f-name').value='';document.getElementById('f-shares').value='';document.getElementById('f-cost').value='';
 }
-function genCmd(){
-  var h=load(KH),w=load(KW),parts=[];
-  if(h.length){
-    var hs=h.map(function(x){return x.name+' '+x.shares+'股 成本'+x.cost+(x.date?' 买入'+x.date:'')+(x.chg?'（变动：'+x.chg+'）':'')}).join('；');
-    parts.push('持仓：'+hs);
-  }
-  if(w.length){parts.push('跟踪关注：'+w.map(function(x){return x.name}).join('、'));}
-  if(!parts.length){document.getElementById('cmd').value='（先添加持仓或关注）';return;}
-  document.getElementById('cmd').value=parts.join('；')+'。请按最新股数与成本更新持仓档案，并按框架8.13/8.16给出持仓盈亏与买卖建议。';
-}
-function copyCmd(e){
-  var t=document.getElementById('cmd');
-  if(!t.value||t.value.indexOf('（先添加')===0){genCmd();}
-  t.select();t.setSelectionRange(0,9999);
-  try{navigator.clipboard.writeText(t.value);}catch(err){document.execCommand('copy');}
-  var b=e.target;b.textContent='✅ 已复制';setTimeout(function(){b.textContent='📋 一键复制'},1800);
-}
-function openWb(){window.open('https://www.workbuddy.cn','_blank');}
 (function(){
   var d=new Date(),m=d.getMonth()+1,day=d.getDate();
   var mm=(m<10?'0':'')+m,dd=(day<10?'0':'')+day;
