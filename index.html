@@ -269,11 +269,11 @@
       var hs=(S.sections&&S.sections.holdings)||null;
       var ok=hs&&hs.ok!==false;
       var fresh=ok?freshOf(hs,now):false;
-      var link=ok&&hs.link?hs.link:'holdings.html';
+      var link='position.html'; /* 固定动态页：每次打开实时读当前持仓，不随静态报告走 */
       hc.innerHTML='<div class="card" style="cursor:pointer" data-href="'+link+'" onclick="if(event.target.closest(\'a\'))return;location.href=this.dataset.href">'
-        +'<div class="t">💼 持仓分析 · 卖点建议 <span class="tag '+(fresh?'new':'hot')+'">'+(ok?fmtHM(hs.time):'未生成')+'</span></div>'
-        +'<div class="d" id="holdDesc">'+(ok?(hs.desc||''):'先在下方录入持仓与跟踪池，每日 15:20 自动分析卖点')+'</div>'
-        +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可点上方刷新'):'⏳ 等待今日分析')+'</span><span>点卡片任意处看分析卖点 ›</span></div>'
+        +'<div class="t">💼 持仓分析 · 卖点建议 <span class="tag new">实时</span></div>'
+        +'<div class="d" id="holdDesc">正在读取当前持仓…</div>'
+        +'<div class="meta"><span id="holdMeta">实时读取 · 永远同步你录入的持仓</span><span>点卡片看完整分析 ›</span></div>'
         +'<div id="holdList" style="margin-top:10px;font-size:13px"></div>'
         +'<a href="holdings.html" style="display:block;margin-top:8px;font-size:12px;color:var(--accent);text-decoration:none">📝 录入 / 编辑持仓与跟踪池 →</a>'
         +'</div>';
@@ -324,6 +324,24 @@
         var h=window._holdData.h||[], w=window._holdData.w||[], Q=window._quotes||{}, K=window._klines||{};
         var LV=window._level||'green';
         if(!h.length&&!w.length){list.innerHTML='<div style="color:var(--sub);font-size:12px">📭 空仓 · 当前无持仓也无跟踪关注</div>';return;}
+        /* 动态摘要：组合盈亏 + 预警数量 */
+        var hd=document.getElementById('holdDesc');
+        if(hd){
+          if(!h.length){ hd.textContent='当前空仓 —— 去录入页添加持仓后，这里会实时显示每只票的分析'; }
+          else{
+            var totPnl=0,cnt=0,warns=0;
+            h.forEach(function(x){
+              var mk=codeToMarket(x.code),q=Q[mk],c=Number(x.avg_cost||x.cost||0),s=Number(x.shares||0);
+              var lv=calcLevels(x,null,K[mk],LV);
+              if(q){ totPnl+=(q.price-c)*s; cnt++;
+                var ad=adviceOf(q.price,c,lv);
+                if(ad.k==='sell'||ad.k==='warn')warns++;
+              }
+            });
+            hd.innerHTML=h.length+' 只持仓 · '+(cnt?('组合浮动 <b class="'+(totPnl>=0?'':'' )+'" style="color:'+(totPnl>0?'var(--up)':totPnl<0?'var(--down)':'var(--sub)')+'">'+((totPnl>=0?'+':'')+Math.round(totPnl)+'元')+'</b>'):'行情加载中')
+              +(warns?(' · <b style="color:var(--gold)">'+warns+' 条预警</b>'):' · 无预警');
+          }
+        }
         var html='';
         if(h.length){
           html+='<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px"><span style="color:var(--gold);font-size:11px">💼 当前持仓（实时）</span><span style="color:var(--sub);font-size:10px">每次刷新重算止损/止盈</span></div>';

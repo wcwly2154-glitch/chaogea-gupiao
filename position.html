@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的持仓 · 实时分析 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:16px;max-width:640px;margin:0 auto;font-size:14px;}
+h1{font-size:19px;margin:8px 0 4px;}
+.sub{color:var(--sub);font-size:12px;margin-bottom:12px;line-height:1.7;}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:8px;color:var(--sub);font-size:12px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;}
+.summary{background:linear-gradient(135deg,rgba(74,143,231,.12),rgba(217,164,65,.08));border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;}
+.summary .row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:6px;}
+.summary .row:last-child{margin-bottom:0;}
+.summary .big{font-size:20px;font-weight:700;}
+.sname{font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.code{font-size:11px;color:var(--sub);font-family:monospace;}
+.px{font-size:20px;font-weight:700;}
+.chg{font-size:12px;}
+.kv{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-top:5px;}
+.kv b{color:var(--text);}
+.tech{background:var(--card2);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:11px;color:var(--sub);line-height:1.8;}
+.tech b{color:var(--accent);}
+.adv{margin-top:9px;padding:9px 11px;border-radius:8px;font-size:14px;font-weight:700;}
+.adv.sell{background:rgba(224,86,86,.15);color:var(--up);border:1px solid rgba(224,86,86,.4);}
+.adv.warn{background:rgba(217,164,65,.13);color:var(--gold);border:1px solid rgba(217,164,65,.4);}
+.adv.hold{background:rgba(63,163,114,.12);color:var(--down);border:1px solid rgba(63,163,114,.35);}
+.adv.wait{background:rgba(139,150,171,.12);color:var(--sub);border:1px solid var(--line);}
+.src{font-size:10px;color:#6b7689;margin-top:6px;line-height:1.6;}
+.up{color:var(--up);}
+.down{color:var(--down);}
+.empty{color:var(--sub);font-size:13px;padding:20px;text-align:center;line-height:1.8;}
+.bar{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--sub);margin-bottom:10px;}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;}
+.btn:active{opacity:.8;}
+.linkage{background:rgba(217,164,65,.08);border:1px solid rgba(217,164,65,.3);border-radius:12px;padding:12px 14px;margin-bottom:12px;}
+.linkage h3{font-size:13px;color:var(--gold);margin-bottom:8px;font-weight:600;}
+.linkage .item{font-size:12px;line-height:1.8;padding:5px 0;border-bottom:1px dashed rgba(217,164,65,.2);}
+.linkage .item:last-child{border-bottom:none;}
+.disc{font-size:10px;color:#6b7689;line-height:1.7;text-align:center;margin-top:18px;padding-top:12px;border-top:1px dashed var(--line);}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← 返回研究台</a>
+<h1>📊 我的持仓 · 实时分析</h1>
+<div class="sub">本页<b>每次打开都重新读取当前持仓</b>与实时行情，永远不会显示已卖出的股票。止损/止盈按框架 8.13 实时计算。</div>
+
+<div class="bar">
+  <button class="btn" onclick="refreshAll()">🔄 立即刷新</button>
+  <span id="updAt">加载中…</span>
+</div>
+
+<div id="summary"></div>
+<div id="linkage"></div>
+<div id="list"><div class="empty">⏳ 正在读取持仓与行情…</div></div>
+
+<div class="disc">
+  本次分析由规则引擎实时计算（腾讯行情 + 日K线），非投资建议。技术位算法：止损=max(5日均线, 近10日最低, 成本×(黄灯-5%|绿灯-7%))；止盈=max(近20日最高, 成本×1.10)。<br>
+  市场有风险，投资需谨慎，盈亏自负。
+</div>
+
+<script>
+var URL_H='/api/holdings';
+var SECRET='chaogea-refresh-2026';
+var HOLD=[], QUOTES={}, KLINES={}, LEVEL='green', WATCH=[];
+
+function codeToMarket(code){
+  if(!code)return '';
+  var c=String(code);
+  if(/^6/.test(c))return 'sh'+c;
+  if(/^[03]/.test(c))return 'sz'+c;
+  if(/^[48]/.test(c))return 'bj'+c;
+  return 'sh'+c;
+}
+function fmt(n,d){ return n==null||isNaN(n)?'-':Number(n).toFixed(d==null?2:d); }
+function fmtPct(v){ if(v==null||isNaN(v))return '-'; return (v>=0?'+':'')+Number(v).toFixed(2)+'%'; }
+function money(v){ return v==null||isNaN(v)?'-':(v>=0?'+':'')+Math.round(v).toLocaleString()+'元'; }
+function cls(v){ return v>0?'up':(v<0?'down':''); }
+
+/* —— 实时止损/止盈（框架 8.13）—— */
+function calcLevels(cost, kl, light){
+  var isWarn=(light==='yellow'||light==='red');
+  var hard=Math.round(cost*(isWarn?0.95:0.93)*100)/100;
+  var out={stop:hard,target:Math.round(cost*1.10*100)/100,src:'成本法兜底（K线未加载）· '+(isWarn?'黄灯-5%':'-7%'),ma5:null,low10:null,high20:null,recentGain:null};
+  if(kl&&kl.length>=5){
+    var closes=[],lows=[],highs=[];
+    kl.forEach(function(r){closes.push(parseFloat(r[2]));lows.push(parseFloat(r[4]));highs.push(parseFloat(r[3]));});
+    var last=function(a,n){return a.slice(Math.max(0,a.length-n));};
+    var avg=function(a){return a.reduce(function(s,v){return s+v;},0)/a.length;};
+    var ma5=avg(last(closes,5));
+    var low10=Math.min.apply(null,last(lows,10));
+    var high20=Math.max.apply(null,last(highs,20));
+    out.ma5=ma5;out.low10=low10;out.high20=high20;
+    out.stop=Math.round(Math.max(Math.max(ma5,low10),hard)*100)/100;
+    out.target=Math.round(Math.max(high20,cost*1.10)*100)/100;
+    if(closes.length>=6){ var c0=closes[closes.length-6]; if(c0)out.recentGain=(closes[closes.length-1]-c0)/c0*100; }
+    out.src='实时算 · 5日线'+ma5.toFixed(2)+' / 前低(10日)'+low10.toFixed(2)+' / 前高(20日)'+high20.toFixed(2)+(isWarn?' · 黄灯收紧止损至-5%':'');
+  }
+  return out;
+}
+function adviceOf(px,cost,lv){
+  if(px==null)return {t:'⏳ 行情加载中…',k:'wait'};
+  if(lv.stop!=null&&px<=lv.stop)return {t:'🔴 已破止损 → 卖出',k:'sell'};
+  if(lv.target!=null&&px>=lv.target)return {t:'🟢 到止盈位 → 减仓锁利',k:'hold'};
+  if(lv.stop!=null&&(px-lv.stop)/px<0.03)return {t:'🟠 逼近止损 → 准备撤',k:'warn'};
+  if(lv.target!=null&&(lv.target-px)/px<0.03)return {t:'🟡 接近止盈 → 留意分批',k:'warn'};
+  if(px>cost)return {t:'✅ 持有（浮盈）',k:'hold'};
+  return {t:'⚠️ 观察（浮亏未破位）',k:'wait'};
+}
+
+/* —— 渲染 —— */
+function render(){
+  var list=document.getElementById('list');
+  var sm=document.getElementById('summary');
+  var lk=document.getElementById('linkage');
+
+  if(!HOLD.length){
+    sm.innerHTML='';
+    lk.innerHTML='';
+    list.innerHTML='<div class="empty">📭 当前无持仓<br><span style="font-size:11px">去 <a href="holdings.html">持仓录入页</a> 添加你的持仓，本页会自动同步</span></div>';
+    return;
+  }
+
+  /* 汇总 */
+  var totMv=0,totCost=0,nPx=0;
+  HOLD.forEach(function(x){
+    var mk=codeToMarket(x.code),q=QUOTES[mk],cost=Number(x.avg_cost||x.cost||0),sh=Number(x.shares||0);
+    totCost+=cost*sh;
+    if(q){ totMv+=q.price*sh; nPx++; } else { totMv+=cost*sh; }
+  });
+  var totPnl=totMv-totCost, totPct=totCost?totPnl/totCost*100:0;
+  sm.innerHTML='<div class="summary">'
+    +'<div class="row"><span>持仓 '+HOLD.length+' 只</span><span style="color:var(--gold)">'+(nPx===HOLD.length?'行情已更新':'行情加载中 '+nPx+'/'+HOLD.length)+'</span></div>'
+    +'<div class="row"><span class="big">'+Math.round(totMv).toLocaleString()+'</span><span>元 · 市值</span></div>'
+    +'<div class="row"><span>总成本 '+Math.round(totCost).toLocaleString()+' 元</span>'
+    +'<span class="big '+cls(totPnl)+'">'+money(totPnl)+' ('+fmtPct(totPct)+')</span></div>'
+    +'</div>';
+
+  /* 逐只 */
+  var html='';
+  var alerts=[];
+  HOLD.forEach(function(x){
+    var mk=codeToMarket(x.code),q=QUOTES[mk]||null;
+    var px=q?q.price:null,chg=q?q.chg:null;
+    var cost=Number(x.avg_cost||x.cost||0),sh=Number(x.shares||0);
+    var lv=calcLevels(cost,KLINES[mk],LEVEL);
+    var pnl=px!=null?(px-cost)*sh:null;
+    var pnlPct=px!=null&&cost?(px-cost)/cost*100:null;
+    var mv=px!=null?px*sh:cost*sh;
+    var dStop=px!=null&&lv.stop!=null?((lv.stop-px)/px*100):null;
+    var dTgt=px!=null&&lv.target!=null?((lv.target-px)/px*100):null;
+    var ad=adviceOf(px,cost,lv);
+    if(ad.k==='sell'||ad.k==='warn'){ alerts.push('【'+x.name+'】'+ad.t.replace(/^[^\u4e00-\u9fa5]*/,'')+'（现价 '+(px!=null?px.toFixed(2):'-')+'）'); }
+
+    html+='<div class="card">'
+      +'<div style="display:flex;justify-content:space-between;align-items:baseline">'
+      +'<div><span class="sname">'+x.name+'</span> <span class="code">'+(x.code||'')+'</span></div>'
+      +'<div style="text-align:right">'+(px!=null?('<div class="px '+cls(chg)+'">'+px.toFixed(2)+'</div><div class="chg '+cls(chg)+'">'+fmtPct(chg)+'</div>'):'<div class="chg">加载中…</div>')+'</div>'
+      +'</div>'
+      +'<div class="kv"><span>持仓 <b>'+sh+'股</b> · 成本 <b>'+cost.toFixed(3)+'</b></span><span>市值 <b>'+(px!=null?Math.round(mv).toLocaleString():'-')+'</b> 元</span></div>'
+      +'<div class="kv"><span>投入 '+(cost*sh).toFixed(0)+' 元</span><span class="'+cls(pnl)+'" style="font-weight:700;font-size:13px">'+(pnl!=null?('浮动盈亏 '+money(pnl)+' ('+fmtPct(pnlPct)+')'):'-')+'</span></div>'
+      +'<div class="kv"><span>止损 <b class="up">'+lv.stop.toFixed(2)+'</b>'+(dStop!=null?(' <span>距 '+fmtPct(dStop)+'</span>'):'')+'</span>'
+      +'<span>止盈 <b class="down">'+lv.target.toFixed(2)+'</b>'+(dTgt!=null?(' <span>距 '+fmtPct(dTgt)+'</span>'):'')+'</span></div>'
+      +(lv.ma5!=null?('<div class="tech">技术位：5日线 <b>'+lv.ma5.toFixed(2)+'</b> · 前低(10日) <b>'+lv.low10.toFixed(2)+'</b> · 前高(20日) <b>'+lv.high20.toFixed(2)+'</b>'
+        +(lv.recentGain!=null?(' · 近5日 <b class="'+cls(lv.recentGain)+'">'+fmtPct(lv.recentGain)+'</b>'):'')+'</div>'):'')
+      +'<div class="adv '+ad.k+'">'+ad.t+'</div>'
+      +'<div class="src">依据：'+lv.src+'</div>'
+      +'</div>';
+  });
+  list.innerHTML=html;
+
+  /* 持仓联动提示（动态：只列当前持仓的紧急项） */
+  if(alerts.length){
+    lk.innerHTML='<div class="linkage"><h3>💎 持仓联动提示（实时）</h3>'
+      +alerts.map(function(a){return '<div class="item">· '+a+'</div>';}).join('')
+      +'</div>';
+  }else{
+    lk.innerHTML='<div class="linkage" style="background:rgba(63,163,114,.06);border-color:rgba(63,163,114,.3)"><h3 style="color:var(--down)">💎 持仓联动提示（实时）</h3><div class="item">✅ 当前 '+HOLD.length+' 只持仓均未触发止损/止盈预警，按计划持有即可。</div></div>';
+  }
+
+  document.getElementById('updAt').textContent='更新于 '+new Date().toLocaleTimeString('zh-CN');
+}
+
+/* —— 数据加载：持仓 → 行情 → K线 —— */
+function loadHoldings(cb){
+  fetch(URL_H+'?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+    HOLD=(d&&d.holdings)||[]; WATCH=(d&&d.watch)||[];
+    cb&&cb();
+  }).catch(function(){ HOLD=[]; cb&&cb(); });
+}
+function loadQuotes(){
+  var codes=HOLD.map(function(x){return codeToMarket(x.code);}).filter(Boolean);
+  if(!codes.length)return;
+  var sc=document.createElement('script');
+  sc.charset='GBK';
+  sc.src='https://qt.gtimg.cn/q='+codes.join(',');
+  sc.onload=function(){
+    HOLD.forEach(function(x){
+      var mk=codeToMarket(x.code); if(!mk)return;
+      var raw=window['v_'+mk]; if(!raw)return;
+      var f=String(raw).split('~');
+      var p=parseFloat(f[3]),c=parseFloat(f[32]);
+      if(!isNaN(p))QUOTES[mk]={price:p,chg:isNaN(c)?0:c};
+    });
+    render();
+  };
+  sc.onerror=function(){};
+  document.body.appendChild(sc);
+}
+function loadKlines(){
+  HOLD.forEach(function(x){
+    var mk=codeToMarket(x.code); if(!mk)return;
+    fetch('https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param='+mk+',day,,,20,qfq')
+      .then(function(r){return r.json()})
+      .then(function(j){
+        var dd=j&&j.data&&j.data[mk];
+        var arr=dd?(dd.qfqday||dd.day||[]):[];
+        if(arr&&arr.length)KLINES[mk]=arr;
+        render();
+      }).catch(function(){});
+  });
+}
+function loadLevel(){
+  fetch('status.json?v='+Date.now()).then(function(r){return r.json()}).then(function(s){
+    LEVEL=(s&&s.level)||'green'; render();
+  }).catch(function(){});
+}
+function refreshAll(){
+  QUOTES={}; KLINES={};
+  render();
+  loadHoldings(function(){ render(); loadQuotes(); loadKlines(); });
+  loadLevel();
+}
+refreshAll();
+setInterval(function(){ QUOTES={}; render(); loadHoldings(function(){ render(); loadQuotes(); loadKlines(); }); }, 60000);
+</script>
+</body>
+</html>
