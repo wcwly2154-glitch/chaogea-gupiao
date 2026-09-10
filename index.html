@@ -87,13 +87,8 @@
   </div>
 
   <div class="section">
-    <h2>💼 我的持仓（录入 · 跟踪 · 每日分析）</h2>
-    <a class="card" href="holdings.html">
-      <div class="t">📝 持仓录入 &amp; 跟踪池</div>
-      <div class="d">录入成本与股数，看实时盈亏和个性化买卖点；跟踪池 = 持仓 + 关注</div>
-      <div class="meta"><span>框架 8.16 · 工具</span><span>随时可用</span></div>
-    </a>
-    <div id="holdCard"></div>
+    <h2>💼 我的持仓（先录入 → 再分析 → 给卖点）</h2>
+    <div id="holdCard"><div class="empty">加载中…</div></div>
   </div>
 
   <div class="section">
@@ -243,9 +238,22 @@
       tl.appendChild(d2);
     }
 
-    /* 3) 持仓分析（集中在"我的持仓"版块，时间轴不再重复展示） */
+    /* 3) 我的持仓：一张卡两个动作——主体点开看最新分析卖点，底部进录入/编辑 */
     var hc=document.getElementById('holdCard');
-    if(hc&&S.sections&&S.sections.holdings)hc.innerHTML=cardHTML('holdings',S.sections.holdings,now);
+    if(hc){
+      var hs=(S.sections&&S.sections.holdings)||null;
+      var ok=hs&&hs.ok!==false;
+      var fresh=ok?freshOf(hs,now):false;
+      var link=ok&&hs.link?hs.link:'holdings.html';
+      hc.innerHTML='<div class="card">'
+        +'<a href="'+link+'" style="display:block;text-decoration:none;color:inherit">'
+        +'<div class="t">💼 持仓分析 · 卖点建议 <span class="tag '+(fresh?'new':'hot')+'">'+(ok?fmtHM(hs.time):'未生成')+'</span></div>'
+        +'<div class="d">'+(ok?(hs.desc||''):'先在下方录入持仓与跟踪池，每日 15:20 自动分析卖点')+'</div>'
+        +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可点上方刷新'):'⏳ 等待今日分析')+'</span><span>点击看分析卖点 ›</span></div>'
+        +'</a>'
+        +'<a href="holdings.html" style="display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--accent);text-decoration:none">📝 录入 / 编辑持仓与跟踪池 →</a>'
+        +'</div>';
+    }
   }).catch(function(){
     var t=document.getElementById('timeline');
     if(t)t.innerHTML='<div class="empty">状态加载失败 · 请刷新重试</div>';
