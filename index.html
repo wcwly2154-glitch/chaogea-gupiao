@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-page-node-id="dGgSxw8kce3Pft09jbGabE">
-<head data-page-node-id="geTj1O20mTF7yu3sD72nXS">
-<meta charset="UTF-8" data-page-node-id="eSeveDgnEDDLTHtdgx6HoZ">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" data-page-node-id="QQZEFt9z1QFVElfzmvGutJ">
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>超哥 A 股研究台</title>
 <style>
   :root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;
@@ -55,81 +55,81 @@
   .tiny{font-size:10px;color:#6b7689;margin-bottom:8px;line-height:1.8}
 </style>
 </head>
-<body data-page-node-id="IIwgBYccQnSOthkZ40q9su">
-  <a class="alarm g" id="alarmBar" href="#" data-page-node-id="y5lpQGlzIV9nRsozHgqsGi">
-    <div class="bulbs" data-page-node-id="m36JP4FLKwLqlvFlKhqYBP">
-      <div class="bulb" id="b-g" data-page-node-id="wANdPQhCcXDxunZMyYyHQs"></div>
-      <div class="bulb" id="b-y" data-page-node-id="vKdLlIg7e1Kb4GP5Y8vc9k"></div>
-      <div class="bulb" id="b-r" data-page-node-id="DiY6sGgn0mGF3JFcVw6IpN"></div>
+<body>
+  <a class="alarm g" id="alarmBar" href="#">
+    <div class="bulbs">
+      <div class="bulb" id="b-g"></div>
+      <div class="bulb" id="b-y"></div>
+      <div class="bulb" id="b-r"></div>
     </div>
-    <div style="flex:1" data-page-node-id="BrWpGRcMsrTLjHiy9DZYP1">
-      <div class="t1" id="alarmText" data-page-node-id="UmYNCPxTAWqvAArfEdKVyq">信号灯加载中…</div>
-      <div class="t2" data-page-node-id="uoHWjDenlZTYWYxP7C14wT">今日决策一句话 · 点开看信号灯详情</div>
-      <div class="upd" id="alarmUpd" data-page-node-id="yPMTKSGOgATfSPF4d1kXd5"></div>
+    <div style="flex:1">
+      <div class="t1" id="alarmText">信号灯加载中…</div>
+      <div class="t2">今日决策一句话 · 点开看信号灯详情</div>
+      <div class="upd" id="alarmUpd"></div>
     </div>
-    <div class="go" data-page-node-id="aDgju9GnLMboP76kSE3IJt">›</div>
+    <div class="go">›</div>
   </a>
 
-  <div class="refreshrow" data-page-node-id="B8HT1uqdNVStfEmvWjMhM2">
-    <button class="btn1k" id="refreshBtn" onclick="oneKeyRefresh(this)" data-page-node-id="J8KCCep5QvceA2wLR6EtCI">⚡ 一键刷新全部数据</button>
-    <div class="btnhint" id="refreshHint" data-page-node-id="ODmmxgcVDXWDiJvNYaiAqM">点一下 → 本机守护进程收到信号 → 自动重拉数据并重新部署<br data-page-node-id="DrLptrdDd4DEVa4AfOdeXu">通常 30 秒内本页时间戳全部更新</div>
+  <div class="refreshrow">
+    <button class="btn1k" id="refreshBtn" onclick="oneKeyRefresh(this)">⚡ 一键刷新全部数据</button>
+    <div class="btnhint" id="refreshHint">点一下 → 本机守护进程收到信号 → 自动重拉数据并重新部署<br>通常 30 秒内本页时间戳全部更新</div>
   </div>
 
-  <div class="head" data-page-node-id="nm9HtlpFUW8FxrJ5mL8Lz0">
-    <h1 data-page-node-id="tzkB8RiipsPHBn2IcbWpvB">📈 超哥 A 股研究台</h1>
-    <div class="sub" data-page-node-id="B7Z9xO95yixiifARTrwP0j">手机随时看 · 按交易时序组织 · 每日 4 窗自动更新</div>
-    <div class="badge" id="topBadge" data-page-node-id="TloWGeWV2NUsx5I4C6D1BW">加载中…</div>
+  <div class="head">
+    <h1>📈 超哥 A 股研究台</h1>
+    <div class="sub">手机随时看 · 按交易时序组织 · 每日 4 窗自动更新</div>
+    <div class="badge" id="topBadge">加载中…</div>
   </div>
 
-  <div class="section" data-page-node-id="dGY0SNRq8oSyj88vz8DokA">
-    <h2 data-page-node-id="W1HxjzXqvbK8YkaNEjfsRW">📅 今日时间轴（按交易时段排列 · 点开看详情）</h2>
-    <div id="timeline" data-page-node-id="jLXKQWDf8GQlIZ2VwxMpaS"><div class="empty" data-page-node-id="zhTPACOO8fySR77LVf8JJP">加载中…</div></div>
+  <div class="section">
+    <h2>📅 今日时间轴（按交易时段排列 · 点开看详情）</h2>
+    <div id="timeline"><div class="empty">加载中…</div></div>
   </div>
 
-  <div class="section" data-page-node-id="94L1mQ8rsod22X0xZSRwdo">
-    <h2 data-page-node-id="57VlfM6ufH1o5iBGydAo7M">💼 我的持仓（先录入 → 再分析 → 给卖点）</h2>
-    <div id="holdCard" data-page-node-id="Ag5fmPYAz1lxifvBiGPnOF"><div class="empty" data-page-node-id="XlJDsaIDCdIER8wPc3WuOR">加载中…</div></div>
+  <div class="section">
+    <h2>💼 我的持仓（先录入 → 再分析 → 给卖点）</h2>
+    <div id="holdCard"><div class="empty">加载中…</div></div>
   </div>
 
-  <div class="section" data-page-node-id="BwrbSlXgcqE1EAZ1C6HRGU">
-    <h2 data-page-node-id="5Cavl6O7ISI6ItFMnEDzPb">🚧 买前 6 问（下单前的刹车）</h2>
-    <a class="card" href="interceptor.html" data-page-node-id="jSS2nT9xkuvmoeht3yV5Mv">
-      <div class="t" data-page-node-id="bICAmKi66ref7YEn6NXUkx">🛑 交易前拦截</div>
-      <div class="d" data-page-node-id="lbzgarCTuBAYswR9Im8U4j">想买先过 6 问：证据 A/B/C 分级、利好除以体量、反方拦截，通过才给价位</div>
-      <div class="meta" data-page-node-id="8p80WHEWZy3aEDkHhEczw6"><span data-page-node-id="sRfFUkK0KqoIAZ6BasmQwf">框架 8.17 · 拦住冲动交易</span><span data-page-node-id="1gOSl7wYjjOly3NsDuIdeT">随时可用</span></div>
+  <div class="section">
+    <h2>🚧 买前 6 问（下单前的刹车）</h2>
+    <a class="card" href="interceptor.html">
+      <div class="t">🛑 交易前拦截</div>
+      <div class="d">想买先过 6 问：证据 A/B/C 分级、利好除以体量、反方拦截，通过才给价位</div>
+      <div class="meta"><span>框架 8.17 · 拦住冲动交易</span><span>随时可用</span></div>
     </a>
   </div>
 
-  <div class="section" data-page-node-id="TC6cUXcKiG1XBjisQbov2i">
-    <h2 data-page-node-id="b1m4pH5pkZe3OE2BU9qPdo">📓 交易日志（买卖全程留痕）</h2>
-    <a class="card" href="trades.html" data-page-node-id="sZLtwmeFU8vGZjUcJx4Fga">
-      <div class="t" data-page-node-id="HtKoVYHfqtIIWDvykPu2d0">📓 买卖记录 &amp; R 记账</div>
-      <div class="d" data-page-node-id="NfHbW3ZZWjX7UCZO3diHFT">何时 / 什么价 / 多少股 / 为何卖，R 额自动算，也是连败熔断的数据源</div>
-      <div class="meta" data-page-node-id="rhL5QPrKzRWbTH2J5hzcuO"><span data-page-node-id="jdCYCINlbjtXOnlQZ0tXDf">框架 8.17.9</span><span data-page-node-id="U8Qx3FU7jwgWIkH0K8ikQb">随时录入</span></div>
+  <div class="section">
+    <h2>📓 交易日志（买卖全程留痕）</h2>
+    <a class="card" href="trades.html">
+      <div class="t">📓 买卖记录 &amp; R 记账</div>
+      <div class="d">何时 / 什么价 / 多少股 / 为何卖，R 额自动算，也是连败熔断的数据源</div>
+      <div class="meta"><span>框架 8.17.9</span><span>随时录入</span></div>
     </a>
   </div>
 
-  <div class="section" data-page-node-id="zELcBkMcMuhK7k6DzO0h3h">
-    <h2 data-page-node-id="xlbc3xGja2sllF9bhZB9PP">📖 打法手册（长期有效 · 不随行情变）</h2>
-    <a class="card" href="reports/龙头识别与板块持续性_20260906.html" data-page-node-id="V440tZVW1V6FFNsnH6eGsl">
-      <div class="t" data-page-node-id="k9N0GiP8eC8vRhgojc6o7L">🎯 龙头识别 &amp; 板块持续性 <span class="tag plan" data-page-node-id="yPE1hOzKxTqLARafEpE11r">方法论</span></div>
-      <div class="d" data-page-node-id="DXlTcAwzaTZMiI8NVWetfr">四维判断标准 · 板块持续性四档 · 潜力龙三类 · 跨板块分散</div>
-      <div class="meta" data-page-node-id="N5Q1jOAjPgF80P3XVAYviD"><span data-page-node-id="voMsVegCc3h4OVdd8TX9qF">框架文档 · 永不过期</span></div>
+  <div class="section">
+    <h2>📖 打法手册（长期有效 · 不随行情变）</h2>
+    <a class="card" href="docs/打法_龙头识别与板块持续性.html">
+      <div class="t">🎯 龙头识别 &amp; 板块持续性 <span class="tag plan">方法论</span></div>
+      <div class="d">四维判断标准 · 板块持续性四档 · 潜力龙三类 · 跨板块分散</div>
+      <div class="meta"><span>框架文档 · 永不过期</span></div>
     </a>
-    <a class="card" href="reports/选股观察池_20260906.html" data-page-node-id="y05PwGBOOzPnBe5NzKZMAl">
-      <div class="t" data-page-node-id="JL0R0nzRgerZTU0eDPpQZW">📋 三层选股池框架 <span class="tag plan" data-page-node-id="TZRPTTbGVctVtgIqRjGDCh">方法论</span></div>
-      <div class="d" data-page-node-id="H6WsCPmH13jNH1vNJK1IeV">核心观察 / 潜力候选 / 淘汰区的分层结构</div>
-      <div class="meta" data-page-node-id="3xwUcvjSEU04OQBbj6NC9A"><span data-page-node-id="BHsybULAXtNivs53We6RBO">框架文档 · 永不过期</span></div>
+    <a class="card" href="docs/打法_三层选股池.html">
+      <div class="t">📋 三层选股池框架 <span class="tag plan">方法论</span></div>
+      <div class="d">核心观察 / 潜力候选 / 淘汰区的分层结构</div>
+      <div class="meta"><span>框架文档 · 永不过期</span></div>
     </a>
   </div>
 
-  <div class="footer" data-page-node-id="bXfaGfWq4u0kfa89yuYkFv">
-    <div class="tiny" data-page-node-id="tOSdzSP2OQ7gIAUJ2QeETl">
-      自动更新节奏：09:00 盘前 · 10:30 盘中 · 13:30 午后 · 15:20 盘后 · 周日 16:00 周复盘<br data-page-node-id="oUBsFm5lg9oNvCKgzE2zRO">
+  <div class="footer">
+    <div class="tiny">
+      自动更新节奏：09:00 盘前 · 10:30 盘中 · 13:30 午后 · 15:20 盘后 · 周日 16:00 周复盘<br>
       随时可点上方「一键刷新」手动全量刷新
     </div>
-    本页面由 WorkBuddy 自动生成与同步 · AI 生成内容<br data-page-node-id="zrDBHKXlNR0lWvzySsdHck">
-    所有内容仅为研究线索与条件化买卖辅助，不构成投资建议，不承诺收益<br data-page-node-id="5fa33QaVoynnwkm5NwmaXq">
+    本页面由 WorkBuddy 自动生成与同步 · AI 生成内容<br>
+    所有内容仅为研究线索与条件化买卖辅助，不构成投资建议，不承诺收益<br>
     市场有风险，投资需谨慎
   </div>
 

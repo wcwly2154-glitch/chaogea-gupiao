@@ -20,7 +20,6 @@ h2{font-size:14px;color:var(--sub);font-weight:400;margin-bottom:10px;}
 .btn.buy{background:rgba(224,86,86,.25);color:#ff8a8a;border:1px solid rgba(224,86,86,.5);}
 .btn.sell{background:rgba(63,163,114,.2);color:#3fa372;border:1px solid rgba(63,163,114,.5);}
 .btn:active{opacity:.8;}
-#cmd{width:100%;background:#0d1420;border:1px dashed var(--line);border-radius:8px;padding:10px;color:var(--gold);font-size:12px;min-height:56px;margin-top:8px;word-break:break-all;}
 .tip{color:var(--sub);font-size:12px;line-height:1.7;margin-top:8px;}
 .tip b{color:var(--gold);}
 table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0;}
@@ -39,7 +38,8 @@ a{color:var(--accent);text-decoration:none;}
 <div class="sub">每天买了什么、何时买、什么价、多少股、持仓几天、为何卖——全部记录，AI 逐步积累对你的了解（框架 8.17.9，50 笔后出《个人行为报告》）</div>
 
 <div class="card">
-  <h2>① 录入一笔交易</h2>
+  <h2>① 录入一笔交易（自动同步进正式档案，无需发 AI）</h2>
+  <div id="syncTip" class="tip">⏳ 加载云端交易记录…</div>
   <div class="row">
     <select id="f-side"><option value="buy">🟥 买入</option><option value="sell">🟩 卖出</option></select>
     <input id="f-name" placeholder="名称或代码" style="flex:1.5;">
@@ -65,10 +65,9 @@ a{color:var(--accent);text-decoration:none;}
   </div>
   <div id="stopHint" class="tip" style="display:none"></div>
   <div class="row"><input id="f-reason" placeholder="理由（一句：为什么买/卖）"></div>
-  <button class="btn buy" onclick="genCmd('buy')">🟥 生成买入记录</button>
-  <button class="btn sell" onclick="genCmd('sell')">🟩 生成卖出记录</button>
-  <textarea id="cmd" readonly placeholder="填完点上方按钮生成记录，复制发 AI（或对话直接口述也行）"></textarea>
-  <div class="tip">AI 自动完成：<b>R 额计算</b>（|买价-止损|×股数）→ <b>持仓天数</b>（卖出自动匹配买入记录）→ <b>盈亏与 R 倍数</b>（卖出结算）→ <b>行为标签归档</b> → 更新 holdings.json → 全部进 8.14 对账与行为统计。</div>
+  <button class="btn buy" onclick="addTrade('buy')">🟥 记一笔买入</button>
+  <button class="btn sell" onclick="addTrade('sell')">🟩 记一笔卖出</button>
+  <div class="tip">点按即<b>自动同步</b>：R 额现场算出 → 进正式档案 → 卖出自动匹配买入结算 → 行为标签归档 → 每日盘后对账。持仓档案（holdings）请去<a href="holdings.html">持仓录入页</a>维护。</div>
 </div>
 
 <div class="card">
@@ -77,14 +76,41 @@ a{color:var(--accent);text-decoration:none;}
 </div>
 
 <div class="card">
-  <h2>③ 本地记录（发给 AI 确认后进正式档案）</h2>
-  <div id="list" class="empty">暂无本地记录</div>
+  <h2>③ 交易记录（正式档案实时视图）</h2>
+  <div id="list" class="empty">暂无记录</div>
 </div>
 
 <script>
-var KT='cg_trades_v1', KH='cg_holdings_v2';
+var KT='cg_trades_v2', KH='cg_holdings_v2';
 function load(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}}
 function save(k,a){localStorage.setItem(k,JSON.stringify(a))}
+/* —— 云端自动同步（与持仓录入页同一机制）—— */
+var SYNC_URL='/api/trades', SECRET_T='chaogea-refresh-2026', _syncT=null;
+function setTip(t){var e=document.getElementById('syncTip');if(e)e.innerHTML=t;}
+function syncCloud(){
+  clearTimeout(_syncT);
+  _syncT=setTimeout(function(){
+    setTip('⏳ 同步中…');
+    fetch(SYNC_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({secret:SECRET_T,trades:load(KT)})})
+    .then(function(r){return r.json()})
+    .then(function(d){
+      setTip(d&&d.ok?'✅ 已进正式档案（'+new Date().toLocaleTimeString('zh-CN')+'）':'⚠️ 同步失败，数据仅存本机');
+    })
+    .catch(function(){setTip('⚠️ 同步失败（仅存本机）——请检查网络后刷新重试');});
+  },400);
+}
+function loadCloud(){
+  fetch(SYNC_URL+'?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+    var ct=(d&&d.trades)||[];
+    var local=load(KT);
+    // 合并：云端为主，本地多出的条目（同步失败遗留）按 id 追加
+    var ids={};ct.forEach(function(t){ids[t.id]=1});
+    local.forEach(function(t){if(!ids[t.id])ct.push(t)});
+    save(KT,ct);renderList();
+    setTip('✅ 已连接正式档案（'+ct.length+' 笔记录）');
+  }).catch(function(){setTip('⚠️ 云端读取失败——显示的是本机缓存');renderList();});
+}
 /* 🧮 算止损：框架 8.13 硬止损 = 成本 -7%（纪律上限）。
    注意：这只是兜底值——技术位（买入K线低点/5日线/前低）才是第一依据，
    黄灯期应收紧至 -5%。AI 在每日报告里对重点票会给更准的结构止损位。 */
@@ -99,49 +125,64 @@ function calcStop(){
   h.style.display='block';
   h.innerHTML='🧮 止损 <b>'+st.toFixed(2)+'</b>（成本-7%）'+(r>0?' · R额 ≈ <b>'+r.toLocaleString()+' 元</b>（最大计划亏损）':'')+'。若知道技术位（买入K线低点/5日线/前低），以更接近的那个为准；黄灯期收紧至 -5%（'+(Math.round(p*0.95*100)/100).toFixed(2)+'）。';
 }
-function genCmd(forcedSide){
+function addTrade(forcedSide){
   var n=document.getElementById('f-name').value.trim();
   if(!n){alert('名称必填');return;}
   var side=forcedSide||document.getElementById('f-side').value;
   var d=document.getElementById('f-date').value.trim()||((new Date().getMonth()+1)+'/'+new Date().getDate());
   var t=document.getElementById('f-time').value.trim();
-  var p=document.getElementById('f-price').value.trim();
-  var s=document.getElementById('f-shares').value.trim();
-  var st=document.getElementById('f-stop').value.trim();
+  var p=parseFloat(document.getElementById('f-price').value);
+  var s=parseInt(document.getElementById('f-shares').value);
+  var st=parseFloat(document.getElementById('f-stop').value)||null;
   var tag=document.getElementById('f-tag').value||'未标注';
   var rs=document.getElementById('f-reason').value.trim()||'未填';
   if(!p||!s){alert('成交价和股数必填');return;}
   if(side==='buy'&&!st){alert('买入必须填止损价（R 记账核心，拦截器第5问）；写不出=这笔不该买');return;}
-  var cmd=(side==='buy'?'买入记录：':'卖出记录：')+n+' '+s+'股 价格'+p+' '+d+(t?' '+t:'')+(side==='buy'?(' 止损'+st):'')+' 标签['+tag+'] 理由：'+rs+'。请落盘 trades.json：算R额与持仓天数'+(side==='sell'?'、匹配买入记录结算盈亏与R倍数':'')+'、更新 holdings.json、打行为标签，纳入 8.14 对账。';
-  document.getElementById('cmd').value=cmd;
-  var a=load(KT);a.unshift({side:side,name:n,price:p,shares:s,date:d,tag:tag});save(KT,a);renderList();
+  var entry={id:'t'+Date.now(),name:n,side:side,date:d,time:t||'',
+    price:p,shares:s,
+    stop_price:side==='buy'?st:null,
+    r_amount:side==='buy'&&st?Math.round(Math.abs(p-st)*s):null,
+    reason:rs,tag:tag,
+    exit_date:null,exit_price:null,exit_pnl:null,r_multiple:null};
+  var a=load(KT);a.unshift(entry);save(KT,a);renderList();syncCloud();
+  document.getElementById('f-name').value='';document.getElementById('f-price').value='';document.getElementById('f-shares').value='';document.getElementById('f-stop').value='';document.getElementById('f-reason').value='';
+  document.getElementById('stopHint').style.display='none';
 }
+function esc(s){return String(s==null?'':s).replace(/</g,'&lt;')}
 function renderList(){
   var a=load(KT),h='';
-  if(!a.length){h='<div class="empty">暂无本地记录（生成记录后自动保存）</div>';}
+  if(!a.length){h='<div class="empty">暂无记录——用①记一笔，或等云端同步</div>';}
   a.forEach(function(x){
-    h+='<table><tr><td><span class="side-'+x.side.slice(0,1)+'">'+(x.side==='buy'?'🟥买':'🟩卖')+'</span> <b>'+x.name+'</b></td><td>'+x.price+' × '+x.shares+'股</td><td>'+x.date+'</td><td>['+x.tag+']</td></tr></table>';
+    var r=x.r_amount!=null?('R额'+x.r_amount+'元'):'';
+    var rm=(x.r_multiple!=null)?(' · <b style="color:'+(x.r_multiple>=0?'#3fa372':'#ff8a8a')+'">'+x.r_multiple+'R</b>'):'';
+    h+='<table><tr><td><span class="side-'+x.side.slice(0,1)+'">'+(x.side==='buy'?'🟥买':'🟩卖')+'</span> <b>'+esc(x.name)+'</b></td><td>'+x.price+' × '+x.shares+'股</td><td>'+esc(x.date)+'</td><td>['+esc(x.tag)+']</td></tr>'
+     +(r||rm?'<tr><td colspan="4" style="color:var(--sub)">'+r+rm+'</td></tr>':'')
+     +'</table>';
   });
   document.getElementById('list').innerHTML=h;
 }
 (function(){
-  var hh=load(KH);
-  var el=document.getElementById('quickSell');
-  if(!hh.length){el.innerHTML='<div class="empty">holdings 档案为空（AI 侧未同步持仓）——直接用①手填</div>';return;}
-  var h='<div class="row">';
-  hh.forEach(function(x){
-    h+='<button class="btn sell" onclick="quickSell(\''+x.name+'\','+x.shares+')">🟩 卖出 '+x.name+'（持仓 '+x.shares+'股）</button>';
-  });
-  el.innerHTML=h+'</div><div class="tip">点按自动填入卖出表单，改一下价格即可提交</div>';
-  window.quickSell=function(name,shares){
-    document.getElementById('f-side').value='sell';
-    document.getElementById('f-name').value=name;
-    document.getElementById('f-shares').value=shares;
-    document.getElementById('f-date').value=(new Date().getMonth()+1)+'/'+new Date().getDate();
-    document.querySelector('.card').scrollIntoView({behavior:'smooth'});
-  };
+  /* 快捷卖出：从云端持仓生成（跨设备可用） */
+  fetch('/api/holdings?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+    var hh=(d&&d.holdings)||[];
+    var el=document.getElementById('quickSell');
+    if(!hh.length){el.innerHTML='<div class="empty">当前空仓——直接用①手填</div>';return;}
+    var h='<div class="row">';
+    hh.forEach(function(x){
+      h+='<button class="btn sell" onclick="quickSell(\''+String(x.name).replace(/'/g,"")+'\','+parseInt(x.shares)+')">🟩 卖出 '+esc(x.name)+'（持仓 '+x.shares+'股）</button>';
+    });
+    el.innerHTML=h+'</div><div class="tip">点按自动填入卖出表单，改一下价格即可提交</div>';
+    window.quickSell=function(name,shares){
+      document.getElementById('f-side').value='sell';
+      document.getElementById('f-name').value=name;
+      document.getElementById('f-shares').value=shares;
+      document.getElementById('f-date').value=(new Date().getMonth()+1)+'/'+new Date().getDate();
+      document.querySelector('.card').scrollIntoView({behavior:'smooth'});
+    };
+  }).catch(function(){document.getElementById('quickSell').innerHTML='<div class="empty">持仓读取失败——直接用①手填</div>';});
 })();
 renderList();
+loadCloud();
 </script>
 </body>
 </html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="wTafDILXHLGdyB02xSdAFa">
+<head data-page-node-id="2A4Ids5EvgB4nvoNyGIecS">
+<meta charset="UTF-8" data-page-node-id="PsbxwrgFSJDTA0Hlt6KWJ4">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="QrLjqW6FFJybkLDpidNAyp">
+<title>A股选股观察池 · 第一版 · 2026-09-06</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#fff; --text:#1f2329; --sub:#646a73; --line:#e5e6eb;
+    --up:#d4380d; --down:#389e0d; --accent:#2563eb; --warn:#d48806; --gold:#b8860b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:24px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:22px;margin-bottom:4px}
+  .meta{color:var(--sub);font-size:13px;margin-bottom:18px}
+  .src{display:inline-block;background:#eef2ff;color:var(--accent);border-radius:4px;padding:2px 8px;font-size:12px;margin-right:6px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card h2{font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .card h2 .tag{font-size:11px;background:#f0f1f3;color:var(--sub);border-radius:4px;padding:1px 6px;font-weight:400}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .metric{background:#fafbfc;border:1px solid var(--line);border-radius:8px;padding:12px;text-align:center}
+  .metric .v{font-size:20px;font-weight:700}
+  .metric .k{font-size:12px;color:var(--sub);margin-top:2px}
+  .up{color:var(--up)} .down{color:var(--down)}
+  .bar{height:22px;background:#f0f1f3;border-radius:4px;position:relative;margin:6px 0;overflow:hidden}
+  .bar>span{position:absolute;left:0;top:0;height:100%;background:var(--up);border-radius:4px}
+  .theme-row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+  .theme-row .name{width:90px;font-weight:600}
+  .theme-row .cnt{width:54px;color:var(--sub);font-size:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#fafbfc;font-weight:600;color:var(--sub)}
+  .lvl{display:inline-block;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:600}
+  .l1{background:#fff1f0;color:var(--up)}
+  .l2{background:#fff7e6;color:var(--warn)}
+  .l3{background:#f6ffed;color:var(--down)}
+  .essence{color:var(--text)}
+  .fail{color:var(--sub);font-size:12px}
+  .note{background:#fbfbfa;border-left:3px solid var(--gold);padding:10px 14px;font-size:13px;color:var(--sub);margin-top:10px}
+  .disclaimer{font-size:12px;color:var(--sub);border-top:1px dashed var(--line);padding-top:12px;margin-top:8px}
+  .pill{display:inline-block;background:#e6f4ea;color:var(--down);border-radius:10px;padding:1px 8px;font-size:11px;margin-left:4px}
+</style>
+</head>
+<body data-page-node-id="LUStPpcJpOhaQTEG7zPPIf">
+<div class="wrap" data-page-node-id="YMu8xRAAKMIfKb8AKlVgxJ">
+  <h1 data-page-node-id="ybRbqckhuwhwUbeJIL6qm5">A股选股观察池 · 第一版</h1>
+  <div class="meta" data-page-node-id="tOyxzGvboTkgRFWbQtFDuF">
+    数据时点：<b data-page-node-id="jv9TZkNUScknq1jmrDKMKH">2026-09-04（周五）收盘</b> ｜ 生成：2026-09-06（周日，无实时行情，下周一开盘迭代）
+    <br data-page-node-id="pY0kjYIo3LJ6GMBW8d4XFV">
+    <span class="src" data-page-node-id="MFqTcjzY88hVlHwNZeepGJ">悟道 MCP</span><span class="src" data-page-node-id="ZAaFZzrX6WcB8dEOjQk5aD">东方财富妙想</span><span class="src" data-page-node-id="CXZFD9PjCgqY6mKGyQJwX4">选股魔方（已接入·交叉验证）</span>
+  </div>
+
+  <!-- 市场状态 -->
+  <div class="card" data-page-node-id="XBuWAAVV0qz9KcRBvDAmeV">
+    <h2 data-page-node-id="sbhsLPjOBYHfo6Qlxqi7iQ">一、市场状态 <span class="tag" data-page-node-id="d2WtaZN2teA7dkc8WBmMuk">震荡整固 + 高低切换，情绪偏弱</span></h2>
+    <div class="grid" data-page-node-id="NybDy0fyp8oBtSj92QXwHZ">
+      <div class="metric" data-page-node-id="p1FBNRWF312wNz9t6C8dEs"><div class="v" data-page-node-id="5eDjWuRa7UxOsXWiR3CUqs">45</div><div class="k" data-page-node-id="cBekx0ZC3Bj6VQaRT0T5IZ">市场强度（0-100）</div></div>
+      <div class="metric" data-page-node-id="UpeUauNnFF0NMhr2MFoIkD"><div class="v up" data-page-node-id="GZCUYQpFZgIQ0lRBczo8vm">39</div><div class="k" data-page-node-id="o5kctfGlEdz2HjWTS3nvFP">涨停（封住）</div></div>
+      <div class="metric" data-page-node-id="pGilAHQeqERagYvG9XXYid"><div class="v down" data-page-node-id="ANOjgqkHJsEye2FGuZ8CxL">48</div><div class="k" data-page-node-id="IrQYHs7Omd0c3UbJJsTpLo">炸板</div></div>
+      <div class="metric" data-page-node-id="CKGAE3WGpYNsFdgbfnqTwW"><div class="v down" data-page-node-id="OlPK3xdAYpuBs6URlknfW0">44.8%</div><div class="k" data-page-node-id="3ZuobYQkLbJwVrsBDyO1yz">封板率</div></div>
+      <div class="metric" data-page-node-id="DPDxGz21AFlk7XMAJK6zra"><div class="v" data-page-node-id="XKVwGKLeCfgafGH4kPXcvz">5</div><div class="k" data-page-node-id="RGu2cApI6pdFs9xcojKndM">连板最高（龙版传媒）</div></div>
+      <div class="metric" data-page-node-id="6MXwvQhZTCNkwuER6PqnPY"><div class="v down" data-page-node-id="YxqXWf7SlOelj7mHxWrtlX">-0.63%</div><div class="k" data-page-node-id="fA4UgyZO38jXENd77xxIM3">昨涨停今均涨</div></div>
+    </div>
+    <div class="note" data-page-node-id="DrIWMxeupgbnMuc07MCDHG">
+      涨跌家数 <b data-page-node-id="kg8mRlrIjTQLBCXtVpyYrF">2444 涨 / 2914 跌 / 190 平</b>；短线情绪：炸板率 <b data-page-node-id="T1TLlL7FNlBEOEP6KXC7bO">55.17%</b>、1进2 晋级 17.14%、连板晋级 15.91%、涨停委买 17.14 亿。
+      判读：广度偏弱 + 炸板率高 + 连板晋级率低 = <b data-page-node-id="AnbV44XUp8C9tDOEH2f66V">分歧/退潮迹象</b>。防守档：单票轻仓、只做龙头分歧、不接中位。
+      <br data-page-node-id="DsGUAqEcFdsPSpwkCWekgG"><span class="pill" data-page-node-id="lipNL6GGW1xJLHNZJZzL4T">选股魔方交叉验证</span> 同交易日指数快照：科创50 -2.10%、深成指 -0.79%，高新技术线领弱，与"高低切换"吻合。
+    </div>
+  </div>
+
+  <!-- 主线题材 -->
+  <div class="card" data-page-node-id="hMPCAWN0bM7t0RtSrQupMM">
+    <h2 data-page-node-id="6L9whaKaTXkdk7ARj2Rufv">二、主线题材强度 <span class="tag" data-page-node-id="nczxRCAoYlIiK1zemXQZVb">农业 > 海峡两岸 > AI应用</span></h2>
+    <div class="theme-row" data-page-node-id="BAHaHC5nPOCJa9iiiNLdW9"><div class="name" data-page-node-id="gBbYFXB7GzfLvPI3TEtblc">农业</div><div class="bar" data-page-node-id="FR1F7ZVEV2DYiiOdS9PB1f"><span style="width:100%" data-page-node-id="cxdWkWsml1cckvI101uMqZ"></span></div><div class="cnt" data-page-node-id="mhYZPnNUgHStpZmpmWbh28">11 家涨停</div></div>
+    <div class="theme-row" data-page-node-id="KSHE4AGdqZu4CcWUvNJRAH"><div class="name" data-page-node-id="OFw11yJ2ea04XBtbwLf1BE">海峡两岸</div><div class="bar" data-page-node-id="GXHSInqyCbTjv9eSvtcnOh"><span style="width:55%" data-page-node-id="IBNQNw2AELoqhyIaNMPb06"></span></div><div class="cnt" data-page-node-id="pM51Z6prWhqslDuX6AylKR">6 家涨停</div></div>
+    <div class="theme-row" data-page-node-id="yTvYaeMaUCpirBHfHROml5"><div class="name" data-page-node-id="MtlwU2UngCVxmZ6HFwnXrS">AI应用</div><div class="bar" data-page-node-id="YNuJUz08n3wJu9o3rOHbHY"><span style="width:45%" data-page-node-id="z2SpRmRRtqmqCozK05gBAw"></span></div><div class="cnt" data-page-node-id="538rYMcLYiRq4Fjqpmo5Cu">5 家涨停（含5板龙）</div></div>
+    <div class="theme-row" data-page-node-id="pvTcML6906O2GGVTzJig7U"><div class="name" data-page-node-id="FEx2QQcMb4YA2DctjrJHza">酿酒/数字经济</div><div class="bar" data-page-node-id="JNTlOpdGAyyXAzIruiw2Uy"><span style="width:18%" data-page-node-id="OVMcNHpOvXiofuwEaNASy8"></span></div><div class="cnt" data-page-node-id="IfDNJqGFtfzvIzdUYOE3yk">各2家</div></div>
+    <div class="note" data-page-node-id="dMxOWMxdpAyv0Ln5EnpsYQ">
+      题材成分股热度（开盘啦）：<br data-page-node-id="47ioImfu9edk6FZgDN3OO0">
+      · <b data-page-node-id="EDfFA3ybs52w5nXVzu0HGl">农业种植</b> 41 只，靠前：亚盛集团(600108)、金健米业(600127)、万向德农(600371)<br data-page-node-id="iYldbrNy0JG0I8YIX375fD">
+      · <b data-page-node-id="bs7u0b21uX5TymdZWpVmAA">阿里AI应用</b> 55 只，靠前：易点天下(301171)、蓝色光标(300058)、金一文化(002721)<br data-page-node-id="aeplPzNY8whIOAGolFjDAr">
+      · <b data-page-node-id="QhFAhLQov73CpHsrNdKmR5">海峡两岸</b> 76 只，靠前：平潭发展(000592)、海通发展(603162)、合富中国(603122)<br data-page-node-id="wVyi7M5kAd5onGBFIgTzhR">
+      东方财富妙想"农业种植"语义筛选 123 只（含沾边大票泸州老窖/东阿阿胶，需甄别纯度）。
+    </div>
+  </div>
+
+  <!-- 三层选股池 -->
+  <div class="card" data-page-node-id="eIBEHR9Y1vvOmlboGQFNvu">
+    <h2 data-page-node-id="0czUlmav520tbG9ggfpRwk">三、三层选股观察池 <span class="tag" data-page-node-id="se1RdZf0NzPbPddCtZ9F3e">带"一句话本质 + 失效条件"</span></h2>
+    <table data-page-node-id="jKdsG1CzPE3KwKr7RuAzzC">
+      <thead data-page-node-id="pvAUndMzEWfGX9mrqNb4gZ"><tr data-page-node-id="lIBVLCqwwUf20g7qEW03iS"><th data-page-node-id="ohuwUMP7vdpUMXCoDbIbzC">层级</th><th data-page-node-id="0zgz1hzmA8HVCedOAAE0g5">代码/名称</th><th data-page-node-id="sQhXk6cSzxf0mBKbqUcHPs">板块</th><th data-page-node-id="6jjU5JtKaBm3vL1qXddOHE">一句话本质</th><th data-page-node-id="5KEuiyRxqsXbczLHApApwf">失效条件（证明我错了就走）</th></tr></thead>
+      <tbody data-page-node-id="vYiFBoZiSDnFsi1b8qjaqC">
+        <!-- 核心观察 -->
+        <tr data-page-node-id="nqdTBAm3L9F9vg4fB7gTND">
+          <td data-page-node-id="MeexH0CSzdiDqRBItTBYzf"><span class="lvl l1" data-page-node-id="qrPjaglpaCeYuJtjYzwzLA">核心</span></td>
+          <td data-page-node-id="pf52vIRwF7ED2e8p2N1XJt"><b data-page-node-id="ICiskT51gicydutzxSOijO">605577</b><br data-page-node-id="I68k25fHCo5OJpoVeBHsyW">龙版传媒</td>
+          <td data-page-node-id="Vn7HgAxddm5q2VnA6ymkRV">AI应用·5板</td>
+          <td class="essence" data-page-node-id="sBTI0iwqNXWlZokzrAvpLB">AI应用（传媒出版）情绪高度龙，打开连板空间，是题材强弱的"锚"。</td>
+          <td class="fail" data-page-node-id="IFd1dawU6K74EC745ADOxn">断板且爆量不回封；AI应用题材涨停数跌出前三；板块中军（易点天下等）集体走弱。</td>
+        </tr>
+        <tr data-page-node-id="NX4iHRJfoP2AYNNwqgp8N7">
+          <td data-page-node-id="g74E6RYupj4JTBHgNDDc7A"><span class="lvl l1" data-page-node-id="4REawaCSkcY3CL4YxocfHO">核心</span></td>
+          <td data-page-node-id="LuHVkJQdAc8TsUpXjC8EZZ"><b data-page-node-id="AltAQRH940iB3viK3FYTKN">600108</b><br data-page-node-id="eXJscVdKkJz6xry3C7QtTG">亚盛集团</td>
+          <td data-page-node-id="XTpCecQBxKTSJBHeD7yyzz">农业·2板</td>
+          <td class="essence" data-page-node-id="VUiGhiy7MIZydDLovMnngC">农业种植身位龙，政策（乡村振兴/粮食安全）+ 通胀预期驱动，封单结构最稳。</td>
+          <td class="fail" data-page-node-id="bEChGJTnrbQQhBGHwcIhj3">农业题材涨停数 < 5；次日低开闷杀不反包；金健米业/万向德农等跟涨乏力。</td>
+        </tr>
+        <tr data-page-node-id="ue2WlDb0sVC1Lb3csCXayh">
+          <td data-page-node-id="AtMVFKy12iE5YFIdp80wbI"><span class="lvl l1" data-page-node-id="k7Y8E4PxN55zt3ATlfULmw">核心</span></td>
+          <td data-page-node-id="kcJbY2GV3A15tCkJ0rC3PN"><b data-page-node-id="Bxe2cBXWrfuvskN8TpU3wG">603162</b><br data-page-node-id="2nVAIKISpZKpfe2wMHQXao">海通发展</td>
+          <td data-page-node-id="UXiAU2OX3gDMaKAea4TyCk">海峡两岸·2板</td>
+          <td class="essence" data-page-node-id="Z1Y0t00xwZM00qBoRvWzpd">两岸题材领涨龙，地缘+福建板块弹性，容量适中易承接。</td>
+          <td class="fail" data-page-node-id="KrZNQbBCYjYqXwXP4xT931">题材无新催化（如两岸消息面平静）；平潭发展等容量标的不跟；板块涨停 < 4。</td>
+        </tr>
+        <!-- 潜力候选 -->
+        <tr data-page-node-id="jEDp0FYIf3ZrHDerfEylhQ">
+          <td data-page-node-id="EHfKTOgaDYQOCxMTyJopTz"><span class="lvl l2" data-page-node-id="lEXx6bFK36NBPMAdVBmG9J">潜力</span></td>
+          <td data-page-node-id="dCVqQn7ew7eTkOFAY6TCxV"><b data-page-node-id="noTUn3m04spGBUnMswjAqY">605398</b><br data-page-node-id="6MJRWokXuTzeYMyrMZVEfW">新炬网络</td>
+          <td data-page-node-id="K4PlI8NaiYtH58y1CDbbLT">AI应用·2板</td>
+          <td class="essence" data-page-node-id="pZVfK0v503qh68NkxFbKza">AI应用中位换手龙候选，较龙版传媒位阶低、换手充分，补涨弹性。</td>
+          <td class="fail" data-page-node-id="FTyslXDXaJW39ZWz1tw3cf">AI应用退潮；龙版传媒断板负反馈传导；换手后无法回封。</td>
+        </tr>
+        <tr data-page-node-id="9qxi3r0xFUc5cxDvPKl86T">
+          <td data-page-node-id="ZFrOsxLNY7PAXtuRJtEG9f"><span class="lvl l2" data-page-node-id="x2iAcbWwB4UMzi4S3eZdIo">潜力</span></td>
+          <td data-page-node-id="cVIGbVIaH5PkEt2AYhevpK"><b data-page-node-id="A1YaKMuNq7VPeKfNw2Vkyw">000592</b><br data-page-node-id="lyDAaqKwVtgF0EslE2YpET">平潭发展</td>
+          <td data-page-node-id="skVAmWQxnhESc0WWKs2XDI">海峡两岸</td>
+          <td class="essence" data-page-node-id="SccuNSeT3fmwLcGurOvJFX">两岸题材容量中军（76只成分股热度第一），趋势+题材双属性，适合低吸。</td>
+          <td class="fail" data-page-node-id="18sjF6LKoxHhKUpCcD9H6x">题材熄火；单次脉冲无持续性；跌破趋势线。</td>
+        </tr>
+        <tr data-page-node-id="XGUsgWHIEyQVA1Z9OswGfU">
+          <td data-page-node-id="l9K7WzNAs43T3IsZKpyFGk"><span class="lvl l2" data-page-node-id="EvIBS6BEEyQbxojIpn2EDt">潜力</span></td>
+          <td data-page-node-id="WFHGd8Qm4v0xOt3QkvN5nG"><b data-page-node-id="Pi318hBdZDKOSGnamHgYYl">600598</b><br data-page-node-id="JeTNWrbh13Zw77jYJpTMY0">北大荒</td>
+          <td data-page-node-id="NeFpkkfb9VMJugu8HPYfPq">粮食种植</td>
+          <td class="essence" data-page-node-id="kR7hhDjRNrBF7q2cYKMv1B">粮食安全趋势权重票，事件+通胀双逻辑，适合中线波段底仓。</td>
+          <td class="fail" data-page-node-id="JvYGd2GDg94YGSaS9wxAx3">农产品价格走弱；板块热度退至后排；放量长上影。</td>
+        </tr>
+        <tr data-page-node-id="7tNbqBI5U0CDK3DXsli8Aj">
+          <td data-page-node-id="WsJhd4Grm9Bx637FRQ6oGB"><span class="lvl l2" data-page-node-id="vBxKSJQMudfmbasNaCljqG">潜力</span></td>
+          <td data-page-node-id="waLFdtF9dIBDjw0gVEFEm3"><b data-page-node-id="75wPVkgJDaz3RueLRdshyz">003040</b> / <b data-page-node-id="5ecJBFBTDrZyVaRZw5q8D7">603123</b><br data-page-node-id="eUfGQSR6b2q5NJJFEU0JeR">楚天龙 / 翠微股份</td>
+          <td data-page-node-id="v1gKc8Tlwiz4Vmx5uF66mK">数字经济·2板</td>
+          <td class="essence" data-page-node-id="EWstel2bQt81aGesGxsUB6">数字货币/支付线身位标的，政策催化弹性，需确认题材持续性。</td>
+          <td class="fail" data-page-node-id="ldepXUC1oOBrteDp5jMI5g">无持续政策催化；板块次日无溢价；中位股晋级失败。</td>
+        </tr>
+        <!-- 淘汰/观察 -->
+        <tr data-page-node-id="6czjATXMAc4HYD9vJonANT">
+          <td data-page-node-id="nPGErFvdbqiPR9WD9vOdTq"><span class="lvl l3" data-page-node-id="xhWVZyCqeHnSPqeYsSiLGG">观察</span></td>
+          <td colspan="2" data-page-node-id="gEJwVEux0AkBJPtfmcL2jN">31 只 1 板杂毛 + 48 只炸板</td>
+          <td class="essence" data-page-node-id="jaEbqwgVxK6J3ZhG2EnRqM">首板梯队过于分散，炸板率 55% 说明情绪脆弱，多数无辨识度。</td>
+          <td class="fail" data-page-node-id="g5vJEQG2X75PNvXxHQ8Th6">仅观察次日能否出现"1进2"脱颖者；当前不介入，等冰点/分歧转一致。</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note" data-page-node-id="FEY6t3i0WdIkEiDYDEhgrD">
+      <b data-page-node-id="CeBVhztYKA3tAN8bou8Yga">选股逻辑</b>：龙头战法（身位领先 + 题材纯正 + 盘面认同）× 四维交叉（题材强度 × 资金 × 技术形态 × 基本面）的简化落地。
+      当前退潮迹象下，<b data-page-node-id="NVZbVhauR4HTwYHGo0uozx">核心层只做龙头分歧低吸，潜力层等确认，观察层不碰</b>。
+    </div>
+  </div>
+
+  <!-- 交易纪律 -->
+  <div class="card" data-page-node-id="Th3jtAjXnDoYQef8NRswLv">
+    <h2 data-page-node-id="QpIboYW1V4uMj4Q6eTlxUI">四、买卖辅助框架 <span class="tag" data-page-node-id="9kJPKem8EIKeFuaC3xhH1F">条件化，不喊单</span></h2>
+    <div class="grid" data-page-node-id="RtnpbGHMJqjdG4gDqN9Lds">
+      <div class="metric" data-page-node-id="sX5LZyQU5A8U90LdzSmaHd"><div class="v" style="font-size:16px" data-page-node-id="XdMDbVFGbQNJ6p0MhasisK">≤20%</div><div class="k" data-page-node-id="hPqcW3uTiqsZ3VtfryZZWw">单票上限仓位</div></div>
+      <div class="metric" data-page-node-id="Ci3JUEaEPsqrIHjEpy39PM"><div class="v" style="font-size:16px" data-page-node-id="U72sNMsuXGOX11i6xauKsk">≤50%</div><div class="k" data-page-node-id="calzihCEfTf7vprCDABdSA">总仓上限（防守档）</div></div>
+      <div class="metric" data-page-node-id="dcGZOek3XBc6rSTowMb9xc"><div class="v down" style="font-size:16px" data-page-node-id="aW7m4RwX9SxXlET3ZWNtQx">-7%</div><div class="k" data-page-node-id="538ZayUxu0TLBwh9QqMTjo">单票止损线</div></div>
+      <div class="metric" data-page-node-id="HQMXfXcK4oX8aq0uHFEfaQ"><div class="v" style="font-size:16px" data-page-node-id="PtaQfiESDWmZsTirb7Zhh5">破5日</div><div class="k" data-page-node-id="GjKSm9qmlaTfSjTALw2qIY">趋势止损</div></div>
+    </div>
+    <div class="note" data-page-node-id="H4QiUqclBxDhPZCdakfiqp">
+      <b data-page-node-id="gYkKb5oTeS4TsoIkJ8MnQ0">入场条件</b>：龙头（龙版/亚盛/海通）仅在「分歧换手后回封」或「冰点低吸」时介入，<b data-page-node-id="meMYtImocHCpF5X8v9auzh">不追高、不加仓摊薄</b>。
+      <b data-page-node-id="gkMReoxoQ6iPxGypimVipl">加仓条件</b>：板块强度维持前三 + 自身换手充分 + 大盘强度 ≥ 50。<br data-page-node-id="9UWoAor4UbFmJFlrbwnB4c">
+      <b data-page-node-id="Gx6FMKhXS8r2IWGVNXXc24">当前建议</b>：市场处分歧/退潮，总仓控制在 30% 以内，重心放在"观察层晋级"与"核心龙分歧低吸"，等连板晋级率回升（>30%）再加重。
+    </div>
+  </div>
+
+  <div class="disclaimer" data-page-node-id="113ZxZhnA9SNkKRXZmTmKr">
+    <b data-page-node-id="HPjfUWAkDhWsq62ZHvTeu5">免责声明</b>：本报告基于公开数据（悟道 MCP、东方财富妙想、选股魔方）与量化框架自动生成，仅提供市场结构分析与研究线索，
+    不构成任何投资建议。市场有风险，投资需谨慎；所有买卖决策须结合个人风险承受能力、资金状况独立判断，必要时咨询持牌机构。
+    过往表现不预示未来收益。数据时点 2026-09-04 收盘，下周一开盘后将基于实时数据迭代本观察池。
+  </div>
+</div>
+</body>
+</html>
