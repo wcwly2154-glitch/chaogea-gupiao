@@ -91,8 +91,8 @@
   })();
   </script>
   <div class="refreshrow">
-      <button class="btn1k" onclick="oneKeyRefresh(this)">⚡ 复制刷新口令</button>
-      <div class="btnhint"><b>第 1 步：点按钮复制「一键刷新」</b><br>第 2 步：到 WorkBuddy 对话粘贴发送（或直接打「一键刷新」）<br>第 3 步：AI 收到后自动执行全套刷新，本页时间戳自动更新</div>
+      <button class="btn1k" id="refreshBtn" onclick="oneKeyRefresh(this)">⚡ 一键刷新全部数据</button>
+      <div class="btnhint" id="refreshHint">点一下 → 本机守护进程收到信号 → 自动重拉数据并重新部署<br>通常 30 秒内本页时间戳全部更新（无需再打开 WorkBuddy）</div>
     </div>
     <div class="stampbar" id="stampBar"><span class="stamp">数据时效加载中…</span></div>
   <div class="head">
@@ -168,10 +168,31 @@
   var SEC_ORDER=['signal','price','holdings','forecast','premarket','intraday','review'];
   function fmtHM(iso){var d=new Date(iso.replace(/-/g,'/'));if(isNaN(d.getTime()))return '—';return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
   function oneKeyRefresh(btn){
-    try{navigator.clipboard.writeText('一键刷新');}catch(e){}
-    btn.textContent='✅ 已复制「一键刷新」';
-    setTimeout(function(){btn.textContent='⚡ 一键刷新全部数据';},2000);
-    window.open('https://www.workbuddy.cn','_blank');
+    var hint=document.getElementById('refreshHint');
+    btn.disabled=true;
+    btn.textContent='⏳ 刷新指令已发送…';
+    if(hint)hint.textContent='守护进程接收中，约 30 秒后本页数据自动更新…';
+    fetch('/api/refresh',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({secret:'chaogea-refresh-2026',source:'web'})
+    }).then(function(r){return r.json()}).then(function(d){
+      if(d&&d.ok){
+        btn.textContent='✅ 已触发，正在重拉数据';
+        if(hint)hint.textContent='刷新信号已送达本机守护进程，git 重新部署中（约 30 秒后本页时间戳更新）';
+      }else{
+        btn.textContent='⚠️ 触发失败，稍后重试';
+        if(hint)hint.textContent='中继接口返回异常：'+(d&&d.error?d.error:'未知');
+      }
+    }).catch(function(e){
+      btn.textContent='⚠️ 网络异常，稍后重试';
+      if(hint)hint.textContent='无法连接刷新中继（/api/refresh）：'+e;
+    }).finally(function(){
+      setTimeout(function(){
+        btn.disabled=false;
+        if(btn.textContent.indexOf('⚠️')<0)btn.textContent='⚡ 一键刷新全部数据';
+      },8000);
+    });
   }
   fetch('status.json?v='+Date.now()).then(function(r){return r.json()}).then(function(S){
     var now=new Date();
