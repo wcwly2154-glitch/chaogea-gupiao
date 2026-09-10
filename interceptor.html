@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>交易前拦截器 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:16px;max-width:640px;margin:0 auto;font-size:14px;}
+h1{font-size:20px;margin:10px 0 4px;}
+.sub{color:var(--sub);font-size:12px;margin-bottom:14px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;}
+h2{font-size:14px;color:var(--sub);font-weight:400;margin-bottom:10px;}
+.row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.row input,.row select,.row textarea{flex:1;min-width:100%;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--text);font-size:14px;outline:none;}
+.row input:focus,.row textarea:focus{border-color:var(--accent);}
+textarea{resize:vertical;}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;margin:4px 4px 0 0;}
+.btn.gold{background:var(--gold);color:#000;}
+.btn.gray{background:#39414d;}
+.btn:active{opacity:.8;}
+#cmd{width:100%;background:#0d1420;border:1px dashed var(--line);border-radius:8px;padding:10px;color:var(--gold);font-size:12px;min-height:64px;margin-top:8px;word-break:break-all;}
+.tip{color:var(--sub);font-size:12px;line-height:1.7;margin-top:8px;}
+.tip b{color:var(--gold);}
+.q6{background:rgba(217,164,65,.06);border:1px solid rgba(217,164,65,.3);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12px;color:var(--sub);line-height:1.9;}
+.q6 b{color:var(--gold);}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:10px;color:var(--sub);font-size:12px;}
+.empty{color:var(--sub);font-size:13px;padding:14px;text-align:center;}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← 返回研究台</a>
+<h1>🚧 交易前拦截器</h1>
+<div class="sub">想买一只股票时，先过 6 问——AI 默认当刹车不当军师，答不清第 3 问就先不动（框架 8.17）</div>
+
+<div class="card">
+  <h2>① 填写这笔交易（想清楚再填，填不出来本身就是信号）</h2>
+  <div class="row"><input id="f-name" placeholder="股票名称或代码（必填）"></div>
+  <div class="row"><input id="f-price" placeholder="当前价格（可留空，AI 自动拉）" inputmode="decimal"></div>
+  <div class="row"><input id="f-pos" placeholder="计划仓位（如 10%）" inputmode="decimal"></div>
+  <div class="row">
+    <select id="f-plan">
+      <option value="">盘前是否在计划内？</option>
+      <option value="在">在（跟踪池里早就有关注）</option>
+      <option value="不在">不在（今天盘中突然想买）</option>
+    </select>
+  </div>
+  <div class="row">
+    <select id="f-cycle">
+      <option value="">持有周期？</option>
+      <option value="短线(1-5日)">短线(1-5日)</option>
+      <option value="波段(1-4周)">波段(1-4周)</option>
+      <option value="中线(1-3月+)">中线(1-3月+)</option>
+    </select>
+  </div>
+  <div class="row"><textarea id="f-reason" rows="3" placeholder="买入理由（诚实写：公告？涨停了？群里说的？感觉要涨？）"></textarea></div>
+  <div class="row"><textarea id="f-stop" rows="2" placeholder="什么情况代表我错了？（写不出就留空——这本身就是最重要的信号）"></textarea></div>
+  <button class="btn gold" onclick="genCmd()">🚧 生成拦截报告指令</button>
+  <button class="btn" onclick="copyCmd(event)">📋 一键复制</button>
+  <div class="q6">
+    <b>AI 将按交易前 6 问拦截（8.17）：</b><br>
+    ①为什么是它，不是同板块其它？ ②为什么是今天，出了什么<b>新</b>信息？ ③为什么是这个位置——今天没涨还会买吗？ ④什么证据（A新事实/B旧事实重交易/C纯价格异动）？利好除以体量了吗？ ⑤什么情况认错？ ⑥仓位为什么是这个数——有没有情绪加仓？<br>
+    <b>评级：</b>可继续研究 / 证据不足 / 情绪偏移 / 重复历史亏损模式。通过后才给价位（8.13）。
+  </div>
+</div>
+
+<div class="card">
+  <h2>② 发给 AI（复制 → 粘贴到 WorkBuddy 对话发送）</h2>
+  <button class="btn" onclick="copyCmd(event)">📋 一键复制</button>
+  <textarea id="cmd" readonly placeholder="填完①后点「生成拦截报告指令」"></textarea>
+  <div class="tip">AI 收到后立即：<b>拉实时行情 → 反方立场逐问拦截 → 证据 A/B/C 分级 → 利好除以体量 → 输出评级与《真正依据/最可疑3处/失效条件/缺失信息》</b>——通过才按 8.13 给买卖价位。结果出现在下方 ③。</div>
+</div>
+
+<div class="card" style="padding:8px;">
+  <h2 style="padding:6px 6px 0;">③ 拦截报告（历史记录）</h2>
+  <iframe id="ana" src="" style="width:100%;height:75vh;border:none;border-radius:10px;"></iframe>
+  <div id="ana-empty" class="empty">今日暂无拦截报告（提交后自动出现在这里）</div>
+</div>
+
+<script>
+function genCmd(){
+  var n=document.getElementById('f-name').value.trim();
+  if(!n){alert('股票名称必填');return;}
+  var p=document.getElementById('f-price').value.trim();
+  var pos=document.getElementById('f-pos').value.trim();
+  var plan=document.getElementById('f-plan').value||'未填';
+  var cyc=document.getElementById('f-cycle').value||'未填';
+  var rs=document.getElementById('f-reason').value.trim()||'未填';
+  var st=document.getElementById('f-stop').value.trim()||'（未写出——本身就是拦截信号）';
+  var cmd='交易前拦截（框架8.17）：我想买 '+n
+    +(p?('，当前价 '+p):'')
+    +(pos?('，计划仓位 '+pos):'')
+    +'，持有周期 '+cyc
+    +'，盘前计划：'+plan
+    +'。买入理由：'+rs
+    +'。失效条件：'+st
+    +'。请按 8.17 六问反方拦截：拉实时行情、证据 A/B/C 分级、利好除以体量、两问分离（基本面 vs 市场是否已交易）、跟踪池核对计划内外、仓位对照 8.10；输出《真正依据/最可疑3处/是否重复历史错误/失效条件/缺失信息》与评级，通过再按 8.13 给价位，并落盘拦截报告。';
+  document.getElementById('cmd').value=cmd;
+}
+function copyCmd(e){
+  var t=document.getElementById('cmd');
+  if(!t.value){genCmd();}
+  t.select();t.setSelectionRange(0,9999);
+  try{navigator.clipboard.writeText(t.value);}catch(err){document.execCommand('copy');}
+  var b=e.target;b.textContent='✅ 已复制';setTimeout(function(){b.textContent='📋 一键复制'},1800);
+}
+(function(){
+  var d=new Date(),m=d.getMonth()+1,day=d.getDate();
+  var mm=(m<10?'0':'')+m,dd=(day<10?'0':'')+day;
+  var fr=document.getElementById('ana');
+  fr.onload=function(){document.getElementById('ana-empty').style.display='none';};
+  fr.onerror=function(){fr.style.display='none';};
+  fr.src='reports/拦截报告_'+d.getFullYear()+mm+dd+'.html';
+})();
+</script>
+</body>
+</html>

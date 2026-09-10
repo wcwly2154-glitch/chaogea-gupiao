@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>超哥 A 股研究台</title>
+<style>
+  :root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;
+    --up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);padding:20px 16px;max-width:640px;margin:0 auto}
+  .head{text-align:center;padding:18px 0 6px}
+  .head h1{font-size:22px;letter-spacing:1px}
+  .head .sub{color:var(--sub);font-size:12px;margin-top:6px}
+  .badge{display:inline-block;background:rgba(217,164,65,.15);color:var(--gold);border:1px solid rgba(217,164,65,.4);border-radius:20px;padding:2px 12px;font-size:11px;margin-top:8px}
+  .section{margin-top:22px}
+  .section h2{font-size:13px;color:var(--sub);font-weight:400;margin-bottom:10px;padding-left:4px}
+  .card{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;text-decoration:none;color:var(--text);transition:transform .1s}
+  .card:active{transform:scale(.98);background:var(--card2)}
+  .card .t{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .card .d{font-size:12px;color:var(--sub);margin-top:4px}
+  .card .meta{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--sub)}
+  .tag{font-size:10px;border-radius:4px;padding:1px 6px;font-weight:400}
+  .tag.hot{background:rgba(224,86,86,.18);color:var(--up)}
+  .tag.new{background:rgba(74,143,231,.18);color:var(--accent)}
+  .tag.plan{background:rgba(63,163,114,.18);color:var(--down)}
+  .rhythm{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--sub);line-height:2}
+  .rhythm b{color:var(--text);font-weight:600}
+  /* 全局警示灯横幅 */
+  .alarm{display:flex;align-items:center;gap:14px;border-radius:14px;padding:14px 16px;margin-bottom:16px;text-decoration:none;border:2px solid;transition:all .3s}
+  .alarm .bulbs{display:flex;gap:8px;flex-shrink:0}
+  .bulb{width:22px;height:22px;border-radius:50%;background:#2a3040;opacity:.35}
+  .alarm.g{background:rgba(63,163,114,.12);border-color:rgba(63,163,114,.55)}
+  .alarm.g .bulb.on-g{background:#3fa372;opacity:1;box-shadow:0 0 12px #3fa372}
+  .alarm.y{background:rgba(217,164,65,.14);border-color:rgba(217,164,65,.6)}
+  .alarm.y .bulb.on-y{background:#d9a441;opacity:1;box-shadow:0 0 14px #d9a441;animation:blink 1s infinite}
+  .alarm.r{background:rgba(224,86,86,.18);border-color:rgba(224,86,86,.75)}
+  .alarm.r .bulb.on-r{background:#e05656;opacity:1;box-shadow:0 0 18px #e05656;animation:blink .6s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  .alarm .t1{font-size:16px;font-weight:700;color:var(--text)}
+  .alarm.r .t1{color:#ff8a8a}
+  .alarm .t2{font-size:12px;color:var(--sub);margin-top:2px}
+  .alarm .go{margin-left:auto;color:var(--sub);font-size:18px;flex-shrink:0}
+  .alarm.upd{font-size:10px;color:var(--sub);margin-top:3px}
+  /* 板块数据新鲜度徽标带 */
+  .stampbar{display:flex;gap:6px;flex-wrap:wrap;margin:-6px 0 14px}
+  .stamp{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 10px;font-size:11px;color:var(--sub);text-decoration:none}
+  .stamp b{color:var(--text);font-weight:600}
+  .stamp.fresh{border-color:rgba(63,163,114,.5)}
+  .stamp.fresh b{color:#3fa372}
+  .stamp.stale{opacity:.55;border-style:dashed}
+  .stamp.stale b{color:var(--gold)}
+  .stamp.stale::after{content:"旧";background:rgba(217,164,65,.15);color:var(--gold);border-radius:4px;padding:0 4px;font-size:10px}
+  .refreshrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .btn1k{flex:1;background:linear-gradient(135deg,#d9a441,#c8912f);color:#000;border:none;border-radius:12px;padding:12px;font-size:15px;font-weight:700;cursor:pointer}
+  .btn1k:active{opacity:.8}
+  .btnhint{font-size:11px;color:var(--sub);line-height:1.5}
+  .footer{margin-top:30px;font-size:11px;color:var(--sub);text-align:center;line-height:1.7;border-top:1px dashed var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+  <a class="alarm g" id="alarmBar" href="reports/宏观信号灯_20260908.html">
+    <div class="bulbs">
+      <div class="bulb" id="b-g"></div>
+      <div class="bulb" id="b-y"></div>
+      <div class="bulb" id="b-r"></div>
+    </div>
+    <div style="flex:1">
+      <div class="t1" id="alarmText">信号灯加载中…</div>
+      <div class="t2">大局观 · 宏观信号灯 / 崩盘哨兵 · 点击查看详情（点击不跳转）</div>
+      <div class="upd" id="alarmUpd"></div>
+    </div>
+    <div class="go">›</div>
+  </a>
+  <script>
+  (function(){
+    fetch('status.json?v='+Date.now()).then(function(r){return r.json()}).then(function(s){
+      var bar=document.getElementById('alarmBar');
+      bar.classList.remove('g','y','r');bar.classList.add(s.level==='green'?'g':(s.level==='yellow'?'y':'r'));
+      bar.href=s.link||'reports/宏观信号灯_20260908.html';
+      var g=document.getElementById('b-g'),y=document.getElementById('b-y'),r=document.getElementById('b-r');
+      g.className='bulb'+(s.level==='green'?' on-g':'');
+      y.className='bulb'+(s.level==='yellow'?' on-y':'');
+      r.className='bulb'+(s.level==='red'?' on-r':'');
+      var pre=s.level==='green'?'🟢 绿灯':(s.level==='yellow'?'🟡 黄灯预警':'🔴 红灯警报');
+      document.getElementById('alarmText').textContent=pre+' · '+s.text;
+      document.getElementById('alarmUpd').textContent='更新于 '+s.updated+' · 点击查看完整分析';
+    }).catch(function(){
+      document.getElementById('alarmText').textContent='⚠️ 信号灯状态待更新（今日 08:00 自动生成）';
+    });
+  })();
+  </script>
+  <div class="refreshrow">
+      <button class="btn1k" onclick="oneKeyRefresh(this)">⚡ 一键刷新全部数据</button>
+      <div class="btnhint">点击复制口令 → 到 WorkBuddy 对话粘贴发送（或直接打「一键刷新」四字）<br>AI 自动执行全套刷新，完成后本页时间戳全部自动更新</div>
+    </div>
+    <div class="stampbar" id="stampBar"><span class="stamp">数据时效加载中…</span></div>
+  <div class="head">
+    <h1>📈 超哥 A 股研究台</h1>
+    <div class="sub">手机随时看 · 每日 3 窗自动更新 · 各板块刷新时间见下方徽标</div>
+    <div class="badge" id="topBadge">加载中…</div>
+  </div>
+
+  <div class="section">
+    <h2>🚧 交易前拦截器（买前 6 问 · AI 当刹车）</h2>
+    <a class="card" href="interceptor.html">
+      <div class="t">🚧 交易前拦截 <span class="tag hot">框架 8.17</span></div>
+      <div class="d">想买一只股票？先过 6 问——证据 A/B/C 分级、利好除以体量、反方拦截，通过才给价位</div>
+      <div class="meta"><span>想买时用 · 拦住冲动交易</span><span>随时可用</span></div>
+    </a>
+  </div>
+
+  <div class="section">
+    <h2>💼 持仓与个股跟踪（录入 + 个性化买卖点）</h2>
+    <a class="card" href="holdings.html">
+      <div class="t">💼 持仓 &amp; 👁 跟踪池 <span class="tag hot">+4,840 元</span></div>
+      <div class="d">黄河旋风 +24.6%（追踪止损 15.68）· 翠微保本线 11.79 · 每小时哨兵自动更新</div>
+      <div class="meta"><span>框架 8.16 · 跟踪池 = 持仓 + 关注</span><span>持续更新</span></div>
+    </a>
+  </div>
+
+  <div class="section">
+    <h2>📓 交易日志（买卖全程记录 · AI 逐步懂你）</h2>
+    <a class="card" href="trades.html">
+      <div class="t">📓 交易日志 <span class="tag hot">R 记账</span></div>
+      <div class="d">每天买卖：何时/什么价/多少股/持仓几天/为何卖——R 额自动算，50 笔后出《个人行为报告》</div>
+      <div class="meta"><span>框架 8.17.9 · 连败熔断数据源</span><span>随时录入</span></div>
+    </a>
+  </div>
+
+  <div class="section">
+    <h2>📡 实时板块（各卡自带刷新时间 · 灰色虚线 = 数据较旧/未生成）</h2>
+    <div id="liveCards"><div class="empty">加载中…</div></div>
+  </div>
+
+  <div class="section">
+    <h2>方法论 · 长期有效（不含行情数据，永不过期）</h2>
+    <a class="card" href="reports/龙头识别与板块持续性_20260906.html">
+      <div class="t">🎯 龙头识别方法论 <span class="tag plan">框架</span></div>
+      <div class="d">四维判断标准 · 板块持续性四档 · 潜力龙三类 · 跨板块分散</div>
+      <div class="meta"><span>框架文档 · 不随行情变动</span></div>
+    </a>
+    <a class="card" href="reports/选股观察池_20260906.html">
+      <div class="t">📋 三层选股池框架 <span class="tag plan">框架</span></div>
+      <div class="d">核心观察 / 潜力候选 / 淘汰区结构（行情以实时版为准）</div>
+      <div class="meta"><span>框架文档 · 不随行情变动</span></div>
+    </a>
+  </div>
+
+  <div class="section">
+    <h2>⏰ 每日自动更新节奏（交易日）</h2>
+    <div class="rhythm">
+      <b>09:00</b> 盘前总管（宏观信号灯 + 盘前简报，一窗）<br>
+      <b>10:30</b> 盘中预警·上午（衰退 6 维 + 卡位，一窗）<br>
+      <b>13:30</b> 盘中预警·下午（午后资金 + 尾盘强弱 + 次日先手，一窗）<br>
+      <b>15:20</b> 盘后总管（持仓分析 + 价位卡 + 复盘 + 预测明日龙头，一窗）<br>
+      <b>周日 16:00</b> 周度预测复盘（一窗）<br>
+      <b>随时</b> 对话发「一键刷新」→ 手动全量刷新（不开新窗）
+    </div>
+  </div>
+
+  <div class="footer">
+    本页面由 WorkBuddy 自动生成与同步 · AI 生成内容<br>
+    所有内容仅为研究线索与条件化买卖辅助，不构成投资建议，不承诺收益<br>
+    市场有风险，投资需谨慎
+  </div>
+<script>
+  var SEC_ORDER=['signal','price','holdings','forecast','premarket','intraday','review'];
+  function fmtHM(iso){var d=new Date(iso.replace(/-/g,'/'));if(isNaN(d.getTime()))return '—';return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
+  function oneKeyRefresh(btn){
+    try{navigator.clipboard.writeText('一键刷新');}catch(e){}
+    btn.textContent='✅ 已复制「一键刷新」';
+    setTimeout(function(){btn.textContent='⚡ 一键刷新全部数据';},2000);
+    window.open('https://www.workbuddy.cn','_blank');
+  }
+  fetch('status.json?v='+Date.now()).then(function(r){return r.json()}).then(function(S){
+    var now=new Date();
+    /* 警示灯 */
+    var bar=document.getElementById('alarmBar');
+    if(bar){
+      bar.classList.remove('g','y','r');bar.classList.add(S.level==='green'?'g':(S.level==='yellow'?'y':'r'));
+      bar.href=S.link;
+      var bg=document.getElementById('b-g'),by=document.getElementById('b-y'),br=document.getElementById('b-r');
+      if(bg)bg.className='bulb'+(S.level==='green'?' on-g':'');
+      if(by)by.className='bulb'+(S.level==='yellow'?' on-y':'');
+      if(br)br.className='bulb'+(S.level==='red'?' on-r':'');
+      var pre=S.level==='green'?'🟢 绿灯':(S.level==='yellow'?'🟡 黄灯预警':'🔴 红灯警报');
+      var at=document.getElementById('alarmText');if(at)at.textContent=pre+' · '+S.text;
+      var au=document.getElementById('alarmUpd');if(au)au.textContent='更新于 '+S.updated+' · 点击查看完整分析';
+    }
+    var tb=document.getElementById('topBadge');
+    if(tb)tb.textContent=S.updated.slice(5,16).replace('-','/')+' · '+S.text.slice(0,22)+'…';
+    /* 徽标带 + 实时卡区 */
+    var barEl=document.getElementById('stampBar');barEl.innerHTML='';
+    var cards=document.getElementById('liveCards');cards.innerHTML='';
+    SEC_ORDER.forEach(function(k){
+      var s=S.sections[k];if(!s)return;
+      var ok=s.ok!==false;
+      var fresh=true;
+      if(ok){var dt=new Date(s.time.replace(/-/g,'/'));fresh=(!isNaN(dt.getTime()))&&((now-dt)/3600000)<=s.stale;}
+      var el=document.createElement('a');
+      el.className='stamp'+(ok?(fresh?' fresh':' stale'):' stale');
+      if(ok)el.href=s.link;else el.style.pointerEvents='none';
+      el.innerHTML='<b>'+s.name+'</b>'+(ok?fmtHM(s.time):'未生成');
+      barEl.appendChild(el);
+      var c=document.createElement('a');
+      c.className='card'+(ok?'':'');c.style.opacity=ok?1:.5;
+      if(ok)c.href=s.link;else c.style.pointerEvents='none';
+      c.innerHTML='<div class="t">'+s.name+' <span class="tag '+(fresh?'new':'hot')+'">'+(ok?fmtHM(s.time):'未生成')+'</span></div>'
+        +'<div class="d">'+s.desc+'</div>'
+        +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可喊 AI 刷新'):'⏳ 等待今日生成')+'</span><span>'+s.time.slice(5,16).replace('-','/')+'</span></div>';
+      cards.appendChild(c);
+    });
+  }).catch(function(){
+    var b=document.getElementById('stampBar');
+    if(b)b.innerHTML='<span class="stamp">状态加载失败 · 请刷新重试</span>';
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓与个股跟踪 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:16px;max-width:640px;margin:0 auto;font-size:14px;}
+h1{font-size:20px;margin:10px 0 4px;}
+.sub{color:var(--sub);font-size:12px;margin-bottom:14px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;}
+h2{font-size:14px;color:var(--sub);font-weight:400;margin-bottom:10px;}
+.tabs{display:flex;gap:8px;margin-bottom:10px;}
+.tab{flex:1;text-align:center;padding:9px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--sub);font-size:13px;cursor:pointer;}
+.tab.on{background:rgba(74,143,231,.18);border-color:var(--accent);color:var(--accent);font-weight:600;}
+.row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.row input{flex:1;min-width:80px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--text);font-size:14px;outline:none;}
+.row input:focus{border-color:var(--accent);}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;margin:4px 4px 0 0;}
+.btn.gold{background:var(--gold);color:#000;}
+.btn.gray{background:#39414d;}
+.btn.mini{padding:3px 9px;font-size:11px;margin:0;}
+.btn.add{background:rgba(63,163,114,.2);color:#3fa372;border:1px solid rgba(63,163,114,.4);}
+.btn.sub2{background:rgba(224,86,86,.15);color:#e05656;border:1px solid rgba(224,86,86,.4);}
+.btn:active{opacity:.8;}
+#list{margin-top:6px;}
+.item{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13px;}
+.item .top{display:flex;justify-content:space-between;align-items:center;}
+.item .del{color:var(--up);cursor:pointer;font-size:12px;padding:2px 8px;}
+.item .ops{display:flex;gap:6px;margin-top:7px;}
+.item .chg{margin-top:7px;font-size:11px;color:var(--gold);background:rgba(217,164,65,.08);border-radius:6px;padding:5px 8px;}
+.adjrow{display:none;gap:6px;margin-top:7px;align-items:center;flex-wrap:wrap;}
+.adjrow input{width:90px;background:#0d1420;border:1px solid var(--line);border-radius:6px;padding:6px 8px;color:var(--text);font-size:12px;}
+.adjrow.show{display:flex;}
+#cmd{width:100%;background:#0d1420;border:1px dashed var(--line);border-radius:8px;padding:10px;color:var(--gold);font-size:12px;min-height:56px;margin-top:8px;word-break:break-all;}
+.tip{color:var(--sub);font-size:12px;line-height:1.7;margin-top:8px;}
+.tip b{color:var(--gold);}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:10px;color:var(--sub);font-size:12px;}
+.empty{color:var(--sub);font-size:13px;padding:14px;text-align:center;}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← 返回研究台</a>
+<h1>💼 持仓与个股跟踪</h1>
+<div class="sub">支持加仓/减仓：点持仓旁的「＋加仓」「－减仓」，股数与成本自动重算，一键生成变动指令发 AI</div>
+
+<div class="card">
+  <h2>① 录入（选类型后操作）</h2>
+  <div class="tabs">
+    <div class="tab on" id="tab-h" onclick="switchTab('h')">💼 持仓（已买入）</div>
+    <div class="tab" id="tab-w" onclick="switchTab('w')">👁 跟踪关注（未买/观察）</div>
+  </div>
+  <div class="row">
+    <input id="f-name" placeholder="名称或代码（如：翠微股份）" style="flex:2;">
+    <input id="f-shares" placeholder="股数" inputmode="numeric">
+    <input id="f-cost" placeholder="成本价" inputmode="decimal">
+    <input id="f-date" placeholder="买入日(9/6)">
+  </div>
+  <button class="btn" onclick="addItem()">＋ 添加到当前类型</button>
+  <div id="list"></div>
+</div>
+
+<div class="card">
+  <h2>② 发给 AI（两步：复制 → 粘贴到 WorkBuddy 对话发送）</h2>
+  <button class="btn gold" onclick="genCmd()">生成指令（含变动明细）</button>
+  <button class="btn" onclick="copyCmd(event)">📋 一键复制</button>
+  <button class="btn gray" onclick="openWb()">打开 WorkBuddy 对话</button>
+  <textarea id="cmd" readonly placeholder="点「生成指令」后复制，粘贴到 WorkBuddy「股票市场」工作区发送"></textarea>
+  <div class="tip">AI 收到后：<b>新增</b>→落盘建档；<b>加仓</b>→股数累加+成本加权自动重算；<b>减仓</b>→股数扣减——全部进每日哨兵监测与持仓分析。</div>
+</div>
+
+<div class="card" style="padding:8px;">
+  <h2 style="padding:6px 6px 0;">③ 持仓分析（随一键刷新自动更新）</h2>
+  <iframe id="ana" src="" style="width:100%;height:75vh;border:none;border-radius:10px;"></iframe>
+  <div id="ana-empty" class="empty">今日分析尚未生成（发送变动指令后自动出现）</div>
+</div>
+
+<script>
+var KH='cg_holdings_v2', KW='cg_watch_v2', cur='h';
+function curKey(){return cur==='h'?KH:KW;}
+/* 旧版本数据自动迁移 */
+(function(){
+  try{
+    if(!localStorage.getItem(KH)&&localStorage.getItem('cg_holdings_v1')){localStorage.setItem(KH,localStorage.getItem('cg_holdings_v1'));}
+    if(!localStorage.getItem(KW)&&localStorage.getItem('cg_watch_v1')){localStorage.setItem(KW,localStorage.getItem('cg_watch_v1'));}
+  }catch(e){}
+})();
+function load(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}}
+function save(k,a){localStorage.setItem(k,JSON.stringify(a))}
+function switchTab(t){cur=t;document.getElementById('tab-h').className='tab'+(t==='h'?' on':'');document.getElementById('tab-w').className='tab'+(t==='w'?' on':'');render();}
+function render(){
+  var a=load(curKey()),h='';
+  if(!a.length){h='<div class="empty">'+(cur==='h'?'暂无持仓记录':'暂无关注记录')+'</div>';}
+  a.forEach(function(x,i){
+    var info='<b>'+x.name+'</b> · '+x.shares+'股 · 成本'+x.cost+(x.date?' · '+x.date:'');
+    var ops=cur==='h'
+      ?'<span style="display:flex;gap:6px"><button class="btn mini add" onclick="showAdj('+i+',1)">＋加仓</button><button class="btn mini sub2" onclick="showAdj('+i+',-1)">－减仓</button><span class="del" onclick="delItem('+i+')">删除</span></span>'
+      :'<span class="del" onclick="delItem('+i+')">删除</span>';
+    h+='<div class="item"><div class="top"><span>'+info+'</span>'+ops+'</div>'
+      +'<div class="adjrow" id="adj'+i+'"><input id="adj-s'+i+'" placeholder="股数" inputmode="numeric"><input id="adj-p'+i+'" placeholder="成交价(加仓填)" inputmode="decimal"><button class="btn mini gold" onclick="applyAdj('+i+')">确认</button></div>'
+      +(x.chg?'<div class="chg">'+x.chg+'</div>':'')
+      +'</div>';
+  });
+  document.getElementById('list').innerHTML=h;
+}
+function showAdj(i,sign){
+  var r=document.getElementById('adj'+i);
+  r.classList.toggle('show');
+  r.dataset.sign=sign;
+}
+function applyAdj(i){
+  var a=load(curKey()),x=a[i];
+  var sgn=parseInt(document.getElementById('adj'+i).dataset.sign||'1');
+  var s=parseInt(document.getElementById('adj-s'+i).value||'0');
+  var pr=parseFloat(document.getElementById('adj-p'+i).value||'0');
+  if(!s){alert('请输入股数');return;}
+  if(sgn>0&&!pr){alert('加仓需填成交价（用于加权算新成本）');return;}
+  if(sgn<0&&s>x.shares){alert('减仓股数不能超过持仓 '+x.shares+' 股');return;}
+  var oldShares=x.shares, oldCost=x.cost;
+  if(sgn>0){
+    x.shares=oldShares+s;
+    x.cost=Math.round(((oldShares*oldCost)+(s*pr))/x.shares*1000)/1000;
+    x.chg='📝 加仓 '+s+'股 @'+pr+'（'+oldShares+'→'+x.shares+'股，成本 '+oldCost+'→'+x.cost+'）';
+  }else{
+    x.shares=oldShares-s;
+    x.chg='📝 减仓 '+s+'股（'+oldShares+'→'+x.shares+'股）';
+    if(x.shares===0){a.splice(i,1);save(curKey(),a);render();return;}
+  }
+  save(curKey(),a);render();
+}
+function delItem(i){var a=load(curKey());a.splice(i,1);save(curKey(),a);render();}
+function addItem(){
+  var n=document.getElementById('f-name').value.trim(),
+      s=document.getElementById('f-shares').value.trim(),
+      c=document.getElementById('f-cost').value.trim(),
+      d=document.getElementById('f-date').value.trim();
+  if(!n){alert('名称必填');return;}
+  if(cur==='h'&&(!s||!c)){alert('持仓必须填股数和成本价');return;}
+  var a=load(curKey());a.push({name:n,shares:s,cost:c,date:d});save(curKey(),a);render();
+  document.getElementById('f-name').value='';document.getElementById('f-shares').value='';document.getElementById('f-cost').value='';
+}
+function genCmd(){
+  var h=load(KH),w=load(KW),parts=[];
+  if(h.length){
+    var hs=h.map(function(x){return x.name+' '+x.shares+'股 成本'+x.cost+(x.date?' 买入'+x.date:'')+(x.chg?'（变动：'+x.chg+'）':'')}).join('；');
+    parts.push('持仓：'+hs);
+  }
+  if(w.length){parts.push('跟踪关注：'+w.map(function(x){return x.name}).join('、'));}
+  if(!parts.length){document.getElementById('cmd').value='（先添加持仓或关注）';return;}
+  document.getElementById('cmd').value=parts.join('；')+'。请按最新股数与成本更新持仓档案，并按框架8.13/8.16给出持仓盈亏与买卖建议。';
+}
+function copyCmd(e){
+  var t=document.getElementById('cmd');
+  if(!t.value||t.value.indexOf('（先添加')===0){genCmd();}
+  t.select();t.setSelectionRange(0,9999);
+  try{navigator.clipboard.writeText(t.value);}catch(err){document.execCommand('copy');}
+  var b=e.target;b.textContent='✅ 已复制';setTimeout(function(){b.textContent='📋 一键复制'},1800);
+}
+function openWb(){window.open('https://www.workbuddy.cn','_blank');}
+(function(){
+  var d=new Date(),m=d.getMonth()+1,day=d.getDate();
+  var mm=(m<10?'0':'')+m,dd=(day<10?'0':'')+day;
+  var fr=document.getElementById('ana');
+  fr.onload=function(){document.getElementById('ana-empty').style.display='none';};
+  fr.onerror=function(){fr.style.display='none';};
+  fr.src='reports/持仓分析_'+d.getFullYear()+mm+dd+'.html';
+})();
+render();
+</script>
+</body>
+</html>

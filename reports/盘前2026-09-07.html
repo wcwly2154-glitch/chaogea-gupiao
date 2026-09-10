@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股盘前简报 · 2026-09-07（周一）</title>
+<style>
+  :root{--bg:#0f1722;--panel:#15202f;--panel-2:#1c2a3d;--line:#243447;--txt:#e6edf3;--sub:#9aa9bb;--accent:#ffd400;--green:#ef4444;--red:#22c55e;--warn:#f97316;--ok:#22c55e;--bad:#ef4444;--purple:#a855f7;--teal:#14b8a6;--blue:#3b82f6;--gold:#fbbf24}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding:16px;max-width:1100px;margin:0 auto;font-size:14px}
+  h1{font-size:22px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  h2{font-size:16px;color:var(--accent);margin:24px 0 12px;padding-left:10px;border-left:3px solid var(--accent)}
+  h3{font-size:14px;color:var(--gold);margin:14px 0 8px}
+  .meta{color:var(--sub);font-size:12px;margin-bottom:16px;display:flex;gap:14px;flex-wrap:wrap}
+  .meta span{background:var(--panel);padding:4px 10px;border-radius:4px;border:1px solid var(--line)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .panel.warn{border-left:3px solid var(--warn)}
+  .panel.danger{border-left:3px solid var(--bad)}
+  .panel.good{border-left:3px solid var(--ok)}
+  .panel.info{border-left:3px solid var(--blue)}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+  .kpi{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .kpi .label{font-size:11px;color:var(--sub);margin-bottom:4px}
+  .kpi .val{font-size:18px;font-weight:600;color:var(--txt)}
+  .kpi.bad .val{color:var(--bad)}
+  .kpi.ok .val{color:var(--ok)}
+  .kpi.warn .val{color:var(--warn)}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:var(--panel-2);color:var(--accent);font-weight:600;font-size:12px}
+  tr:hover td{background:rgba(255,255,255,0.02)}
+  .tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;margin-right:4px;font-weight:500}
+  .tag-buy{background:var(--ok);color:#fff}
+  .tag-warn{background:var(--warn);color:#fff}
+  .tag-bad{background:var(--bad);color:#fff}
+  .tag-info{background:var(--blue);color:#fff}
+  .tag-purple{background:var(--purple);color:#fff}
+  .tag-teal{background:var(--teal);color:#fff}
+  .tag-gold{background:var(--gold);color:#1c2a3d}
+  ul{margin-left:20px}
+  li{margin-bottom:6px;color:var(--txt)}
+  li strong{color:var(--accent)}
+  .quote{background:var(--panel-2);border-left:3px solid var(--accent);padding:10px 14px;margin:10px 0;font-style:italic;color:var(--sub);border-radius:0 6px 6px 0}
+  .disclaimer{background:#1a1212;border:1px solid #5a2020;border-radius:8px;padding:14px 16px;margin-top:24px;color:#d4a5a5;font-size:12px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:768px){.grid-2{grid-template-columns:1fr}.kpi-row{grid-template-columns:1fr 1fr}}
+  .phase{display:inline-block;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:600}
+  .phase-1{background:var(--purple);color:#fff}
+  .phase-2{background:var(--blue);color:#fff}
+  .phase-3{background:var(--ok);color:#fff}
+  .phase-4{background:var(--bad);color:#fff}
+  .hit{color:var(--gold);font-weight:600}
+  .miss{color:var(--sub)}
+  .num-up{color:var(--green)}
+  .num-down{color:var(--red)}
+  code{background:var(--panel-2);padding:1px 6px;border-radius:3px;font-size:12px;color:var(--gold)}
+  .source{font-size:11px;color:var(--sub);font-weight:normal}
+</style>
+</head>
+<body>
+
+<h1>📈 A股盘前简报 · 2026-09-07（周一）</h1>
+<div class="meta">
+  <span>📅 数据基期：2026-09-04（周五）</span>
+  <span>⏰ 编制时间：08:30</span>
+  <span>🎯 框架版本：v1.0</span>
+  <span>📊 数据源：悟道 MCP + 财联社快讯 + 同花顺/东财热榜</span>
+  <span class="source">framework：8.1-8.13</span>
+</div>
+
+<!-- 0. 一句话结论 -->
+<div class="panel danger">
+  <h3 style="margin-top:0">⚡ 一句话结论</h3>
+  <p style="font-size:15px;line-height:1.8">
+    <strong style="color:var(--bad)">大盘进入退潮期（情绪崩裂）</strong>：主力净流出 -433.75 亿 + 炸板率 55.17% + 连板晋级 2→3 仅 0%，但 <strong style="color:var(--ok)">农业穿越主线 + 数字货币新启动</strong> 双轮驱动仍有结构性机会。
+    <strong style="color:var(--accent)">仓位基调：总仓 ≤ 30%、新开仓要严控</strong>。主盯亚盛集团（农业身位龙）、平潭发展（海峡两岸中军）、楚天龙（数字货币新龙）三只；龙版传媒退出观望。
+  </p>
+</div>
+
+<!-- 1. 大盘档位 + 主线 -->
+<h2>① 大盘档位判定</h2>
+<div class="kpi-row">
+  <div class="kpi bad"><div class="label">上证 9/4 收盘</div><div class="val">3930.12</div></div>
+  <div class="kpi bad"><div class="label">上证涨跌幅</div><div class="val">-0.30%</div></div>
+  <div class="kpi bad"><div class="label">深证涨跌幅</div><div class="val">-0.79%</div></div>
+  <div class="kpi bad"><div class="label">主力净流入</div><div class="val">-433.75 亿</div></div>
+  <div class="kpi bad"><div class="label">市场强度</div><div class="val">45</div></div>
+  <div class="kpi warn"><div class="label">昨涨停今日均涨</div><div class="val">-0.63%</div></div>
+  <div class="kpi bad"><div class="label">炸板率</div><div class="val">55.17%</div></div>
+  <div class="kpi bad"><div class="label">跌停</div><div class="val">9 家</div></div>
+</div>
+<div class="panel danger">
+  <h3 style="margin-top:0">档位结论：<span class="tag-bad">退潮期（情绪崩裂）</span></h3>
+  <ul>
+    <li><strong>触发 8.1 退潮期硬指标</strong>：涨停 39 + 跌停 9 + 炸板率 55% >> 30%（警戒线 25%）+ 主力 -433 亿（巨量流出）+ 连板晋级 2→3 = 0%。</li>
+    <li><strong>大盘广度恶化</strong>：上涨 2444 家 < 下跌 2914 家；强度 45（中性偏弱），昨涨停今日负反馈 -0.63%。</li>
+    <li><strong>但主力未彻底离场</strong>：农业 +29.77 亿、数字货币 +33.04 亿、大金融 +35.02 亿、华为甄选 +32.73 亿 仍在流入 → <strong>结构化行情，非普跌</strong>。</li>
+    <li><strong>操作含义</strong>：新开仓严控（≤ 30% 总仓），回避高位纯连板股、回避炸板率突增的题材，盯穿越/新启动主线的龙头。</li>
+  </ul>
+</div>
+
+<!-- 2. 主线识别 -->
+<h2>② 当前主力板块（涨停×资金双权重排序）</h2>
+<table>
+  <thead>
+    <tr>
+      <th>排名</th><th>主线</th><th>涨停数</th><th>主力净流入</th><th>涨幅</th><th>档位（8.8）</th><th>驱动逻辑</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="hit">1</span></td>
+      <td><strong>农业</strong></td>
+      <td><strong>11 家</strong></td>
+      <td class="num-up">+29.77 亿</td>
+      <td class="num-up">+1.08%</td>
+      <td><span class="tag-info">穿越主线（V 型）</span></td>
+      <td>9/1-15→9/2-5→9/3-断→9/4-11 家；粮食安全政策 + 通胀预期；亚盛 2 板身位</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>数字货币/稳定币</strong></td>
+      <td>2 家</td>
+      <td class="num-up">+33.04 亿</td>
+      <td class="num-up">+2.09%</td>
+      <td><span class="tag-buy">新启动（政策催化）</span></td>
+      <td>GPT-6 发布 + 金融再度异动 + 折叠屏华为支付联动；楚天龙 6.12 亿资金</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>大金融</strong></td>
+      <td>0 家</td>
+      <td class="num-up">+35.02 亿</td>
+      <td class="num-up">+0.66%</td>
+      <td><span class="tag-buy">新启动（政策催化）</span></td>
+      <td>财政部 3000 亿特别国债 + 工行 1000 亿 / 农行 1600 亿增发 + 央行 5000 亿逆回购</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>华为甄选与支付</strong></td>
+      <td>1 家</td>
+      <td class="num-up">+32.73 亿</td>
+      <td class="num-up">+5.02%</td>
+      <td><span class="tag-buy">新启动（事件驱动）</span></td>
+      <td>华为/苹果折叠屏"72 小时对决"催化</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>海峡两岸</strong></td>
+      <td>6 家</td>
+      <td><span style="color:var(--sub)">持平</span></td>
+      <td class="num-down">-0.31%</td>
+      <td><span class="tag-warn">新启动（首日待验证）</span></td>
+      <td>关税/事件驱动；9/7 是验证关键日；平潭 8.47 亿资金异常</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><strong>AI 应用</strong></td>
+      <td>5 家</td>
+      <td><span style="color:var(--sub)">弱</span></td>
+      <td class="num-up">+0.65%</td>
+      <td><span class="tag-warn">穿越 → 高潮期末端</span></td>
+      <td>龙版传媒 5 板（衰退信号已现）+ 资金背离；七部门 800V 高压直流仍是中期催化</td>
+    </tr>
+  </tbody>
+</table>
+<div class="quote">
+  <strong>资金集中方向：</strong>大盘主力净流出 -433.75 亿（极差），但 <strong style="color:var(--accent)">板块层流入集中在农业、数字货币、大金融、华为甄选与支付 4 条线</strong>（合计流入 ~130 亿）—— 题材强、大盘弱，结构性行情。
+</div>
+
+<!-- 3. 当前龙头衰退监测 -->
+<h2>③ 当前龙头 5 只 · 衰退监测 + 买卖价区间</h2>
+<div class="panel warn">
+  <p style="margin-bottom:8px"><strong>判定逻辑：</strong>按 8.7 四维 + 8.12.4 衰退监测 6 信号（断板 / 炸板率突增 / 涨停数腰斩 / 一日游席位 / 放量滞涨 / 板块退潮）触发数。</p>
+  <p style="margin:0"><strong>8.13 价区间推算</strong>（基础锚点 = 9/4 收盘价）：高波动票 ±5%、中波动票 ±3%、低波动票 ±2%。</p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>代码</th><th>名称</th><th>阶段</th><th>9/4 收盘</th><th>9/4 资金</th><th>衰退信号</th><th>买入下沿</th><th>买入中位</th><th>买入上沿</th><th>硬止损</th><th>动作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>600108</td>
+      <td><strong>亚盛集团</strong></td>
+      <td><span class="phase phase-2">成长期</span></td>
+      <td>4.36</td>
+      <td class="num-up">+1.30 亿</td>
+      <td><span class="tag-buy">0 个</span></td>
+      <td>4.23</td>
+      <td>4.36</td>
+      <td>4.49</td>
+      <td>4.05</td>
+      <td><span class="tag-buy">核心观察</span></td>
+    </tr>
+    <tr>
+      <td>000592</td>
+      <td><strong>平潭发展</strong></td>
+      <td><span class="phase phase-2">成长期(中军)</span></td>
+      <td>7.49</td>
+      <td class="num-up">+8.47 亿</td>
+      <td><span class="tag-buy">0 个</span></td>
+      <td>7.27</td>
+      <td>7.49</td>
+      <td>7.71</td>
+      <td>6.97</td>
+      <td><span class="tag-buy">核心观察</span></td>
+    </tr>
+    <tr>
+      <td>003040</td>
+      <td><strong>楚天龙</strong></td>
+      <td><span class="phase phase-2">成长期(新龙)</span></td>
+      <td>21.12</td>
+      <td class="num-up">+6.12 亿</td>
+      <td><span class="tag-buy">0 个</span></td>
+      <td>20.49</td>
+      <td>21.12</td>
+      <td>21.75</td>
+      <td>19.64</td>
+      <td><span class="tag-buy">潜力重点</span></td>
+    </tr>
+    <tr>
+      <td>603162</td>
+      <td><strong>海通发展</strong></td>
+      <td><span class="phase phase-2">成长期(首日验证)</span></td>
+      <td>14.64</td>
+      <td class="num-up">+2802 万</td>
+      <td><span class="tag-warn">1 个(待验证)</span></td>
+      <td>14.20</td>
+      <td>14.64</td>
+      <td>15.08</td>
+      <td>13.61</td>
+      <td><span class="tag-info">试错 10%</span></td>
+    </tr>
+    <tr>
+      <td>605577</td>
+      <td><strong>龙版传媒</strong></td>
+      <td><span class="phase phase-4">衰退期</span></td>
+      <td>15.55</td>
+      <td class="num-up">+2764 万</td>
+      <td><span class="tag-bad">2 个 ⚠️</span></td>
+      <td colspan="4" style="text-align:center;color:var(--sub)">不建议新介入；10 日已 +60.31%</td>
+      <td><span class="tag-bad">退出观望</span></td>
+    </tr>
+  </tbody>
+</table>
+<div class="panel warn">
+  <p style="margin:0"><strong>衰退监测明细（按 8.12.4 6 信号）：</strong></p>
+  <ul style="margin-top:6px">
+    <li><strong style="color:var(--bad)">龙版传媒</strong>：①主力背离（流入仅 2764 万/成交 4.95 亿 = 5.6%，背离严重）②高位 33% 失败率高 + 资金结构弱 — 触发 <strong>2 个</strong>。</li>
+    <li><strong>海通发展</strong>：①事件驱动型风险高（无基本面支撑）— 触发 <strong>1 个（待验证）</strong>。</li>
+    <li><strong>亚盛集团/平潭发展/楚天龙</strong>：主力净流入均在板块前三、涨停封板稳 — 触发 <strong>0 个</strong>，可继续持有/介入。</li>
+  </ul>
+</div>
+
+<!-- 4. 即将成为龙头 -->
+<h2>④ 即将成为龙头的潜力股 5 只</h2>
+<div class="panel info">
+  <p style="margin:0"><strong>8.9 三类潜力龙筛选（按四问）：</strong>①业务关联度纯正 ②主线持续走强 ③梯队完整 ④拉升带动性。本表剔除已识别的核心观察 5 只，给新增潜力。</p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>代码</th><th>名称</th><th>类型（8.9）</th><th>9/4 资金</th><th>9/4 换手</th><th>9/4 量比</th><th>一句话本质</th><th>9/7 验证条件</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>605398</td>
+      <td><strong>新炬网络</strong></td>
+      <td><span class="tag-info">接力型</span></td>
+      <td class="num-up">+1128 万</td>
+      <td>2.52%</td>
+      <td>1.80</td>
+      <td>AI 应用 2 板，龙版断板的卡位接班候选；9/4 一字板</td>
+      <td>竞价高开 + 不开板 → 接力候选确认；开板则放弃</td>
+    </tr>
+    <tr>
+      <td>600598</td>
+      <td><strong>北大荒</strong></td>
+      <td><span class="tag-info">中军型</span></td>
+      <td class="num-up">+3323 万</td>
+      <td>4.00%</td>
+      <td>0.97</td>
+      <td>农业权重票 / 趋势属性 / 适合低吸底仓</td>
+      <td>跟涨农业板块、量能配合、不追高</td>
+    </tr>
+    <tr>
+      <td>603123</td>
+      <td><strong>翠微股份</strong></td>
+      <td><span class="tag-info">中位型</span></td>
+      <td class="num-up">+1.87 亿</td>
+      <td>4.87%</td>
+      <td>0.58</td>
+      <td>数字经济 1 板 + 数字货币板块联动；楚天龙绑定观察</td>
+      <td>与楚天龙同步溢价、则进入"1 进 2"候选</td>
+    </tr>
+    <tr>
+      <td>600354</td>
+      <td><strong>敦煌种业</strong></td>
+      <td><span class="tag-info">接力型</span></td>
+      <td colspan="3" style="text-align:center;color:var(--sub)">农业涨停 11 家代表</td>
+      <td>农业题材纯正 + 9/4 涨停 + 热度第二</td>
+      <td>9/7 农业板块 ≥8 家涨停则锁定 1 进 2</td>
+    </tr>
+    <tr>
+      <td>601949</td>
+      <td><strong>中国出版</strong></td>
+      <td><span class="tag-info">中位型</span></td>
+      <td colspan="3" style="text-align:center;color:var(--sub)">AI 应用 5 家涨停之一</td>
+      <td>出版 + AI 应用融合；龙版传媒若退潮的避险方向</td>
+      <td>9/7 AI 应用龙头断板时观察是否承接</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 5. 当日盘前操作清单 -->
+<h2>⑤ 当日盘前操作清单（条件化触发，非点位喊单）</h2>
+
+<div class="panel info">
+  <h3 style="margin-top:0">A. 仓位基调</h3>
+  <table>
+    <tr><td><strong>总仓基调</strong></td><td><span class="tag-bad">≤ 30%（防守档）</span>——情绪退潮，新开仓严控</td></tr>
+    <tr><td><strong>主仓方向</strong></td><td>① 农业（≤ 30% 总仓）② 数字货币（≤ 20% 总仓，新启动验证）③ 海峡两岸（≤ 10% 总仓，事件驱动试错）</td></tr>
+    <tr><td><strong>回避方向</strong></td><td>① 储能（产能过剩摸排利空）② AI 短剧（量产价格跳水）③ 高位 5 板以上的纯情绪票</td></tr>
+    <tr><td><strong>跨板块分散</strong></td><td>按 8.10，单主线 ≤ 30%、总仓 ≤ 50%、单票 ≤ 20%</td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h3 style="margin-top:0">B. 竞价预期（09:15-09:25 观察）</h3>
+  <table>
+    <thead><tr><th>标的</th><th>基准</th><th>弱预期</th><th>中性</th><th>强预期</th><th>触发动作</th></tr></thead>
+    <tbody>
+      <tr><td><strong>亚盛集团 (600108)</strong></td><td>9/4 收 4.36</td><td>低开 -3% (4.23)</td><td>平开 4.36</td><td>高开 +3% (4.49)</td><td>中性及以上 → 试探 10%；弱转强且封板 → 加 +20%</td></tr>
+      <tr><td><strong>平潭发展 (000592)</strong></td><td>9/4 收 7.49</td><td>低开 -3% (7.27)</td><td>平开 7.49</td><td>高开 +5% (7.86)</td><td>中性 → 试探 10%；高开且量配合 → 加仓至 20%（中军确认）</td></tr>
+      <tr><td><strong>楚天龙 (003040)</strong></td><td>9/4 收 21.12</td><td>低开 -3% (20.49)</td><td>高开 +2% (21.54)</td><td>一字板 (22.20)</td><td>中性 → 重点观察；一字不开则放弃（追一字风险大）；高开放量 → 1 进 2 确认</td></tr>
+      <tr><td><strong>海通发展 (603162)</strong></td><td>9/4 收 14.64</td><td>低开 -3% (14.20)</td><td>高开 +3% (15.08)</td><td>一字板 (15.37)</td><td>中性 → 试错 10%；一字 → 排队不进（事件驱动不稳）</td></tr>
+      <tr><td><strong>龙版传媒 (605577)</strong></td><td>9/4 收 15.55</td><td colspan="3" style="text-align:center;color:var(--sub)">不建议介入</td><td>不操作；观察为主（衰退监测已触发 2 个）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel">
+  <h3 style="margin-top:0">C. 9:30 后第一个 30 分钟观察重点（10:00 前必须决断）</h3>
+  <ul>
+    <li><strong>板块梯队（决定主线生死）</strong>：
+      <ul>
+        <li>农业：<span class="hit">9/4 涨停 11 家</span>，9/7 10:00 前需 ≥ 6 家涨停才算"延续穿越"；若 < 4 家则降档为阶段性。</li>
+        <li>海峡两岸：<span class="hit">9/4 涨停 6 家</span>，9/7 10:00 前需 ≥ 3 家才保留海通仓位；< 2 家则海通清仓。</li>
+        <li>数字货币：<span class="hit">9/4 涨停 2 家（楚天龙、翠微）</span>，9/7 需 ≥ 1 家连板（楚天龙 1 进 2）或 ≥ 3 家首板才确认新启动。</li>
+      </ul>
+    </li>
+    <li><strong>大盘广度</strong>：9/4 强度 45（弱），9/7 09:30 上证开盘若再跌 -0.5% 配合主力净流出扩大 → 全天降仓至 ≤ 20%。</li>
+    <li><strong>资金验证</strong>：9/4 主力净流出 -433 亿，9/7 09:30-10:00 北向若继续净流出 +50 亿 → 不新开仓。</li>
+    <li><strong>非农数据影响</strong>：9/4 已公布 8 月非农 16.2 万（大超预期），9 月加息押注加大 → 9/7 开盘 A 股短线承压（已 price-in），观察开盘 30 分钟消化情况。</li>
+  </ul>
+</div>
+
+<div class="panel danger">
+  <h3 style="margin-top:0">D. 预设止损位（按 8.13 硬规则）</h3>
+  <table>
+    <thead><tr><th>标的</th><th>硬止损</th><th>技术止损</th><th>减仓 30%</th><th>减仓 50%</th><th>清仓触发</th></tr></thead>
+    <tbody>
+      <tr><td><strong>亚盛集团</strong></td><td>买入价 -7%</td><td>破 5 日均线</td><td>触发 1 个衰退信号</td><td>触发 2 个</td><td>触发 3+ / 农业板块 < 4 家涨停</td></tr>
+      <tr><td><strong>平潭发展</strong></td><td>买入价 -7%</td><td>破 5 日均线</td><td>海通断板 / 板块 < 3 家</td><td>板块跌停出现</td><td>海峡两岸退潮</td></tr>
+      <tr><td><strong>楚天龙</strong></td><td>买入价 -7%</td><td>破 5 日均线</td><td>9:30 未能高开 +2%</td><td>翠微断板 / 数字货币退潮</td><td>开板即清（不赌回封）</td></tr>
+      <tr><td><strong>海通发展</strong></td><td>买入价 -7%</td><td>破 5 日均线</td><td>海峡两岸 < 3 家涨停</td><td>无板块涨停</td><td>事件熄火 → 立即清</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 6. 今日核心新闻 -->
+<h2>⑥ 今日 9/7 盘前核心新闻（影响预判）</h2>
+<table>
+  <thead><tr><th>新闻</th><th>影响板块</th><th>预判方向</th></tr></thead>
+  <tbody>
+    <tr><td>财政部 3000 亿特别国债 + 工行 1000 亿 / 农行 1600 亿增发</td><td><strong>大金融</strong></td><td><span class="num-up">利好 +</span>（已流入 35.02 亿）</td></tr>
+    <tr><td>央行 5000 亿 3 个月买断式逆回购操作</td><td>流动性</td><td><span style="color:var(--sub)">中性偏宽</span></td></tr>
+    <tr><td>七部门《数字化绿色化协同转型》+ 算力 800V 高压直流</td><td><strong>AI 算力/数据中心</strong></td><td><span class="num-up">中期利好</span></td></tr>
+    <tr><td>六部门《历史经典产业意见》→ 培育 50 家百亿龙头</td><td>消费品牌</td><td><span style="color:var(--sub)">中性</span></td></tr>
+    <tr><td>GPT-6 正式发布</td><td><strong>AI 应用/大模型</strong></td><td><span class="num-up">利好 +</span>（但龙头衰退）</td></tr>
+    <tr><td>华为/苹果折叠屏"72 小时对决"</td><td><strong>华为甄选与支付</strong></td><td><span class="num-up">利好 +</span>（已流入 32.73 亿）</td></tr>
+    <tr><td>储能行业产能过剩摸排 + 在建项目暂缓审批</td><td><strong>储能</strong></td><td><span class="num-down">利空 -</span>（回避）</td></tr>
+    <tr><td>AI 短剧量产价格跳水（每分钟 5000 → 几百元）</td><td><strong>短剧</strong></td><td><span class="num-down">利空 -</span>（虽流入 49.21 亿但题材承压）</td></tr>
+    <tr><td>国际地月立方星座大科学计划启动</td><td>卫星/航天</td><td><span style="color:var(--sub)">中性</span></td></tr>
+    <tr><td>美国 8 月非农 16.2 万（大超预期 5.5 万）+ 加息押注加大</td><td>整体情绪</td><td><span class="num-down">利空 -</span>（开盘承压）</td></tr>
+    <tr><td>中际旭创：牛散章建平退出前十大 + 实控人解除质押 135 万股</td><td>光模块</td><td><span class="num-down">利空 -</span>（观察传导）</td></tr>
+    <tr><td>美股上周五：道指 -0.51% / 纳指 -0.29% / 特斯拉 -6% / 半导体 +3%</td><td>A 股开盘情绪</td><td><span class="num-down">小幅承压</span></td></tr>
+  </tbody>
+</table>
+
+<!-- 7. 预测对账嵌入 -->
+<h2>⑦ 预测对账嵌入（盘前对照 · 8.14.3）</h2>
+<div class="panel info">
+  <p style="margin:0 0 8px"><strong>pred_001（2026-09-06 周日 bootstrap 预测）今日验证窗口</strong>（来源：<code>prediction_snapshots/pred_001_bootstrap_2026-09-06.json</code>）</p>
+</div>
+<table>
+  <thead><tr><th>预测 ID</th><th>标的</th><th>类型</th><th>当时置信度</th><th>当时预测</th><th>今日 9/7 验证点</th></tr></thead>
+  <tbody>
+    <tr><td>pred_001</td><td>龙版传媒</td><td>高潮期末端/衰退初期</td><td>0.55</td><td>"9/7 断板即清仓，不建议重仓"</td><td>9/7 若竞价低开 -3% 以下 → 衰退确认</td></tr>
+    <tr><td>pred_002</td><td>亚盛集团</td><td>成长期（穿越主线）</td><td>0.78</td><td>"9/7 升 3 板可加至 30%；涨停数 ≥ 8 锁仓"</td><td>9/7 10:00 农业涨停 ≥ 6 + 亚盛连板 = 兑现</td></tr>
+    <tr><td>pred_003</td><td>海通发展</td><td>新启动（事件驱动）</td><td>0.55</td><td>"9/7 不延续立即清仓"</td><td>9/7 海峡两岸涨停 ≥ 3 + 海通连板 = 兑现；< 2 家清仓</td></tr>
+    <tr><td>pred_004</td><td>新炬网络</td><td>接力型（卡位候选）</td><td>0.65</td><td>"龙版断板负反馈则评估是否接力"</td><td>9/7 龙版断板 + 新炬 1 进 2 = 兑现</td></tr>
+    <tr><td>pred_005</td><td>平潭发展</td><td>中军型（容量票）</td><td>0.50</td><td>"9/7 验证是否同步走强"</td><td>9/7 平潭跟涨 + 海峡两岸不退潮 = 兑现</td></tr>
+    <tr><td>pred_006</td><td>北大荒</td><td>中军型</td><td>0.62</td><td>"9/7 验证是否同步走强"</td><td>9/7 农业主线不破 → 兑现</td></tr>
+    <tr><td>pred_007</td><td>楚天龙</td><td>中位型</td><td>0.40</td><td>"等持续政策催化"</td><td>9/7 数字货币涨停 ≥ 3 家 + 楚天龙 1 进 2 = 兑现</td></tr>
+    <tr><td>pred_008</td><td>翠微股份</td><td>中位型</td><td>0.40</td><td>"板块次日若无溢价则放弃"</td><td>9/7 与楚天龙同步溢价 = 兑现</td></tr>
+    <tr><td>pred_009</td><td>AI 主线</td><td>穿越主线</td><td>0.85</td><td>"9/7 涨停数跌出前三则降档"</td><td>9/7 AI 应用涨停 < 4 家 + 龙版断板 → 降档</td></tr>
+    <tr><td>pred_010</td><td>农业主线</td><td>穿越主线（V 型）</td><td>0.80</td><td>"9/7 涨停数维持 ≥ 8 则锁仓"</td><td>9/7 10:00 农业 ≥ 8 涨停 = 兑现</td></tr>
+    <tr><td>pred_011</td><td>海峡两岸主线</td><td>新启动首日</td><td>0.55</td><td>"9/7 ≥ 4 涨停则升穿越备选"</td><td>9/7 ≥ 4 涨停 = 升档；断档则降阶段性</td></tr>
+  </tbody>
+</table>
+
+<!-- 免责声明 -->
+<div class="disclaimer">
+  <p style="margin:0 0 6px"><strong style="color:var(--gold)">⚠️ 免责声明</strong></p>
+  <p style="margin:0">
+    以上内容基于公开数据（悟道 MCP、东方财富、同花顺、财联社、新闻热榜）和量化分析框架自动生成，仅供参考，<strong>不构成投资建议，不承诺收益</strong>。
+    市场有风险，投资需谨慎。任何投资决策应结合个人风险承受能力、资金状况和投资目标独立判断，必要时咨询持牌专业机构。
+    过往表现不预示未来收益。本报告涉及的所有数据已标注来源（悟道/妙想/搜索），数据缺失处已明确标注；个股价格区间为条件化触发逻辑（非点位喊单），最终执行由用户根据实时盘口决定。
+  </p>
+  <p style="margin:6px 0 0;color:var(--sub);font-size:11px">
+    数据基期：2026-09-04（周五） · 编制：2026-09-07 08:30（北京时间） · 框架：v1.0（8.1-8.13） · 数据源：悟道 MCP + 财联社 + 东方财富/同花顺热榜
+  </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股盘中预警 · 2026-09-10（周四 10:30）</title>
+<style>
+  :root{--bg:#0f1722;--panel:#15202f;--panel-2:#1c2a3d;--line:#243447;--txt:#e6edf3;--sub:#9aa9bb;--accent:#ffd400;--green:#22c55e;--red:#ef4444;--warn:#f97316;--ok:#22c55e;--bad:#ef4444;--purple:#a855f7;--teal:#14b8a6;--blue:#3b82f6;--gold:#fbbf24}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding:16px;max-width:1100px;margin:0 auto;font-size:14px}
+  h1{font-size:22px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  h2{font-size:16px;color:var(--accent);margin:24px 0 12px;padding-left:10px;border-left:3px solid var(--accent)}
+  h3{font-size:14px;color:var(--gold);margin:14px 0 8px}
+  .meta{color:var(--sub);font-size:12px;margin-bottom:16px;display:flex;gap:14px;flex-wrap:wrap}
+  .meta span{background:var(--panel);padding:4px 10px;border-radius:4px;border:1px solid var(--line)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .panel.warn{border-left:3px solid var(--warn)}
+  .panel.danger{border-left:3px solid var(--bad)}
+  .panel.good{border-left:3px solid var(--ok)}
+  .panel.info{border-left:3px solid var(--blue)}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+  .kpi{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .kpi .label{font-size:11px;color:var(--sub);margin-bottom:4px}
+  .kpi .val{font-size:18px;font-weight:600;color:var(--txt)}
+  .kpi.bad .val{color:var(--bad)}
+  .kpi.ok .val{color:var(--ok)}
+  .kpi.warn .val{color:var(--warn)}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:var(--panel-2);color:var(--accent);font-weight:600;font-size:12px}
+  tr:hover td{background:rgba(255,255,255,0.02)}
+  .tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;margin-right:4px;font-weight:500}
+  .tag-buy{background:var(--ok);color:#fff}
+  .tag-warn{background:var(--warn);color:#fff}
+  .tag-bad{background:var(--bad);color:#fff}
+  .tag-info{background:var(--blue);color:#fff}
+  .tag-purple{background:var(--purple);color:#fff}
+  .tag-teal{background:var(--teal);color:#fff}
+  .tag-gold{background:var(--gold);color:#1c2a3d}
+  ul{margin-left:20px}
+  li{margin-bottom:6px;color:var(--txt)}
+  li strong{color:var(--accent)}
+  .quote{background:var(--panel-2);border-left:3px solid var(--accent);padding:10px 14px;margin:10px 0;font-style:italic;color:var(--sub);border-radius:0 6px 6px 0}
+  .disclaimer{background:#1a1212;border:1px solid #5a2020;border-radius:8px;padding:14px 16px;margin-top:24px;color:#d4a5a5;font-size:12px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:768px){.grid-2{grid-template-columns:1fr}.kpi-row{grid-template-columns:1fr 1fr}}
+  .num-up{color:var(--red)}
+  .num-down{color:var(--green)}
+  code{background:var(--panel-2);padding:1px 6px;border-radius:3px;font-size:12px;color:var(--gold)}
+  .source{font-size:11px;color:var(--sub);font-weight:normal}
+  .alert-list{display:flex;flex-direction:column;gap:10px}
+  .alert-item{padding:14px 16px;border-radius:8px;border-left:5px solid;font-size:14px;line-height:1.7}
+  .alert-red{background:#2a0d0d;border-color:var(--bad);color:#ffd4d4}
+  .alert-red strong{color:#ff7878}
+  .alert-orange{background:#2a1d0a;border-color:var(--warn);color:#ffe6cc}
+  .alert-orange strong{color:#ffb84d}
+  .alert-yellow{background:#2a2a0a;border-color:#eab308;color:#fff4cc}
+  .alert-yellow strong{color:#fde047}
+  .alert-green{background:#0a2a14;border-color:var(--ok);color:#c6f6c6}
+  .alert-green strong{color:#7ed87e}
+  .alert-headline{font-weight:700;font-size:15px;margin-bottom:4px}
+  .alert-level{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;margin-right:6px;font-weight:700}
+  .level-red{background:var(--bad);color:#fff}
+  .level-orange{background:var(--warn);color:#fff}
+  .level-yellow{background:#eab308;color:#000}
+  .level-green{background:var(--ok);color:#fff}
+  .signal-bar{display:flex;align-items:center;gap:14px;background:rgba(217,164,65,.14);border:2px solid rgba(217,164,65,.6);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+  .signal-bar .light{font-size:42px;line-height:1}
+  .signal-bar .info{flex:1}
+  .signal-bar .info .h{font-size:16px;font-weight:700;color:var(--gold)}
+  .signal-bar .info .s{font-size:12px;color:var(--sub);margin-top:2px}
+</style>
+</head>
+<body>
+
+<h1>🚨 A股盘中预警 · 2026-09-10（周四 10:30 上午场）</h1>
+<div class="meta">
+  <span>📅 数据快照：2026-09-10 10:30</span>
+  <span>⏰ 编制时间：10:34</span>
+  <span>🎯 框架版本：v1.3（主线漂移期 + 衰退 6 维监测 + 持仓异常）</span>
+  <span>📊 数据源：悟道 MCP 4 次 + 新浪实时 + 状态灯 1 次</span>
+  <span class="source">framework：8.12.4 + 8.13 + 8.15.6</span>
+  <span>📁 预测基线：<code>pred_20260909_盘后.json</code></span>
+  <span>🔐 信号灯：<code>site/status.json@09:16=🟡黄灯 3命中</code></span>
+</div>
+
+<!-- 0. 信号灯引用 -->
+<div class="signal-bar">
+  <div class="light">🟡</div>
+  <div class="info">
+    <div class="h">宏观信号灯 · 黄灯维持（3 命中）· 仓位≤3 成 · 禁新开仓 · 止损收紧 -5%</div>
+    <div class="s">10:30 实时监测追加项：① 情绪总龙从 5 板百大断板 → 4 板桂林接棒（高度下降 1 级）② 农业主线全面衰退（金正大 -7.55% / 亚盛 -5.95% / 新赛 -7.91%）+ 通信二次启动证伪（华脉 -9.91% / 长飞 -1.33%）③ 量能萎缩（沪深 10:33 成交 8474.65 亿，较上日同刻 -799.61 亿 / -8.62%）④ 黄河旋风跌破 5 日线 16.30（现价 16.29）+ 主力二次出逃 -1.57 亿 → 触发 8.12.4 衰退确认。status.json 维持黄灯，但描述追加「主线漂移·衰退确认·新卡位桂林」</div>
+  </div>
+</div>
+
+<!-- 1. 一句话定态 + KPI -->
+<div class="panel info">
+  <div class="alert-headline">🟡 上午场一句话定态：主线漂移期·农业/通信双线衰退确认·持仓异常触发清仓级响应</div>
+  <p>今早 09:30-10:30 这一小时呈现「<strong style="color:var(--bad)">情绪总龙退位（百大断板）+ 二线承接（桂林/红棉/瑞尔特）+ 主流全面衰退</strong>」三态叠加。沪指小幅低开下探回升（沪深 10:33 成交 8474.65 亿，较上日同刻 -8.62% 缩量退潮）。涨停家数 <strong style="color:var(--bad)">27（昨日 48 → 27 ↓44%）</strong>，跌停 4 家；炸板率 36.96%（较昨日 36% 高位持平）；最高板 4（昨日 5）；1→2 晋级率 21.21%（较昨日 20.55% 持平低位）。主线维度：农业（10→2 ↓）、通信（5 家→仅超声/金安国纪续冲→ 个股冲高回落）、零售（百大断板→中百回封但开板）；新卡位 <strong>桂林旅游(000978) 4 板旅游+AI 接情绪总龙</strong> / <strong>红棉股份(000523) 3 板农业糖线独苗</strong> / <strong>瑞尔特(002790) 3 板地产链家居异动</strong>。持仓方面，<strong style="color:var(--bad)">黄河旋风跌破 5 日线且主力 -1.57 亿二次出逃→触发清仓级响应</strong>；翠微如未开盘即卖，盘中 +2.90% 修复属反弹逃命机会。</p>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi warn"><div class="label">涨停家数</div><div class="val">27<span style="font-size:11px;color:var(--sub);">（昨 48）</span></div></div>
+  <div class="kpi warn"><div class="label">炸板率</div><div class="val">36.96%<span style="font-size:11px;color:var(--sub);">（昨 36%）</span></div></div>
+  <div class="kpi warn"><div class="label">1→2 晋级率</div><div class="val">21.21%<span style="font-size:11px;color:var(--sub);">（昨 20.55%）</span></div></div>
+  <div class="kpi bad"><div class="label">最高板</div><div class="val">4<span style="font-size:11px;color:var(--sub);">（昨 5）</span></div></div>
+  <div class="kpi bad"><div class="label">跌停家数</div><div class="val">4<span style="font-size:11px;color:var(--sub);">（昨 7）</span></div></div>
+  <div class="kpi"><div class="label">两市成交(10:33)</div><div class="val">8474.65亿<span style="font-size:11px;color:var(--bad);">↓ -8.62%</span></div></div>
+  <div class="kpi warn"><div class="label">市场宽度(涨/跌)</div><div class="val">974 / 4486<span style="font-size:11px;color:var(--sub);">（18% 涨）</span></div></div>
+  <div class="kpi good"><div class="label">主力净额(全市场)</div><div class="val">-110.60亿<span style="font-size:11px;color:var(--sub);">（开盘红口径）</span></div></div>
+</div>
+
+<!-- 2. 衰退 6 维监测 -->
+<h2>📉 一、衰退 6 维监测（8.12.4 · 对照 9/9 预测清单）</h2>
+
+<div class="alert-list">
+
+  <div class="alert-item alert-red">
+    <div class="alert-headline"><span class="alert-level level-red">🔴 确认衰退</span>主农业·高位断板（金正大 -7.55% / 亚盛 -5.95% / 新赛 -7.91%）</div>
+    <p><strong>预测清单</strong>：农业（10 家→昨）预期分歧转一致（回封家数回升），否则退潮；金正大(002470) 预期秒板 / 一字；亚盛(600108) 预期回封 5 板 / 低开破 5.54 衰退减仓；新赛(600540) 预期晋级 2 板 = 扩散确认。</p>
+    <p><strong>实际</strong>：<span style="color:var(--bad)">金正大 -7.55% 现价 2.57 元（一字预期破，开盘即砸盘）</span>、<span style="color:var(--bad)">亚盛 -5.95% 现价 5.37 元（高开 +1.58% 后单边下砸）</span>、<span style="color:var(--bad)">新赛 -7.91% 现价 6.64 元（高开 +1.94% 接阴巨量）</span>、泸天化 -6.35% 现价 4.87 元（化工扩散末梢同步衰退）。板块涨停家数由昨日 10 → 今日仅 2 家（含今日爆破红棉/新农），<strong>判定</strong>：<strong>农业主线 8.12.4 衰退信号全部触发</strong>（高位断板 + 主力外流 + 涨停家数骤降 + 龙头未回封）。</p>
+    <p><strong>⚡ 对应动作</strong>：止损位 9/9 已设（金正大 2.59 / 新赛 6.71）→已击穿；亚盛 5.31 已跌穿。新赛、亚盛昨日跟进者、9/9 孵化池若仍持仓 → 早盘必清。</p>
+  </div>
+
+  <div class="alert-item alert-red">
+    <div class="alert-headline"><span class="alert-level level-red">🔴 确认衰退</span>通信·二次启动证伪（华脉 -9.91% / 长飞 -3.10亿主力出逃）</div>
+    <p><strong>预测清单</strong>：通信（资金回流降档观察）；华脉(603042) 预期冲 4 板 = 二次启动确认；长飞(601869) 萌芽 9/10 观察放量反包 458.5 前高 = 总信号。</p>
+    <p><strong>实际</strong>：<span style="color:var(--bad)">华脉 -9.91% 现价 16.82（开盘 -0.96% 冲 18.59 后单边 -9.91% 收）</span>；<span style="color:var(--bad)">长飞 -1.33% 现价 436.17，低开 -1.07% 反抽未破前高 442.03</span>；主力净额华脉 -1.18 亿 / 长飞 <span style="color:var(--bad)">-3.10 亿</span>（昨日全市场第一 +12.52 亿，今直接转 -3.10 亿，<strong>巨量见顶信号</strong>）；通信板块涨幅 -0.33% <strong>但大单净额 -7.21 亿</strong>（中小单驱动 + 大单失血 = 量价背离）；昨日 5 家涨停（环旭/金安国纪/超声/宝鼎/逸豪）实为低位首板扩散而非中军承继，<strong>判定</strong>：二次启动证伪。</p>
+    <p><strong>⚡ 对应动作</strong>：长飞 8.13 萌芽池浮动亏 -1.32%（440 → 436），止损 411.09 未破；但反弹结构已破，明日若再次失守 430 形态走坏。华脉硬止损 17.36 已击穿 -3.10%。萌芽池追踪，10:30 前撤回观察。</p>
+  </div>
+
+  <div class="alert-item alert-red">
+    <div class="alert-headline"><span class="alert-level level-red">🔴 触发清仓</span>黄河旋风 600172 · 跌破 5 日线 + 主力二次出逃 -1.57 亿</div>
+    <p><strong>触发逻辑</strong>：① 现价 <span style="color:var(--bad)">16.29 元</span>，已破 5 日线 16.30 位（铁规）；② 主力净额 <strong style="color:var(--bad)">-1.57 亿</strong>（昨日 -1.47 亿，二次出逃）；③ 涨跌 <strong style="color:var(--bad)">-3.78%</strong>（开盘 16.66 高开 +2.78% 后单边 -3.78% 砸盘）；④ 量能放大换手活跃（远高于昨日同期）；⑤ 涨幅榜通信/化工同类高位标的同步衰退（金正大 -7.55% 农业总龙头 + 华脉 -9.91% 通信旗手）。</p>
+    <p><strong>判定</strong>：盘前纪律「5 日线 16.0 收盘跌破即清」= 16.30 现已破位，提早一档；主力二次出逃=撤退信号；业绩兑现预期（金刚石散热高潮 7 板已透支）。<strong>无论 9:30 是否已减半 700 股</strong>，<span style="color:var(--bad)">剩余 700 股底仓必须 11:00 前市价清</span>，不等 14:55 不等收盘。</p>
+    <p><strong>⚡ 对应动作</strong>：① 开盘已减 700 股@16.66（执行盈 +5 元 / 锁利约 +2,380 元），剩 700 股@16.29 市价清（清算盈 +3.04 元 × 700 = +2,128 元）；<strong>合计当日预计锁利约 +4,508 元</strong>。② 回款后继续清仓止损 5 日线规则线 / 跌破 16.00 全部清仓。③ 跟踪池自动清 0。</p>
+  </div>
+
+  <div class="alert-item alert-orange">
+    <div class="alert-headline"><span class="alert-level level-orange">🟠 衰退监测中</span>零售·百大断板 → 桂林接棒 → 高度下降 1 级</div>
+    <p><strong>预测清单</strong>：百大(600865) 预期冲 6 板续掌情绪；断板 = 全市场退潮。</p>
+    <p><strong>实际</strong>：<span style="color:var(--bad)">百大现价 14.61 元（开盘一字 +8.80% 后单边 -3.31% 砸出 -3.31%）</span>，主力净额 -6815.6 万（昨日 +5,979 万，今砸盘）；<strong>判定</strong>：5 板情绪总龙断板 + 主力反转 = 情绪天花板从 6 板压至 5 板。<strong>当前市场情绪总龙由桂林旅游(000978) 4 板旅游+AI 接棒</strong>（一字 9.69 +10% 涨停 / 主力 +1162.8 万不温不火，警惕午后分歧），3 板次高红棉 + 瑞尔特。</p>
+    <p><strong>中百集团(000759) 现价 8.99 元 +6.14%</strong>（跌停未封但反包），但开板 1 次（曾在炸板池）+ 主力 -2.03 亿大单失血却收涨 = <strong>量价背离</strong>。</p>
+  </div>
+
+  <div class="alert-item alert-orange">
+    <div class="alert-headline"><span class="alert-level level-orange">🟠 背离监测中</span>翠微股份 603123 · +2.90% 修复 vs +3753万主力回流</div>
+    <p><strong>预测清单</strong>：9/9 跌停 -10% 破 -7% 硬止损 → 9/10 9:30 开盘价全部卖出（铁律）。</p>
+    <p><strong>实际</strong>：<strong style="color:var(--warn)">现价 11.37 元 +2.90%</strong>（开盘 -1.81% 低开后冲 +7.51% 高 11.88 后回落），主力净额 <span style="color:var(--ok)">+3753.7 万</span>（昨日 -5,480 万反转）。</p>
+    <p><strong>判定</strong>：<strong>若 9:30 已按计划开盘 10.61 卖出</strong>，则 <strong style="color:var(--ok)">锁亏约 -820 元 / -1.13R</strong>（按 700 股 × (-0.04) -700 实际亏损约 -820 元 = 比"破止损"少亏）；反弹修复属市场情绪过激，<strong>不必纠结错过 +2.90% 修复</strong>。若 9:30 因开盘反弹犹豫未卖，<strong>市价卖仍执行</strong>（反弹逃命）；不应等更高位，因 8.13 铁律是破即走无任何反悔。</p>
+  </div>
+
+  <div class="alert-item alert-yellow">
+    <div class="alert-headline"><span class="alert-level level-yellow">🟡 换手异常</span>出版传媒·开板反复但价低 + 中国出版(601949) +4.64% 修复</div>
+    <p>9/9 出版线断板（2 跌停、0 涨停）；今日出版传媒(-?) 开板 1 次、中国出版 +4.64% 现价 6.99（高 7.35 / 低 6.75 振幅 8.84%）、炸板池有出版传媒。一日游修复，<strong>判定</strong>：衰退标的不构成主线，禁跟踪。</p>
+  </div>
+
+</div>
+
+<!-- 3. 龙头矩阵（17 只核心） -->
+<h2>🏆 二、龙头矩阵（17 只 · 实时价 + 触发器）</h2>
+<div class="panel info">
+<p style="font-size:12px;color:var(--sub);margin-bottom:8px;">口径：东方财富 + 新浪 push2.hq 实时 + 悟道 MCP 主力净额。下表为上午收盘前状态。</p>
+<table>
+<tr><th>梯队</th><th>代码名称</th><th>现价</th><th>涨跌幅</th><th>主力净额</th><th>触发器 / 解读</th><th>级别</th></tr>
+<tr>
+<td style="color:var(--gold);font-weight:700;">4板</td>
+<td><a href="https://stock.quicktiny.cn/quote/000978" style="color:var(--txt);">桂林旅游 000978</a></td>
+<td>9.69</td>
+<td class="num-up">+10.00% 一字</td>
+<td>+1162.8万</td>
+<td>4板新高 + 主力不温不火 + 题材旅游+AI → 接棒情绪总龙但高度降 1 级</td>
+<td><span class="tag tag-warn">🟠 情绪总龙接棒</span></td>
+</tr>
+<tr>
+<td style="color:var(--gold);font-weight:700;">3板</td>
+<td><a href="https://stock.quicktiny.cn/quote/000523" style="color:var(--txt);">红棉股份 000523</a></td>
+<td>4.80</td>
+<td class="num-up">+10.09% 3板一字</td>
+<td>+5964.2万</td>
+<td>农业糖线独苗 / 主力回流第 1 → 农业扩散唯一晋级，但高位+低市值需警惕一字后分歧</td>
+<td><span class="tag tag-gold">🟡 农业残火</span></td>
+</tr>
+<tr>
+<td style="color:var(--gold);font-weight:700;">3板</td>
+<td><a href="https://stock.quicktiny.cn/quote/002790" style="color:var(--txt);">瑞尔特 002790</a></td>
+<td>8.46</td>
+<td class="num-up">+10.01% 一字</td>
+<td>+2746.6万</td>
+<td>地产链家居异动 → 新卡位信号，<strong>观察能否走出独立穿越</strong></td>
+<td><span class="tag tag-teal">🟢 新卡位观察</span></td>
+</tr>
+<tr>
+<td style="color:var(--accent);">2板</td>
+<td><a href="https://stock.quicktiny.cn/quote/000993" style="color:var(--txt);">闽东电力 000993</a></td>
+<td>(2板入)</td>
+<td>+10%</td>
+<td>电力+</td>
+<td>电力 2 板 → 跟随板块资金 +4.34 亿/强度 1124 → 潜在二线接力</td>
+<td><span class="tag tag-info">🟡 电力二线</span></td>
+</tr>
+<tr>
+<td style="color:var(--accent);">2板</td>
+<td><a href="https://stock.quicktiny.cn/quote/002040" style="color:var(--txt);">南京港 002040</a></td>
+<td>(2板入)</td>
+<td>+10.02%</td>
+<td>港口 +</td>
+<td>石油石化 + 港口 → 油运景气延续 → 与昨日一致</td>
+<td><span class="tag tag-info">🟡 港口/油运</span></td>
+</tr>
+<tr>
+<td style="color:var(--accent);">2板</td>
+<td><a href="https://stock.quicktiny.cn/quote/600359" style="color:var(--txt);">新农开发 600359</a></td>
+<td>(2板回封)</td>
+<td>+10.05%</td>
+<td>农业 +</td>
+<td>农业扩散一员 + 与红棉共振 → 但同板块衰退信号下不追板</td>
+<td><span class="tag tag-warn">🟠 农业扩散未脱险</span></td>
+</tr>
+<tr>
+<td style="color:var(--accent);">2板</td>
+<td><a href="https://stock.quicktiny.cn/quote/600192" style="color:var(--txt);">长城电工 600192</a></td>
+<td>(2板)</td>
+<td>智能电网 2</td>
+<td>智能电网 +</td>
+<td>智能电网 + 2 板 → 跟随电力资金切换</td>
+<td><span class="tag tag-info">🟡 智能电网</span></td>
+</tr>
+<tr>
+<td style="color:var(--accent);">2板</td>
+<td><a href="https://stock.quicktiny.cn/quote/000565" style="color:var(--txt);">渝三峡A 000565</a></td>
+<td>(2板)</td>
+<td>化工 2</td>
+<td>化工 +</td>
+<td>化工 2 → 资金乱入分支</td>
+<td><span class="tag tag-info">🟡 化工分支</span></td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>冲击失败</td>
+<td><a href="https://stock.quicktiny.cn/quote/600865" style="color:var(--txt);">百大集团 600865</a></td>
+<td>14.61</td>
+<td class="num-down">-3.31%</td>
+<td>-6815.6万</td>
+<td>5 板情绪总龙断板 → 主力反转出逃 = 高度天花板压至 5 板</td>
+<td><span class="tag tag-bad">🔴 断板衰退</span></td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>冲击失败</td>
+<td><a href="https://stock.quicktiny.cn/quote/002470" style="color:var(--txt);">金正大 002470</a></td>
+<td>2.57</td>
+<td class="num-down">-7.55%</td>
+<td>-1.21亿</td>
+<td>3 板一字预期破 → 农业总龙头断板 = 农业衰退确认</td>
+<td><span class="tag tag-bad">🔴 农业总龙</span></td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>冲击失败</td>
+<td><a href="https://stock.quicktiny.cn/quote/603042" style="color:var(--txt);">华脉科技 603042</a></td>
+<td>16.82</td>
+<td class="num-down">-9.91%</td>
+<td>-1.18亿</td>
+<td>3 板冲 4 板失败 = 通信二次启动证伪</td>
+<td><span class="tag tag-bad">🔴 通信旗手</span></td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>冲击失败</td>
+<td><a href="https://stock.quicktiny.cn/quote/600108" style="color:var(--txt);">亚盛集团 600108</a></td>
+<td>5.37</td>
+<td class="num-down">-5.95%</td>
+<td>-1.53亿</td>
+<td>4 板冲 5 板失败（昨日炸板延续）→ 农业高位破位</td>
+<td><span class="tag tag-bad">🔴 农业高位</span></td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>冲击失败</td>
+<td><a href="https://stock.quicktiny.cn/quote/600540" style="color:var(--txt);">新赛股份 600540</a></td>
+<td>6.64</td>
+<td class="num-down">-7.91%</td>
+<td>-3885.1万</td>
+<td>1 板冲 2 板失败 → 农业扩散末梢衰退</td>
+<td><span class="tag tag-bad">🔴 农业扩散</span></td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>冲击失败</td>
+<td><a href="https://stock.quicktiny.cn/quote/000912" style="color:var(--txt);">泸天化 000912</a></td>
+<td>4.87</td>
+<td class="num-down">-6.35%</td>
+<td>+376.8万</td>
+<td>2 板冲 3 板失败 → 化工扩散末梢衰退</td>
+<td><span class="tag tag-bad">🔴 化工扩散</span></td>
+</tr>
+<tr>
+<td>反包修复</td>
+<td><a href="https://stock.quicktiny.cn/quote/000759" style="color:var(--txt);">中百集团 000759</a></td>
+<td>8.99</td>
+<td class="num-up">+6.14%</td>
+<td>-2.03亿</td>
+<td>3 板回包失败 + 开板 1 次 + 主力仍大幅失血 = 量价背离需警惕午后</td>
+<td><span class="tag tag-warn">🟠 量价背离</span></td>
+</tr>
+<tr>
+<td>萌芽观察</td>
+<td><a href="https://stock.quicktiny.cn/quote/601869" style="color:var(--txt);">长飞光纤 601869</a></td>
+<td>436.17</td>
+<td class="num-down">-1.33%</td>
+<td>-3.10亿</td>
+<td>萌芽池跟踪 · 巨量见顶信号；440 失守后形态走坏，止损 411</td>
+<td><span class="tag tag-warn">🟠 见顶信号</span></td>
+</tr>
+<tr>
+<td>萌芽观察</td>
+<td><a href="https://stock.quicktiny.cn/quote/002295" style="color:var(--txt);">精艺股份 002295</a></td>
+<td>12.30</td>
+<td class="num-up">+6.22%</td>
+<td>-5235.8万</td>
+<td>2 板回封但开板 3 次 + 主力失血 = 有色铜中军分歧</td>
+<td><span class="tag tag-warn">🟠 铜中军分歧</span></td>
+</tr>
+</table>
+</div>
+
+<!-- 4. 关注股信号 -->
+<h2>🔔 三、持仓与跟踪池信号</h2>
+
+<div class="grid-2">
+  <div class="panel danger">
+    <h3 style="color:var(--bad);">🔴 黄河旋风 600172 · 持仓异常 · 触发清仓</h3>
+    <table>
+    <tr><td>现价</td><td class="num-down"><strong>16.29 元</strong></td></tr>
+    <tr><td>涨跌</td><td class="num-down"><strong>-3.78%</strong>（昨收 16.93）</td></tr>
+    <tr><td>开盘</td><td>16.66 元（高开 +2.78%）</td></tr>
+    <tr><td>日内振幅</td><td>15.61 → 17.05（振幅 8.5%）</td></tr>
+    <tr><td>持仓</td><td>700 股（盘前减半后剩 700 底仓）</td></tr>
+    <tr><td>成本</td><td>13.253</td></tr>
+    <tr><td>总浮动盈亏</td><td><strong class="num-up">+2,128 元（+22.9%）</strong>（未计减半已锁利 +2,380 元）</td></tr>
+    <tr><td>主力净额</td><td class="num-down"><strong>-1.57 亿</strong>（昨日 -1.47 亿，二次出逃）</td></tr>
+    <tr><td>触发条件</td><td><strong>5 日线 16.30 已破位</strong> + 主力二次出逃 + 同题材个股高位集体衰退（金正大/华脉）</td></tr>
+    </table>
+    <p><strong style="color:var(--bad);">⚡ 必须 11:00 前市价清仓</strong>（市场挂单价 16.28-16.30）。不等收盘、不等反弹。理由：① 盘前纪律「破 5 日线即清」已破；② 主力二次出逃=撤退信号；③ 板块整体衰退 + 同题材高位标同步衰退确认。回款约 11,400 元。继续追随今日新卡位<strong>不参与</strong>（黄灯禁新买）。</p>
+  </div>
+
+  <div class="panel warn">
+    <h3 style="color:var(--warn);">🟠 翠微股份 603123 · 已按计划开盘出</h3>
+    <table>
+    <tr><td>现价</td><td class="num-up">11.37 元</td></tr>
+    <tr><td>涨跌</td><td class="num-up">+2.90%（昨收 11.05）</td></tr>
+    <tr><td>开盘</td><td>10.85 元（低开 -1.81%）</td></tr>
+    <tr><td>主力净额</td><td class="num-up"><strong>+3753.7 万</strong>（昨日 -5,480 万反转）</td></tr>
+    <tr><td>9:30 开盘应出</td><td>@10.85 元（盘前纪律开盘价全部卖出）</td></tr>
+    <tr><td>若开盘即出</td><td>锁亏约 <strong style="color:var(--bad);">-820 元 / -1.13R</strong></td></tr>
+    <tr><td>反弹逃命机会</td><td>@11.00-11.37 反弹 +2.90% ≈ 多回 +250 元，可忽略不计</td></tr>
+    </table>
+    <p><strong style="color:var(--ok);">判定</strong>：若 9:30 按计划开盘即出 = 按纪律执行 → 反弹修复属市场情绪过激，不应追高补回；8.13 铁律「破即走无任何反悔」，反弹多回 250 元低于交易摩擦 + 心态破坏成本，<strong>执行开盘价为正解</strong>。若 9:30 因反弹犹豫未出，需 11:00 前市价清掉，但已付出心态纪律代价。</p>
+  </div>
+</div>
+
+<div class="panel info">
+<h3>🌱 跟踪池（watchlist.json · 黄河旋风）</h3>
+<p>9/6 跟踪池仅 1 只黄河旋风（高潮期分歧跟踪 / 9/6 加入）。今日 10:30 触发：5 日线 16.30 已破位 + 主力二次出逃 = <strong>跟踪池自动清 0</strong>，不再保留观察标的。9/10 盘前已写明「退潮期+黄灯不新增观察标的」= <strong>跟踪池维持空仓</strong>，待 9/16 FOMC + 9/18 BOJ 重要窗口后再重建（按 8.12 六维雷达）。</p>
+</div>
+
+<!-- 5. 板块轮动 -->
+<h2>🔁 四、板块轮动发现（10:30 上午场）</h2>
+
+<div class="panel info">
+<h3>板块主力净额 vs 涨幅 vs 大单净额（10:32 快照）</h3>
+<table>
+<tr><th>板块</th><th>强度</th><th>涨幅</th><th>主力净额</th><th>大单净额</th><th>判定</th></tr>
+<tr style="background:#0a2a14;">
+<td>光伏</td>
+<td class="num-up"><strong>1321</strong></td>
+<td class="num-down">-0.73%</td>
+<td class="num-up">+5.68 亿</td>
+<td>+3.43 亿</td>
+<td><strong class="num-up">二次启动候选</strong>（资金+强度共振，5.68 亿+ 大单同步 = 真金白银）</td>
+</tr>
+<tr style="background:#0a2a14;">
+<td>电力</td>
+<td class="num-up"><strong>1124</strong></td>
+<td class="num-down">-0.70%</td>
+<td class="num-up">+4.34 亿</td>
+<td>+3.19 亿</td>
+<td><strong class="num-up">真正强势</strong>（资金+强度同步，闽东电力 2 板）</td>
+</tr>
+<tr style="background:#0a2a14;">
+<td>银行</td>
+<td class="num-up"><strong>1112</strong></td>
+<td class="num-up">+1.12%</td>
+<td class="num-up">+2.57 亿</td>
+<td class="num-down">-1850 万</td>
+<td><strong class="num-up">防御切换</strong>（涨幅+资金均正向，4 家涨停）</td>
+</tr>
+<tr style="background:#2a2a0a22;">
+<td>通信</td>
+<td class="num-up">3137</td>
+<td class="num-down">-0.33%</td>
+<td class="num-up">+4.57 亿</td>
+<td class="num-down"><strong>-7.21 亿</strong></td>
+<td><strong class="num-down">二次启动证伪</strong>（中小单驱动 + 大单失血 = 量价背离）</td>
+</tr>
+<tr style="background:#2a2a0a22;">
+<td>化工</td>
+<td class="num-down"><strong>-1524</strong></td>
+<td class="num-down">-1.23%</td>
+<td class="num-up">+6.26 亿</td>
+<td>+6.74 亿</td>
+<td><strong class="num-down">资金乱入</strong>（强度负向但大单净流入 = 高位接盘嫌疑）</td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>次新股</td>
+<td class="num-down">-108</td>
+<td class="num-down">-0.89%</td>
+<td class="num-up">+8.09 亿</td>
+<td>+1.83 亿</td>
+<td><strong class="num-down">资金乱入</strong>（强度负向，资金抢夺但涨幅-0.89%）</td>
+</tr>
+<tr style="background:#2a0d0d22;">
+<td>商业航天</td>
+<td>+437</td>
+<td class="num-down">-0.57%</td>
+<td>+1.44 亿</td>
+<td>+1.13 亿</td>
+<td>中性（资金稳定但无方向）</td>
+</tr>
+</table>
+<p style="font-size:12px;color:var(--sub);">数据基准：悟道 MCP theme_intraday_capital 2026-09-10 10:32。结论：<strong style="color:var(--warn);">主线漂移+衰退确认</strong>→光、电力、银行三线是新卡位方向（防御+替代），禁新买但 11:30 收盘后需标记为萌芽候选。</p>
+</div>
+
+<div class="panel warn">
+<h3>🔄 主线接力路径</h3>
+<p><strong>昨日（9/9）情绪接力路径</strong>：农业（10 家）→ 通信（资金 162.87 亿 居首）→ 零售（百大 5 板情绪总龙）→ 航运（油运）、黄金、煤炭</p>
+<p><strong>今日（9/10）情绪接力路径</strong>：农业 <span style="color:var(--bad)">▼ 衰退</span> → 通信 <span style="color:var(--bad)">▼ 衰退</span>（华脉断板 / 长飞见顶） → 零售 <span style="color:var(--bad)">▼ 百大断板</span> → 航运（南京港 2 板存活，但 2 板封单 7702 万偏弱）→ <strong style="color:var(--ok);">电力（闽东电力 2 板/银行 4 家涨停/光伏 5.68 亿）是新卡位萌芽</strong> → 情绪总龙由百大 5 板 → 桂林旅游 4 板接棒</p>
+<p style="color:var(--bad);"><strong>主信号</strong>：市场逻辑从「题材接力 → 防御替代」切换（黄灯+农业/通信/零售三线集体衰退），跟踪池自动清 0，待 9/16 FOMC + 9/18 BOJ 后重新萌芽评估。</p>
+</div>
+
+<!-- 6. 条件化建议 -->
+<h2>🎯 五、条件化建议（按时序）</h2>
+
+<div class="panel danger">
+<h3 style="color:var(--bad);">⚡ 09:30-11:00 · 必须执行</h3>
+<ul>
+<li><strong style="color:var(--bad);">🛑 黄河旋风 700 股市价清仓</strong>（市场挂单价 16.28-16.30）→ 回款约 11,400 元，合计当日总盈亏约 <strong style="color:var(--ok);">+4,508 元</strong>（含开盘减半已锁利约 +2,380）</li>
+<li><strong style="color:var(--warn);">翠微股份若 9:30 因反弹犹豫未卖</strong> → 11:00 前市价清（市场挂单价 11.30-11.40），不必追到 11.50+</li>
+<li><strong style="color:var(--ok);">全部卖出后回款合计</strong>：翠微 ~7,600 + 黄河减半 ~11,600 + 黄河清仓 ~11,400 = <strong>约 30,600 元</strong></li>
+<li><strong style="color:var(--ok);">持仓比例</strong>：100% 现金，符合黄灯×震荡「减至 ≤1 成」矩阵（现金 ≥9 成）</li>
+</ul>
+</div>
+
+<div class="panel warn">
+<h3 style="color:var(--warn);">👀 11:00-11:30 · 监测项</h3>
+<ul>
+<li>监测<strong>黄河旋风 16.30</strong>（若仍未清：硬等 13:00 集合竞价挂 16.25 卖单）</li>
+<li>监测<strong>翠微股份 11.00 支撑</strong>（反弹不破则继续持仓可能性 = 0，必卖）</li>
+<li>监测<strong>红棉股份(000523) 11:30 是否开板</strong>：一字封单 6.04 亿强，但低市值+3板 = 11:30 抛压高峰</li>
+<li>监测<strong>桂林旅游(000978) 4 板封单</strong>：当前 1.52 亿封单偏弱，11:30 抛压时可能开板</li>
+<li>监测<strong>3 连扳接力</strong>：瑞尔特 3 板能否挺过 11:30 = 新卡位确认</li>
+<li>监测<strong>沪指 11:30 收盘</strong>：若收跌 -0.5% 以下，触发「A 股跌 0.5% + 涨停 <30」组合 → 黄灯加深</li>
+<li>监测<strong>量能</strong>：11:30 上午成交 / 上日同刻 ≤0.9 = 量能恶化 = 红灯预警</li>
+</ul>
+</div>
+
+<div class="panel info">
+<h3 style="color:var(--blue);">📡 13:30 下午场职责移交</h3>
+<ul>
+<li>下午场监测首推项：① 11:30 → 13:00 期指开盘（A50/恒指）确认外围；② 13:00-13:30 集合竞价观察新卡位（电力/银行/光伏）；③ 14:00 主力净额快照对比上午 +27 +27；④ 14:55 收盘前最后一档预警</li>
+<li>13:00 / 14:00 / 14:30 / 14:55 四个时间切片，由下午场统一安排</li>
+<li>15:00 国新办金融强国发布会（盘前已标记）→ 影响收盘后情绪，明天 9/11 美国 CPI 加大波动</li>
+<li>15:30 盘后总管会出盘后复盘 + 预测性龙头发现明日版 + 预测对账</li>
+</ul>
+</div>
+
+<!-- 7. 信号灯刷新 -->
+<h2>🚦 六、信号灯刷新建议</h2>
+<div class="panel warn">
+<p><strong>当前</strong>：🟡 黄灯 3 命中（10:30 上午）</p>
+<p><strong>判定逻辑</strong>：
+<ul>
+<li>七维信号（8.15.1）维持 3 条（美 10Y 4.83% / 布油破百+美伊升级 / 美股宽度）</li>
+<li>今日触发新增项：① 农业主线衰退 + 通信证伪 ② 百大断板情绪天花板下降 1 级 ③ 黄河旋风跌破 5 日线</li>
+<li>但未触发红灯升级项：VIX 16.5 < 20 / 沪指未跌 -1% / 跌停未 >10 家 / 无金融机构暴雷</li>
+</ul>
+</p>
+<p><strong>信号灯决策</strong>：<strong style="color:var(--gold);">🟡 维持黄灯</strong>，但描述追加「主线漂移·农业/通信衰退·新卡位桂林/红棉/瑞尔特·11:00 黄河清仓·百大断板」。</p>
+<p style="font-size:12px;color:var(--sub);">status.json sections.intraday 已更新：time=2026-09-10 10:34, link=reports/盘中上午2026-09-10.html, desc=🔴 农业通信双衰退+黄河清仓·百大断板·黄灯维持·桂林接棒</p>
+</div>
+
+<!-- 8. 免责 -->
+<div class="disclaimer">
+<b>免责声明</b>：本预警由 AI 自动化生成（超哥 A 股研究台·框架 8.12.4 + 8.13 + 8.15.6），仅为个人研究辅助与纪律框架，不构成任何投资建议，不承诺收益，不代客交易，不输出确定性点位喊单。所有价格为条件化区间，实际成交以实时盘口为准。盘中主力净额/封单额/炸板数据来自悟道 MCP（2026-09-10 10:30-10:32 快照），个股实时行情来自新浪 push2.hq（2026-09-10 10:34 快照）。数据差异以悟道 MCP 主力净额口径为准，新浪价为辅助验证。框架 8.13 破止损无条件原则一旦触发即执行，不因反弹修复而反悔。市场有风险，投资需谨慎。
+</div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>交易日志 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:16px;max-width:680px;margin:0 auto;font-size:14px;}
+h1{font-size:20px;margin:10px 0 4px;}
+.sub{color:var(--sub);font-size:12px;margin-bottom:14px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;}
+h2{font-size:14px;color:var(--sub);font-weight:400;margin-bottom:10px;}
+.row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.row input,.row select{flex:1;min-width:90px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--text);font-size:14px;outline:none;}
+.row input:focus{border-color:var(--accent);}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;margin:4px 4px 0 0;}
+.btn.gold{background:var(--gold);color:#000;}
+.btn.buy{background:rgba(224,86,86,.25);color:#ff8a8a;border:1px solid rgba(224,86,86,.5);}
+.btn.sell{background:rgba(63,163,114,.2);color:#3fa372;border:1px solid rgba(63,163,114,.5);}
+.btn:active{opacity:.8;}
+#cmd{width:100%;background:#0d1420;border:1px dashed var(--line);border-radius:8px;padding:10px;color:var(--gold);font-size:12px;min-height:56px;margin-top:8px;word-break:break-all;}
+.tip{color:var(--sub);font-size:12px;line-height:1.7;margin-top:8px;}
+.tip b{color:var(--gold);}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0;}
+th{color:var(--sub);font-weight:600;text-align:left;padding:6px;border-bottom:1px solid var(--line);white-space:nowrap;}
+td{padding:6px;border-bottom:1px solid #21262d;}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:10px;color:var(--sub);font-size:12px;}
+.empty{color:var(--sub);font-size:13px;padding:14px;text-align:center;}
+.side-b{color:#ff8a8a;font-weight:600;}
+.side-s{color:#3fa372;font-weight:600;}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← 返回研究台</a>
+<h1>📓 交易日志</h1>
+<div class="sub">每天买了什么、何时买、什么价、多少股、持仓几天、为何卖——全部记录，AI 逐步积累对你的了解（框架 8.17.9，50 笔后出《个人行为报告》）</div>
+
+<div class="card">
+  <h2>① 录入一笔交易</h2>
+  <div class="row">
+    <select id="f-side"><option value="buy">🟥 买入</option><option value="sell">🟩 卖出</option></select>
+    <input id="f-name" placeholder="名称或代码" style="flex:1.5;">
+  </div>
+  <div class="row">
+    <input id="f-date" placeholder="日期(9/8)">
+    <input id="f-time" placeholder="时间(10:30 可空)">
+    <input id="f-price" placeholder="成交价" inputmode="decimal">
+    <input id="f-shares" placeholder="股数" inputmode="numeric">
+  </div>
+  <div class="row">
+    <input id="f-stop" placeholder="止损价(买入必填→算R额)" inputmode="decimal">
+    <select id="f-tag">
+      <option value="">行为标签</option>
+      <option value="计划内">计划内（跟踪池早有）</option>
+      <option value="追涨">追涨（盘中临时起意）</option>
+      <option value="报复性">报复性（亏损后想翻本）</option>
+      <option value="止损离场">止损离场</option>
+      <option value="止盈离场">止盈离场</option>
+      <option value="情绪化">情绪化</option>
+    </select>
+  </div>
+  <div class="row"><input id="f-reason" placeholder="理由（一句：为什么买/卖）"></div>
+  <button class="btn buy" onclick="genCmd('buy')">🟥 生成买入记录</button>
+  <button class="btn sell" onclick="genCmd('sell')">🟩 生成卖出记录</button>
+  <textarea id="cmd" readonly placeholder="填完点上方按钮生成记录，复制发 AI（或对话直接口述也行）"></textarea>
+  <div class="tip">AI 自动完成：<b>R 额计算</b>（|买价-止损|×股数）→ <b>持仓天数</b>（卖出自动匹配买入记录）→ <b>盈亏与 R 倍数</b>（卖出结算）→ <b>行为标签归档</b> → 更新 holdings.json → 全部进 8.14 对账与行为统计。</div>
+</div>
+
+<div class="card">
+  <h2>② 快捷（从持仓一键生成卖出）</h2>
+  <div id="quickSell" class="empty">读取持仓中…</div>
+</div>
+
+<div class="card">
+  <h2>③ 本地记录（发给 AI 确认后进正式档案）</h2>
+  <div id="list" class="empty">暂无本地记录</div>
+</div>
+
+<script>
+var KT='cg_trades_v1', KH='cg_holdings_v2';
+function load(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}}
+function save(k,a){localStorage.setItem(k,JSON.stringify(a))}
+function genCmd(forcedSide){
+  var n=document.getElementById('f-name').value.trim();
+  if(!n){alert('名称必填');return;}
+  var side=forcedSide||document.getElementById('f-side').value;
+  var d=document.getElementById('f-date').value.trim()||((new Date().getMonth()+1)+'/'+new Date().getDate());
+  var t=document.getElementById('f-time').value.trim();
+  var p=document.getElementById('f-price').value.trim();
+  var s=document.getElementById('f-shares').value.trim();
+  var st=document.getElementById('f-stop').value.trim();
+  var tag=document.getElementById('f-tag').value||'未标注';
+  var rs=document.getElementById('f-reason').value.trim()||'未填';
+  if(!p||!s){alert('成交价和股数必填');return;}
+  if(side==='buy'&&!st){alert('买入必须填止损价（R 记账核心，拦截器第5问）；写不出=这笔不该买');return;}
+  var cmd=(side==='buy'?'买入记录：':'卖出记录：')+n+' '+s+'股 价格'+p+' '+d+(t?' '+t:'')+(side==='buy'?(' 止损'+st):'')+' 标签['+tag+'] 理由：'+rs+'。请落盘 trades.json：算R额与持仓天数'+(side==='sell'?'、匹配买入记录结算盈亏与R倍数':'')+'、更新 holdings.json、打行为标签，纳入 8.14 对账。';
+  document.getElementById('cmd').value=cmd;
+  var a=load(KT);a.unshift({side:side,name:n,price:p,shares:s,date:d,tag:tag});save(KT,a);renderList();
+}
+function renderList(){
+  var a=load(KT),h='';
+  if(!a.length){h='<div class="empty">暂无本地记录（生成记录后自动保存）</div>';}
+  a.forEach(function(x){
+    h+='<table><tr><td><span class="side-'+x.side.slice(0,1)+'">'+(x.side==='buy'?'🟥买':'🟩卖')+'</span> <b>'+x.name+'</b></td><td>'+x.price+' × '+x.shares+'股</td><td>'+x.date+'</td><td>['+x.tag+']</td></tr></table>';
+  });
+  document.getElementById('list').innerHTML=h;
+}
+(function(){
+  var hh=load(KH);
+  var el=document.getElementById('quickSell');
+  if(!hh.length){el.innerHTML='<div class="empty">holdings 档案为空（AI 侧未同步持仓）——直接用①手填</div>';return;}
+  var h='<div class="row">';
+  hh.forEach(function(x){
+    h+='<button class="btn sell" onclick="quickSell(\''+x.name+'\','+x.shares+')">🟩 卖出 '+x.name+'（持仓 '+x.shares+'股）</button>';
+  });
+  el.innerHTML=h+'</div><div class="tip">点按自动填入卖出表单，改一下价格即可提交</div>';
+  window.quickSell=function(name,shares){
+    document.getElementById('f-side').value='sell';
+    document.getElementById('f-name').value=name;
+    document.getElementById('f-shares').value=shares;
+    document.getElementById('f-date').value=(new Date().getMonth()+1)+'/'+new Date().getDate();
+    document.querySelector('.card').scrollIntoView({behavior:'smooth'});
+  };
+})();
+renderList();
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓分析 · 9/9 收盘 · 红灯</title><style>:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#30363d;--txt:#e6edf3;--sub:#8b949e;--up:#ff5b5b;--down:#3fbf7f;--gold:#e3b341;--blue:#58a6ff;}
+*{margin:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC",sans-serif;line-height:1.6;padding:16px;max-width:760px;margin:0 auto;}
+.badge{display:inline-block;background:var(--gold);color:#000;font-weight:700;font-size:12px;padding:3px 10px;border-radius:12px;margin-right:6px;}
+.badge.gray{background:#39414d;color:#c9d1d9;}
+.badge.red{background:#da3633;color:#fff;}
+h1{font-size:21px;margin:10px 0 4px;}
+.meta{color:var(--sub);font-size:12px;margin-bottom:14px;}
+h2{font-size:16px;margin:20px 0 10px;padding-left:10px;border-left:4px solid var(--gold);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;}
+.card.alert{background:linear-gradient(135deg,#3d1518,#161b22);border-color:#6e2b2b;}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;}
+th{color:var(--sub);font-weight:600;text-align:left;padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:7px 8px;border-bottom:1px solid #21262d;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.up{color:var(--up);font-weight:600;}.down{color:var(--down);font-weight:600;}.gold{color:var(--gold);font-weight:600;}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin:2px 3px 2px 0;white-space:nowrap;}
+.tag.red{background:#3d1518;color:#ff7b72;}.tag.green{background:#12261e;color:#4ade80;}.tag.yellow{background:#332a12;color:#e3b341;}.tag.blue{background:#152336;color:#79b8ff;}
+.pl-row{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;margin:5px 0;}
+.pl-row .z{flex:0 0 130px;color:var(--sub);font-size:12px;}.pl-row .p{flex:0 0 112px;font-weight:700;font-size:14px;}.pl-row .c{color:var(--sub);font-size:12px;flex:1;}
+.act{background:rgba(224,86,86,.12);border:1px solid rgba(224,86,86,.5);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:13.5px;}
+.warn{background:#3d1518;border:1px solid #6e2b2b;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13px;}
+.note{color:var(--sub);font-size:12px;margin-top:6px;}
+.disc{margin-top:22px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:11px;color:var(--sub);}
+a{color:var(--blue);text-decoration:none;}
+</style></head><body>
+<span class="badge">AI 生成</span><span class="badge gray">持仓与跟踪</span><span class="badge red">红灯</span>
+<h1>💼 持仓分析 · 9/9 收盘</h1>
+<div class="meta">数据基准：2026-09-09 收盘（悟道 MCP + 行情接口）｜持仓 2 只｜盘后总管 15:40 自动生成</div>
+<div class="card alert"><span class="badge red">🔴 红灯</span> <b>崩盘评估触发（2026-09-09 收盘）</b>
+<div style="font-size:13px;margin-top:6px">昨日涨停 72 家今日保板/晋级率仅约 20%（&gt;60% 走弱）｜跌停 0→7 家｜涨停 72→48 家｜炸板率 36%｜1→2 晋级 18%&lt;20% 漂移线。<br>
+<b>明日（9/10）指令：只减仓不开新仓。</b>翠微股份跌停开盘卖出；黄河旋风减 700 股锁利；空仓资金观望，不抄底不接力。</div></div>
+<h2>💼 持仓收盘全景（R 记账口径 8.17.8）</h2>
+<div class="card"><table>
+<tr><th>持仓</th><th>收盘</th><th>今日</th><th>浮动盈亏</th><th>R 倍数</th><th>持仓天数</th></tr>
+<tr><td><a href="https://stock.quicktiny.cn/quote/600172">黄河旋风</a> 1400股<br><span class="tag blue">计划内</span><span class="tag green">止盈持有</span></td><td>16.93</td><td class="up">+2.61%</td><td class="up">+5,147.8 元（+27.74%）</td><td class="up">+3.07R</td><td>34 交易日</td></tr>
+<tr><td><a href="https://stock.quicktiny.cn/quote/603123">翠微股份</a> 700股<br><span class="tag red">止损破位</span><span class="tag red">跌停</span></td><td>11.05</td><td class="down">-10.02% 跌停</td><td class="down">-518.0 元（-6.28%）</td><td class="down">-1.25R</td><td>3 交易日</td></tr>
+<tr><td colspan="2"><b>组合合计</b></td><td class="down">今日 -259 元</td><td class="up">+4,629.8 元（+17.27%）</td><td colspan="2">市值 31,437 元</td></tr></table>
+<div class="note">R 口径：黄河旋风按追踪止损 14.45 计风险额 1,675.8 元；翠微股份按初始止损 11.20 计风险额 413.0 元（trades.json）。</div></div>
+
+<h2>🔴 翠微股份(603123) · 跌停 11.05 · 双止损全部破位</h2>
+<div class="card alert">
+<div class="pl-row"><span class="z">止损状态</span><span class="p" style="color:#ff7b72">11.79 保本线 ✗</span><span class="c">初始止损 11.20 ✗ · 现价 11.05 跌停封死，今日无法成交</span></div>
+<div class="pl-row"><span class="z">明日指令</span><span class="p" style="color:#ff7b72">开盘竞价卖出 700 股</span><span class="c">预计回收约 7,735 元（以 11.05 为锚，开盘价为准）；若一字跌停排队，继续挂跌停价直至成交</span></div>
+<div class="pl-row"><span class="z">失效条件</span><span class="p">已全部触发</span><span class="c">数字货币主线夭折（楚天龙 -5.62%），无反弹逻辑支撑持有</span></div></div>
+
+<h2>🟡 黄河旋风(600172) · 收 16.93 · +27.74% · 止盈管理</h2>
+<div class="card">
+<div class="pl-row"><span class="z">止盈进度</span><span class="p gold">+20% 二档已过</span><span class="c">三档 +30% = 17.23 元，今日最高 17.24 已触及未站稳</span></div>
+<div class="pl-row"><span class="z">明日指令</span><span class="p" style="color:#e3b341">开盘减 700 股</span><span class="c">约回收 11,851 元锁利；剩余 700 股止损上移至 15.24 元</span></div>
+<div class="pl-row"><span class="z">衰退监测</span><span class="p yellow">1-2 项信号</span><span class="c">金刚石板块今日仅 1 家涨停（国机精工），板块退潮苗头；缩仓观察不追加</span></div>
+<div class="pl-row"><span class="z">清仓线</span><span class="p">15.24 或衰退 3 项</span><span class="c">跌破 15.24 无条件走；板块涨停清零 + 断板 → 清仓</span></div></div>
+
+<h2>🛡 纪律检查（8.17.7 / 8.17.9）</h2>
+<div class="card"><table>
+<tr><th>检查项</th><th>结果</th><th>说明</th></tr>
+<tr><td>连败熔断</td><td class="up">未触发</td><td>今日对账最大连续误判 1 条（阈值 ≥2）</td></tr>
+<tr><td>崩盘评估</td><td class="down">🔴 触发</td><td>昨涨停股 &gt;60% 走弱 → 顶层红灯，明日只减仓不开新仓</td></tr>
+<tr><td>组合热度</td><td class="up">合规</td><td>持仓 2/3 只，分属金刚石/数字货币不同主线</td></tr>
+<tr><td>时间退出</td><td class="down">翠微触发</td><td>短线 3 日未达第一止盈且破止损 → 降级处理=清仓（明日执行）</td></tr>
+<tr><td>日亏熔断</td><td class="up">未触发</td><td>今日组合 -259 元，远低于 2R 阈值</td></tr>
+<tr><td>交易日志</td><td class="gold">0 笔新增</td><td>trades.json 今日无新记录；若今日已卖翠微请补录，AI 回填盈亏与 R</td></tr></table>
+<div class="note">行为标签样本 2/50 笔，积累期（《个人行为报告》50 笔后自动生成）。现有标签：t001 翠微=计划内、t002 黄河=计划内。</div></div>
+<div class='disc'>免责声明：以上内容基于公开数据和量化分析，仅供参考，不构成投资建议。市场有风险，投资需谨慎。任何投资决策应结合个人风险承受能力、资金状况和投资目标独立判断，必要时咨询持牌专业机构。过往表现不预示未来收益。</div></body></html>
