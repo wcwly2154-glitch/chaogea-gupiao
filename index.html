@@ -272,28 +272,93 @@
         +'<div class="t">💼 持仓分析 · 卖点建议 <span class="tag '+(fresh?'new':'hot')+'">'+(ok?fmtHM(hs.time):'未生成')+'</span></div>'
         +'<div class="d" id="holdDesc">'+(ok?(hs.desc||''):'先在下方录入持仓与跟踪池，每日 15:20 自动分析卖点')+'</div>'
         +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可点上方刷新'):'⏳ 等待今日分析')+'</span><span>点卡片任意处看分析卖点 ›</span></div>'
-        +'<div id="holdList" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13px"></div>'
+        +'<div id="holdList" style="margin-top:10px;font-size:13px"></div>'
         +'<a href="holdings.html" style="display:block;margin-top:8px;font-size:12px;color:var(--accent);text-decoration:none">📝 录入 / 编辑持仓与跟踪池 →</a>'
         +'</div>';
-      /* 4) 实时拉取云端持仓（直接读 /api/holdings KV）——保证首页与录入页零信息差 */
-      fetch('/api/holdings?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
-        var list=document.getElementById('holdList');if(!list)return;
-        var h=d&&d.holdings?d.holdings:[], w=d&&d.watch?d.watch:[];
-        var hasH=h.length>0, hasW=w.length>0;
-        if(!hasH&&!hasW){
+      /* 4) 实时拉取云端持仓 + 实时行情（腾讯 qt.gtimg.cn，script 标签加载无跨域问题）→ 富信息卡片 */
+      function codeToMarket(code){
+        if(!code)return '';
+        var c=String(code);
+        if(/^6/.test(c))return 'sh'+c;
+        if(/^[03]/.test(c))return 'sz'+c;
+        if(/^[48]/.test(c))return 'bj'+c;
+        return 'sh'+c;
+      }
+      function fmtPct(v){ if(v==null||isNaN(v))return ''; return (v>=0?'+':'')+Number(v).toFixed(2)+'%'; }
+      function renderHoldList(){
+        var list=document.getElementById('holdList'); if(!list||!window._holdData)return;
+        var h=window._holdData.h||[], w=window._holdData.w||[], Q=window._quotes||{};
+        if(!h.length&&!w.length){
           list.innerHTML='<div style="color:var(--sub);font-size:12px">📭 空仓 · 当前无持仓也无跟踪关注</div>';
           return;
         }
         var html='';
-        if(hasH){
-          html+='<div style="color:var(--gold);font-size:11px;margin-bottom:4px">💼 当前持仓（实时）</div>';
-          h.forEach(function(x){html+='<div style="display:flex;justify-content:space-between;padding:3px 0"><span><b>'+x.name+'</b></span><span style="color:var(--sub)">'+x.shares+'股 · 成本'+x.cost+'</span></div>';});
+        if(h.length){
+          html+='<div style="color:var(--gold);font-size:11px;margin-bottom:2px">💼 当前持仓（实时）</div>';
+          h.forEach(function(x){
+            var mk=codeToMarket(x.code), q=Q[mk]||null;
+            var px=q?q.price:null, chg=q?q.chg:null;
+            var cost=Number(x.avg_cost||x.cost||0), shares=Number(x.shares||0);
+            var stop=x.current_stop?Number(x.current_stop):null;
+            var tgt=x.current_target?Number(x.current_target):null;
+            var pnl=px!=null?(px-cost)*shares:null;
+            var pnlPct=px!=null&&cost?(px-cost)/cost*100:null;
+            var col=function(v){return v>0?'var(--up)':(v<0?'var(--down)':'var(--sub)');};
+            var dStop=px!=null&&stop!=null?((stop-px)/px*100):null;
+            var dTgt=px!=null&&tgt!=null?((tgt-px)/px*100):null;
+            // 重点提示（按优先级）
+            var tip='', tipCol='var(--sub)';
+            if(px!=null&&stop!=null&&px<=stop){tip='🔴 已破止损，无条件走';tipCol='var(--up)';}
+            else if(px!=null&&tgt!=null&&px>=tgt){tip='🟢 到止盈位，考虑减仓';tipCol='var(--down)';}
+            else if(px!=null&&stop!=null&&(px-stop)/px<0.03){tip='🟠 逼近止损，准备撤';tipCol='var(--gold)';}
+            else if(px!=null&&tgt!=null&&(tgt-px)/px<0.03){tip='🟡 接近止盈，留意分批';tipCol='var(--gold)';}
+            html+='<div style="border-top:1px dashed var(--line);padding:7px 0 5px">'
+              +'<div style="display:flex;justify-content:space-between;align-items:baseline">'
+              +'<span><b>'+x.name+'</b> <span style="color:var(--sub);font-size:11px">'+(x.code||'')+'</span></span>'
+              +'<span>'+(px!=null?('<b style="font-size:15px;color:'+col(chg)+'">'+px.toFixed(2)+'</b> <span style="font-size:11px;color:'+col(chg)+'">'+fmtPct(chg)+'</span>'):'<span style="font-size:11px;color:var(--sub)">行情加载中…</span>')+'</span>'
+              +'</div>'
+              +'<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:2px">'
+              +'<span>'+shares+'股 · 成本'+cost.toFixed(3)+'</span>'
+              +'<span style="color:'+col(pnl)+';font-weight:600">'+(pnl!=null?('盈亏 '+((pnl>=0?'+':'')+Math.round(pnl))+'元 ('+fmtPct(pnlPct)+')'):'')+'</span>'
+              +'</div>'
+              +'<div style="display:flex;gap:14px;font-size:11px;margin-top:3px">'
+              +(stop!=null?('<span style="color:var(--sub)">止损 <b style="color:var(--up)">'+stop.toFixed(2)+'</b>'+(dStop!=null?(' <span style="color:var(--sub)">距'+fmtPct(dStop)+'</span>'):'')+'</span>'):'<span style="color:var(--sub)">止损未设</span>')
+              +(tgt!=null?('<span style="color:var(--sub)">止盈 <b style="color:var(--down)">'+tgt.toFixed(2)+'</b>'+(dTgt!=null?(' <span style="color:var(--sub)">距'+fmtPct(dTgt)+'</span>'):'')+'</span>'):'<span style="color:var(--sub)">止盈未设</span>')
+              +'</div>'
+              +(tip?('<div style="font-size:11px;font-weight:600;color:'+tipCol+';margin-top:3px">'+tip+'</div>'):'')
+              +'</div>';
+          });
         }
-        if(hasW){
+        if(w.length){
           html+='<div style="color:var(--sub);font-size:11px;margin:8px 0 4px">👁 跟踪关注（'+w.length+'只）</div>';
           html+='<div style="color:var(--sub);font-size:12px">'+w.map(function(x){return x.name;}).join('、')+'</div>';
         }
         list.innerHTML=html;
+      }
+      window.renderHoldList=renderHoldList;
+      fetch('/api/holdings?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+        var h=d&&d.holdings?d.holdings:[], w=d&&d.watch?d.watch:[];
+        window._holdData={h:h,w:w};
+        window._quotes={};
+        renderHoldList();
+        var codes=h.map(function(x){return codeToMarket(x.code);}).filter(Boolean);
+        if(codes.length){
+          var sc=document.createElement('script');
+          sc.charset='GBK';
+          sc.src='https://qt.gtimg.cn/q='+codes.join(',');
+          sc.onload=function(){
+            h.forEach(function(x){
+              var mk=codeToMarket(x.code); if(!mk)return;
+              var raw=window['v_'+mk]; if(!raw)return;
+              var f=String(raw).split('~');
+              var p=parseFloat(f[3]), c=parseFloat(f[32]);
+              if(!isNaN(p)) window._quotes[mk]={price:p,chg:isNaN(c)?0:c};
+            });
+            renderHoldList();
+          };
+          sc.onerror=function(){ /* 行情失败不影响持仓基础信息显示 */ };
+          document.body.appendChild(sc);
+        }
       }).catch(function(){});
     }
   }).catch(function(){
