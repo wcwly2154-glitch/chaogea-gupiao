@@ -268,12 +268,10 @@
       var ok=hs&&hs.ok!==false;
       var fresh=ok?freshOf(hs,now):false;
       var link=ok&&hs.link?hs.link:'holdings.html';
-      hc.innerHTML='<div class="card">'
-        +'<a href="'+link+'" style="display:block;text-decoration:none;color:inherit">'
+      hc.innerHTML='<div class="card" style="cursor:pointer" data-href="'+link+'" onclick="if(event.target.closest(\'a\'))return;location.href=this.dataset.href">'
         +'<div class="t">💼 持仓分析 · 卖点建议 <span class="tag '+(fresh?'new':'hot')+'">'+(ok?fmtHM(hs.time):'未生成')+'</span></div>'
         +'<div class="d" id="holdDesc">'+(ok?(hs.desc||''):'先在下方录入持仓与跟踪池，每日 15:20 自动分析卖点')+'</div>'
-        +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可点上方刷新'):'⏳ 等待今日分析')+'</span><span>点击看分析卖点 ›</span></div>'
-        +'</a>'
+        +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可点上方刷新'):'⏳ 等待今日分析')+'</span><span>点卡片任意处看分析卖点 ›</span></div>'
         +'<div id="holdList" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13px"></div>'
         +'<a href="holdings.html" style="display:block;margin-top:8px;font-size:12px;color:var(--accent);text-decoration:none">📝 录入 / 编辑持仓与跟踪池 →</a>'
         +'</div>';
