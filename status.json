@@ -52,6 +52,13 @@
       "desc": "退潮分歧期·涨停72→48·方向命中84%·熔断未触发",
       "stale": 0,
       "ok": true
+    },
+    "linkage": {
+      "alerts": [],
+      "checkedAt": "2026-09-11 01:07",
+      "ok": true,
+      "time": "2026-09-11 01:07",
+      "desc": "持仓-交易关联校验✅通过"
     }
   },
   "manualRefresh": {
