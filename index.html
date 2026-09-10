@@ -224,7 +224,9 @@
   fetch('status.json?v='+Date.now()).then(function(r){return r.json()}).then(function(S){
     var now=new Date();
 
-    /* 1) 警示灯 */
+    /* 1) 警示灯（同时把等级传给持仓决策引擎：黄/红灯收紧止损） */
+    window._level=S.level||'green';
+    if(window.renderHoldList)window.renderHoldList();
     var bar=document.getElementById('alarmBar');
     if(bar){
       bar.classList.remove('g','y','r');
@@ -285,33 +287,58 @@
         return 'sh'+c;
       }
       function fmtPct(v){ if(v==null||isNaN(v))return ''; return (v>=0?'+':'')+Number(v).toFixed(2)+'%'; }
+      /* —— 实时计算止损/止盈（框架 8.13：技术位优先 + 成本法兜底 + 信号灯调节）——
+         每次刷新页面都重算，不等每日 15:20 的报告 */
+      function calcLevels(x, px, kl, light){
+        var cost=Number(x.avg_cost||x.cost||0);
+        var isWarn=(light==='yellow'||light==='red');
+        var hard=Math.round(cost*(isWarn?0.95:0.93)*100)/100;
+        var out={stop:hard, target:Math.round(cost*1.10*100)/100,
+                 src:'成本法兜底（无K线）· '+(isWarn?'黄灯-5%':'-7%'), ma5:null, low10:null, high20:null};
+        if(kl&&kl.length>=5){
+          var closes=[], lows=[], highs=[];
+          kl.forEach(function(r){closes.push(parseFloat(r[2]));lows.push(parseFloat(r[4]));highs.push(parseFloat(r[3]));});
+          var last=function(a,n){return a.slice(Math.max(0,a.length-n));};
+          var avg=function(a){return a.reduce(function(s,v){return s+v;},0)/a.length;};
+          var ma5=avg(last(closes,5));
+          var low10=Math.min.apply(null,last(lows,10));
+          var high20=Math.max.apply(null,last(highs,20));
+          out.ma5=ma5; out.low10=low10; out.high20=high20;
+          out.stop=Math.round(Math.max(Math.max(ma5,low10),hard)*100)/100;
+          out.target=Math.round(Math.max(high20,cost*1.10)*100)/100;
+          out.src='实时算 · 5日线'+ma5.toFixed(2)+' / 前低'+low10.toFixed(2)+' / 前高'+high20.toFixed(2)+(isWarn?' · 黄灯收紧止损':'');
+        }
+        return out;
+      }
+      function adviceOf(px,cost,lv){
+        if(px==null)return {t:'',c:'var(--sub)'};
+        if(lv.stop!=null&&px<=lv.stop)return {t:'🔴 已破止损 → 卖出',c:'var(--up)'};
+        if(lv.target!=null&&px>=lv.target)return {t:'🟢 到止盈位 → 减仓',c:'var(--down)'};
+        if(lv.stop!=null&&(px-lv.stop)/px<0.03)return {t:'🟠 逼近止损 → 准备撤',c:'var(--gold)'};
+        if(lv.target!=null&&(lv.target-px)/px<0.03)return {t:'🟡 接近止盈 → 留意分批',c:'var(--gold)'};
+        if(px>cost)return {t:'✅ 持有（浮盈）',c:'var(--sub)'};
+        return {t:'⚠️ 观察（浮亏未破位）',c:'var(--sub)'};
+      }
       function renderHoldList(){
         var list=document.getElementById('holdList'); if(!list||!window._holdData)return;
-        var h=window._holdData.h||[], w=window._holdData.w||[], Q=window._quotes||{};
-        if(!h.length&&!w.length){
-          list.innerHTML='<div style="color:var(--sub);font-size:12px">📭 空仓 · 当前无持仓也无跟踪关注</div>';
-          return;
-        }
+        var h=window._holdData.h||[], w=window._holdData.w||[], Q=window._quotes||{}, K=window._klines||{};
+        var LV=window._level||'green';
+        if(!h.length&&!w.length){list.innerHTML='<div style="color:var(--sub);font-size:12px">📭 空仓 · 当前无持仓也无跟踪关注</div>';return;}
         var html='';
         if(h.length){
-          html+='<div style="color:var(--gold);font-size:11px;margin-bottom:2px">💼 当前持仓（实时）</div>';
+          html+='<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px"><span style="color:var(--gold);font-size:11px">💼 当前持仓（实时）</span><span style="color:var(--sub);font-size:10px">每次刷新重算止损/止盈</span></div>';
           h.forEach(function(x){
             var mk=codeToMarket(x.code), q=Q[mk]||null;
             var px=q?q.price:null, chg=q?q.chg:null;
             var cost=Number(x.avg_cost||x.cost||0), shares=Number(x.shares||0);
-            var stop=x.current_stop?Number(x.current_stop):null;
-            var tgt=x.current_target?Number(x.current_target):null;
+            var lv=calcLevels(x,px,K[mk],LV);
+            var stop=lv.stop, tgt=lv.target;
             var pnl=px!=null?(px-cost)*shares:null;
             var pnlPct=px!=null&&cost?(px-cost)/cost*100:null;
             var col=function(v){return v>0?'var(--up)':(v<0?'var(--down)':'var(--sub)');};
             var dStop=px!=null&&stop!=null?((stop-px)/px*100):null;
             var dTgt=px!=null&&tgt!=null?((tgt-px)/px*100):null;
-            // 重点提示（按优先级）
-            var tip='', tipCol='var(--sub)';
-            if(px!=null&&stop!=null&&px<=stop){tip='🔴 已破止损，无条件走';tipCol='var(--up)';}
-            else if(px!=null&&tgt!=null&&px>=tgt){tip='🟢 到止盈位，考虑减仓';tipCol='var(--down)';}
-            else if(px!=null&&stop!=null&&(px-stop)/px<0.03){tip='🟠 逼近止损，准备撤';tipCol='var(--gold)';}
-            else if(px!=null&&tgt!=null&&(tgt-px)/px<0.03){tip='🟡 接近止盈，留意分批';tipCol='var(--gold)';}
+            var ad=adviceOf(px,cost,lv);
             html+='<div style="border-top:1px dashed var(--line);padding:7px 0 5px">'
               +'<div style="display:flex;justify-content:space-between;align-items:baseline">'
               +'<span><b>'+x.name+'</b> <span style="color:var(--sub);font-size:11px">'+(x.code||'')+'</span></span>'
@@ -322,10 +349,11 @@
               +'<span style="color:'+col(pnl)+';font-weight:600">'+(pnl!=null?('盈亏 '+((pnl>=0?'+':'')+Math.round(pnl))+'元 ('+fmtPct(pnlPct)+')'):'')+'</span>'
               +'</div>'
               +'<div style="display:flex;gap:14px;font-size:11px;margin-top:3px">'
-              +(stop!=null?('<span style="color:var(--sub)">止损 <b style="color:var(--up)">'+stop.toFixed(2)+'</b>'+(dStop!=null?(' <span style="color:var(--sub)">距'+fmtPct(dStop)+'</span>'):'')+'</span>'):'<span style="color:var(--sub)">止损未设</span>')
-              +(tgt!=null?('<span style="color:var(--sub)">止盈 <b style="color:var(--down)">'+tgt.toFixed(2)+'</b>'+(dTgt!=null?(' <span style="color:var(--sub)">距'+fmtPct(dTgt)+'</span>'):'')+'</span>'):'<span style="color:var(--sub)">止盈未设</span>')
+              +(stop!=null?('<span style="color:var(--sub)">止损 <b style="color:var(--up)">'+stop.toFixed(2)+'</b>'+(dStop!=null?(' <span style="color:var(--sub)">距'+fmtPct(dStop)+'</span>'):'')+'</span>'):'')
+              +(tgt!=null?('<span style="color:var(--sub)">止盈 <b style="color:var(--down)">'+tgt.toFixed(2)+'</b>'+(dTgt!=null?(' <span style="color:var(--sub)">距'+fmtPct(dTgt)+'</span>'):'')+'</span>'):'')
               +'</div>'
-              +(tip?('<div style="font-size:11px;font-weight:600;color:'+tipCol+';margin-top:3px">'+tip+'</div>'):'')
+              +(ad.t?('<div style="font-size:11px;font-weight:600;color:'+ad.c+';margin-top:3px">'+ad.t+'</div>'):'')
+              +'<div style="font-size:10px;color:#6b7689;margin-top:2px">'+lv.src+'</div>'
               +'</div>';
           });
         }
@@ -336,29 +364,77 @@
         list.innerHTML=html;
       }
       window.renderHoldList=renderHoldList;
+      /* 盘中自动刷新：页面开着时每 60 秒重拉行情+K线（无需手动刷新页面） */
+      window.refreshQuotes=function(){
+        if(!window._holdData)return;
+        var h=window._holdData.h||[];
+        var codes=h.map(function(x){return codeToMarket(x.code);}).filter(Boolean);
+        if(!codes.length)return;
+        var sc=document.createElement('script');
+        sc.charset='GBK';
+        sc.src='https://qt.gtimg.cn/q='+codes.join(',');
+        sc.onload=function(){
+          h.forEach(function(x){
+            var mk=codeToMarket(x.code); if(!mk)return;
+            var raw=window['v_'+mk]; if(!raw)return;
+            var f=String(raw).split('~');
+            var p=parseFloat(f[3]), c=parseFloat(f[32]);
+            if(!isNaN(p))window._quotes[mk]={price:p,chg:isNaN(c)?0:c};
+          });
+          renderHoldList();
+        };
+        sc.onerror=function(){};
+        document.body.appendChild(sc);
+        codes.forEach(function(mk){
+          fetch('https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param='+mk+',day,,,20,qfq')
+            .then(function(r){return r.json()})
+            .then(function(j){
+              var dd=j&&j.data&&j.data[mk];
+              var arr=dd?(dd.qfqday||dd.day||[]):[];
+              if(arr&&arr.length)window._klines[mk]=arr;
+              renderHoldList();
+            }).catch(function(){});
+        });
+        if(window._autoMsg){
+          var am=document.getElementById('autoMsg');
+          if(am)am.textContent='· 行情自动更新于 '+new Date().toLocaleTimeString('zh-CN');
+        }
+      };
+      /* 每次打开/刷新页面即重新拉取三份最新数据：
+         ① /api/holdings      云端持仓（成本/股数）
+         ② qt.gtimg.cn        实时行情（现价/涨跌幅）script 标签加载（GBK，无跨域）
+         ③ web.ifzq.gtimg.cn  日K线近20日（CORS 通配*，可直连）→ 实时算技术止损/止盈 */
       fetch('/api/holdings?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
         var h=d&&d.holdings?d.holdings:[], w=d&&d.watch?d.watch:[];
-        window._holdData={h:h,w:w};
-        window._quotes={};
+        window._holdData={h:h,w:w}; window._quotes={}; window._klines={};
         renderHoldList();
         var codes=h.map(function(x){return codeToMarket(x.code);}).filter(Boolean);
-        if(codes.length){
-          var sc=document.createElement('script');
-          sc.charset='GBK';
-          sc.src='https://qt.gtimg.cn/q='+codes.join(',');
-          sc.onload=function(){
-            h.forEach(function(x){
-              var mk=codeToMarket(x.code); if(!mk)return;
-              var raw=window['v_'+mk]; if(!raw)return;
-              var f=String(raw).split('~');
-              var p=parseFloat(f[3]), c=parseFloat(f[32]);
-              if(!isNaN(p)) window._quotes[mk]={price:p,chg:isNaN(c)?0:c};
-            });
-            renderHoldList();
-          };
-          sc.onerror=function(){ /* 行情失败不影响持仓基础信息显示 */ };
-          document.body.appendChild(sc);
-        }
+        if(!codes.length)return;
+        var sc=document.createElement('script');
+        sc.charset='GBK';
+        sc.src='https://qt.gtimg.cn/q='+codes.join(',');
+        sc.onload=function(){
+          h.forEach(function(x){
+            var mk=codeToMarket(x.code); if(!mk)return;
+            var raw=window['v_'+mk]; if(!raw)return;
+            var f=String(raw).split('~');
+            var p=parseFloat(f[3]), c=parseFloat(f[32]);
+            if(!isNaN(p))window._quotes[mk]={price:p,chg:isNaN(c)?0:c};
+          });
+          renderHoldList();
+        };
+        sc.onerror=function(){};
+        document.body.appendChild(sc);
+        codes.forEach(function(mk){
+          fetch('https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param='+mk+',day,,,20,qfq')
+            .then(function(r){return r.json()})
+            .then(function(j){
+              var dd=j&&j.data&&j.data[mk];
+              var arr=dd?(dd.qfqday||dd.day||[]):[];
+              if(arr&&arr.length)window._klines[mk]=arr;
+              renderHoldList();
+            }).catch(function(){});
+        });
       }).catch(function(){});
     }
   }).catch(function(){
@@ -371,6 +447,8 @@
     var hc=document.getElementById('holdCard');if(hc)hc.innerHTML='';
   });
   }
+  /* 每 60 秒自动刷新行情（盘中盯盘用） */
+  setInterval(function(){if(window.refreshQuotes)window.refreshQuotes();},60000);
   loadStatus();
 </script>
 </body>
