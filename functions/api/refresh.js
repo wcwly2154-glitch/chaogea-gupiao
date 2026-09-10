@@ -41,3 +41,5 @@ export async function onRequestGet({ request, env }) {
   await env.REFRESH_KV.put('refresh_state', JSON.stringify(state));
   return json({ ok: true, state });
 }
+
+// v2: 首页版块重构后强制 Functions 重新打包（清理旧诊断路由缓存）
