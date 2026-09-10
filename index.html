@@ -18,14 +18,13 @@
   .card{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;text-decoration:none;color:var(--text);transition:transform .1s}
   .card:active{transform:scale(.98);background:var(--card2)}
   .card .t{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
-  .card .d{font-size:12px;color:var(--sub);margin-top:4px}
+  .card .d{font-size:12px;color:var(--sub);margin-top:4px;line-height:1.5}
   .card .meta{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--sub)}
   .tag{font-size:10px;border-radius:4px;padding:1px 6px;font-weight:400}
   .tag.hot{background:rgba(224,86,86,.18);color:var(--up)}
   .tag.new{background:rgba(74,143,231,.18);color:var(--accent)}
   .tag.plan{background:rgba(63,163,114,.18);color:var(--down)}
-  .rhythm{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--sub);line-height:2}
-  .rhythm b{color:var(--text);font-weight:600}
+  .empty{color:var(--sub);font-size:12px;padding:8px 4px}
   /* 全局警示灯横幅 */
   .alarm{display:flex;align-items:center;gap:14px;border-radius:14px;padding:14px 16px;margin-bottom:16px;text-decoration:none;border:2px solid;transition:all .3s}
   .alarm .bulbs{display:flex;gap:8px;flex-shrink:0}
@@ -37,29 +36,27 @@
   .alarm.r{background:rgba(224,86,86,.18);border-color:rgba(224,86,86,.75)}
   .alarm.r .bulb.on-r{background:#e05656;opacity:1;box-shadow:0 0 18px #e05656;animation:blink .6s infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-  .alarm .t1{font-size:16px;font-weight:700;color:var(--text)}
+  .alarm .t1{font-size:16px;font-weight:700;color:var(--text);line-height:1.35}
   .alarm.r .t1{color:#ff8a8a}
   .alarm .t2{font-size:12px;color:var(--sub);margin-top:2px}
   .alarm .go{margin-left:auto;color:var(--sub);font-size:18px;flex-shrink:0}
   .alarm.upd{font-size:10px;color:var(--sub);margin-top:3px}
-  /* 板块数据新鲜度徽标带 */
-  .stampbar{display:flex;gap:6px;flex-wrap:wrap;margin:-6px 0 14px}
-  .stamp{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 10px;font-size:11px;color:var(--sub);text-decoration:none}
-  .stamp b{color:var(--text);font-weight:600}
-  .stamp.fresh{border-color:rgba(63,163,114,.5)}
-  .stamp.fresh b{color:#3fa372}
-  .stamp.stale{opacity:.55;border-style:dashed}
-  .stamp.stale b{color:var(--gold)}
-  .stamp.stale::after{content:"旧";background:rgba(217,164,65,.15);color:var(--gold);border-radius:4px;padding:0 4px;font-size:10px}
+  /* 时间轴分组 */
+  .phase{border-left:2px solid var(--line);padding-left:14px;margin:0 0 4px 6px;position:relative}
+  .phase::before{content:'';position:absolute;left:-5px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .ph-head{display:flex;align-items:baseline;gap:8px;margin:2px 0 10px}
+  .ph-head .nm{font-size:13px;font-weight:600;color:var(--text)}
+  .ph-head .wn{font-size:11px;color:var(--sub)}
   .refreshrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
   .btn1k{flex:1;background:linear-gradient(135deg,#d9a441,#c8912f);color:#000;border:none;border-radius:12px;padding:12px;font-size:15px;font-weight:700;cursor:pointer}
   .btn1k:active{opacity:.8}
   .btnhint{font-size:11px;color:var(--sub);line-height:1.5}
   .footer{margin-top:30px;font-size:11px;color:var(--sub);text-align:center;line-height:1.7;border-top:1px dashed var(--line);padding-top:14px}
+  .tiny{font-size:10px;color:#6b7689;margin-bottom:8px;line-height:1.8}
 </style>
 </head>
 <body>
-  <a class="alarm g" id="alarmBar" href="reports/宏观信号灯_20260908.html">
+  <a class="alarm g" id="alarmBar" href="#">
     <div class="bulbs">
       <div class="bulb" id="b-g"></div>
       <div class="bulb" id="b-y"></div>
@@ -67,110 +64,121 @@
     </div>
     <div style="flex:1">
       <div class="t1" id="alarmText">信号灯加载中…</div>
-      <div class="t2">大局观 · 宏观信号灯 / 崩盘哨兵 · 点击查看详情（点击不跳转）</div>
+      <div class="t2">今日决策一句话 · 点开看信号灯详情</div>
       <div class="upd" id="alarmUpd"></div>
     </div>
     <div class="go">›</div>
   </a>
-  <script>
-  (function(){
-    fetch('status.json?v='+Date.now()).then(function(r){return r.json()}).then(function(s){
-      var bar=document.getElementById('alarmBar');
-      bar.classList.remove('g','y','r');bar.classList.add(s.level==='green'?'g':(s.level==='yellow'?'y':'r'));
-      bar.href=s.link||'reports/宏观信号灯_20260908.html';
-      var g=document.getElementById('b-g'),y=document.getElementById('b-y'),r=document.getElementById('b-r');
-      g.className='bulb'+(s.level==='green'?' on-g':'');
-      y.className='bulb'+(s.level==='yellow'?' on-y':'');
-      r.className='bulb'+(s.level==='red'?' on-r':'');
-      var pre=s.level==='green'?'🟢 绿灯':(s.level==='yellow'?'🟡 黄灯预警':'🔴 红灯警报');
-      document.getElementById('alarmText').textContent=pre+' · '+s.text;
-      document.getElementById('alarmUpd').textContent='更新于 '+s.updated+' · 点击查看完整分析';
-    }).catch(function(){
-      document.getElementById('alarmText').textContent='⚠️ 信号灯状态待更新（今日 08:00 自动生成）';
-    });
-  })();
-  </script>
+
   <div class="refreshrow">
-      <button class="btn1k" id="refreshBtn" onclick="oneKeyRefresh(this)">⚡ 一键刷新全部数据</button>
-      <div class="btnhint" id="refreshHint">点一下 → 本机守护进程收到信号 → 自动重拉数据并重新部署<br>通常 30 秒内本页时间戳全部更新（无需再打开 WorkBuddy）</div>
-    </div>
-    <div class="stampbar" id="stampBar"><span class="stamp">数据时效加载中…</span></div>
+    <button class="btn1k" id="refreshBtn" onclick="oneKeyRefresh(this)">⚡ 一键刷新全部数据</button>
+    <div class="btnhint" id="refreshHint">点一下 → 本机守护进程收到信号 → 自动重拉数据并重新部署<br>通常 30 秒内本页时间戳全部更新</div>
+  </div>
+
   <div class="head">
     <h1>📈 超哥 A 股研究台</h1>
-    <div class="sub">手机随时看 · 每日 4 窗自动更新 · 各板块刷新时间见下方徽标</div>
+    <div class="sub">手机随时看 · 按交易时序组织 · 每日 4 窗自动更新</div>
     <div class="badge" id="topBadge">加载中…</div>
   </div>
 
   <div class="section">
-    <h2>🚧 交易前拦截器（买前 6 问 · AI 当刹车）</h2>
-    <a class="card" href="interceptor.html">
-      <div class="t">🚧 交易前拦截 <span class="tag hot">框架 8.17</span></div>
-      <div class="d">想买一只股票？先过 6 问——证据 A/B/C 分级、利好除以体量、反方拦截，通过才给价位</div>
-      <div class="meta"><span>想买时用 · 拦住冲动交易</span><span>随时可用</span></div>
-    </a>
+    <h2>📅 今日时间轴（按交易时段排列 · 点开看详情）</h2>
+    <div id="timeline"><div class="empty">加载中…</div></div>
   </div>
 
   <div class="section">
-    <h2>💼 持仓与个股跟踪（录入 + 个性化买卖点）</h2>
+    <h2>💼 我的持仓（录入 · 跟踪 · 每日分析）</h2>
     <a class="card" href="holdings.html">
-      <div class="t">💼 持仓 &amp; 👁 跟踪池 <span class="tag hot">+4,840 元</span></div>
-      <div class="d">黄河旋风 +24.6%（追踪止损 15.68）· 翠微保本线 11.79 · 每小时哨兵自动更新</div>
-      <div class="meta"><span>框架 8.16 · 跟踪池 = 持仓 + 关注</span><span>持续更新</span></div>
+      <div class="t">📝 持仓录入 &amp; 跟踪池</div>
+      <div class="d">录入成本与股数，看实时盈亏和个性化买卖点；跟踪池 = 持仓 + 关注</div>
+      <div class="meta"><span>框架 8.16 · 工具</span><span>随时可用</span></div>
+    </a>
+    <div id="holdCard"></div>
+  </div>
+
+  <div class="section">
+    <h2>🚧 买前 6 问（下单前的刹车）</h2>
+    <a class="card" href="interceptor.html">
+      <div class="t">🛑 交易前拦截</div>
+      <div class="d">想买先过 6 问：证据 A/B/C 分级、利好除以体量、反方拦截，通过才给价位</div>
+      <div class="meta"><span>框架 8.17 · 拦住冲动交易</span><span>随时可用</span></div>
     </a>
   </div>
 
   <div class="section">
-    <h2>📓 交易日志（买卖全程记录 · AI 逐步懂你）</h2>
+    <h2>📓 交易日志（买卖全程留痕）</h2>
     <a class="card" href="trades.html">
-      <div class="t">📓 交易日志 <span class="tag hot">R 记账</span></div>
-      <div class="d">每天买卖：何时/什么价/多少股/持仓几天/为何卖——R 额自动算，50 笔后出《个人行为报告》</div>
-      <div class="meta"><span>框架 8.17.9 · 连败熔断数据源</span><span>随时录入</span></div>
+      <div class="t">📓 买卖记录 &amp; R 记账</div>
+      <div class="d">何时 / 什么价 / 多少股 / 为何卖，R 额自动算，也是连败熔断的数据源</div>
+      <div class="meta"><span>框架 8.17.9</span><span>随时录入</span></div>
     </a>
   </div>
 
   <div class="section">
-    <h2>📡 实时板块（各卡自带刷新时间 · 灰色虚线 = 数据较旧/未生成）</h2>
-    <div id="liveCards"><div class="empty">加载中…</div></div>
-  </div>
-
-  <div class="section">
-    <h2>方法论 · 长期有效（不含行情数据，永不过期）</h2>
+    <h2>📖 打法手册（长期有效 · 不随行情变）</h2>
     <a class="card" href="reports/龙头识别与板块持续性_20260906.html">
-      <div class="t">🎯 龙头识别方法论 <span class="tag plan">框架</span></div>
+      <div class="t">🎯 龙头识别 &amp; 板块持续性 <span class="tag plan">方法论</span></div>
       <div class="d">四维判断标准 · 板块持续性四档 · 潜力龙三类 · 跨板块分散</div>
-      <div class="meta"><span>框架文档 · 不随行情变动</span></div>
+      <div class="meta"><span>框架文档 · 永不过期</span></div>
     </a>
     <a class="card" href="reports/选股观察池_20260906.html">
-      <div class="t">📋 三层选股池框架 <span class="tag plan">框架</span></div>
-      <div class="d">核心观察 / 潜力候选 / 淘汰区结构（行情以实时版为准）</div>
-      <div class="meta"><span>框架文档 · 不随行情变动</span></div>
+      <div class="t">📋 三层选股池框架 <span class="tag plan">方法论</span></div>
+      <div class="d">核心观察 / 潜力候选 / 淘汰区的分层结构</div>
+      <div class="meta"><span>框架文档 · 永不过期</span></div>
     </a>
-  </div>
-
-  <div class="section">
-    <h2>⏰ 每日自动更新节奏（交易日）</h2>
-    <div class="rhythm">
-      <b>09:00</b> 盘前总管（宏观信号灯 + 盘前简报，一窗）<br>
-      <b>10:30</b> 盘中预警·上午（衰退 6 维 + 卡位，一窗）<br>
-      <b>13:30</b> 盘中预警·下午（午后资金 + 尾盘强弱 + 次日先手，一窗）<br>
-      <b>15:20</b> 盘后总管（持仓分析 + 价位卡 + 复盘 + 预测明日龙头，一窗）<br>
-      <b>周日 16:00</b> 周度预测复盘（一窗）<br>
-      <b>随时</b> 对话发「一键刷新」→ 手动全量刷新（不开新窗）
-    </div>
   </div>
 
   <div class="footer">
+    <div class="tiny">
+      自动更新节奏：09:00 盘前 · 10:30 盘中 · 13:30 午后 · 15:20 盘后 · 周日 16:00 周复盘<br>
+      随时可点上方「一键刷新」手动全量刷新
+    </div>
     本页面由 WorkBuddy 自动生成与同步 · AI 生成内容<br>
     所有内容仅为研究线索与条件化买卖辅助，不构成投资建议，不承诺收益<br>
     市场有风险，投资需谨慎
   </div>
+
 <script>
-  var SEC_ORDER=['signal','price','holdings','forecast','premarket','intraday','review'];
-  function fmtHM(iso){var d=new Date(iso.replace(/-/g,'/'));if(isNaN(d.getTime()))return '—';return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
+  /* —— 版块显示名（只改首页展示，不动 status.json 与自动化）—— */
+  var RENAME={
+    signal:'🚦 宏观信号灯', premarket:'🌅 盘前简报',
+    intraday:'📡 盘中预警', intraday_pm:'📡 盘中预警·午后',
+    price:'🎯 龙头买点', forecast:'🔮 明日龙头', review:'📋 盘后复盘',
+    holdings:'💼 持仓分析'
+  };
+  /* —— 时间轴分组：按交易时序，消除平铺 7 张卡的混乱 —— */
+  var TIMELINE=[
+    {nm:'盘前', wn:'09:00', keys:['signal','premarket']},
+    {nm:'盘中', wn:'10:30 / 13:30', keys:['intraday','intraday_pm']},
+    {nm:'盘后', wn:'15:20', keys:['price','forecast','review']}
+  ];
+
+  function fmtHM(iso){
+    var d=new Date(iso.replace(/-/g,'/'));
+    if(isNaN(d.getTime()))return '—';
+    return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+  }
+  function freshOf(s,now){
+    if(s.ok===false)return false;
+    var dt=new Date((s.time||'').replace(/-/g,'/'));
+    return !isNaN(dt.getTime()) && ((now-dt)/3600000) <= (s.stale||0);
+  }
+  function cardHTML(k,s,now){
+    var ok=s.ok!==false, fresh=freshOf(s,now), name=RENAME[k]||s.name||k;
+    var h='<a class="card"';
+    if(ok){h+=' href="'+s.link+'"';}else{h+=' style="opacity:.5;pointer-events:none"';}
+    h+='>'
+      +'<div class="t">'+name+' <span class="tag '+(fresh?'new':'hot')+'">'+(ok?fmtHM(s.time):'未生成')+'</span></div>'
+      +'<div class="d">'+(s.desc||'')+'</div>'
+      +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可点上方刷新'):'⏳ 等待今日生成')+'</span>'
+      +'<span>'+(s.time||'').slice(5,16).replace('-','/')+'</span></div>'
+      +'</a>';
+    return h;
+  }
+
   function oneKeyRefresh(btn){
     var hint=document.getElementById('refreshHint');
-    btn.disabled=true;
-    btn.textContent='⏳ 刷新指令已发送…';
+    btn.disabled=true; btn.textContent='⏳ 刷新指令已发送…';
     if(hint)hint.textContent='守护进程接收中，约 30 秒后本页数据自动更新…';
     fetch('/api/refresh',{
       method:'POST',
@@ -194,48 +202,54 @@
       },8000);
     });
   }
+
   fetch('status.json?v='+Date.now()).then(function(r){return r.json()}).then(function(S){
     var now=new Date();
-    /* 警示灯 */
+
+    /* 1) 警示灯 */
     var bar=document.getElementById('alarmBar');
     if(bar){
-      bar.classList.remove('g','y','r');bar.classList.add(S.level==='green'?'g':(S.level==='yellow'?'y':'r'));
-      bar.href=S.link;
+      bar.classList.remove('g','y','r');
+      bar.classList.add(S.level==='green'?'g':(S.level==='yellow'?'y':'r'));
+      bar.href=(S.sections&&S.sections.signal&&S.sections.signal.link)||S.link||'#';
       var bg=document.getElementById('b-g'),by=document.getElementById('b-y'),br=document.getElementById('b-r');
       if(bg)bg.className='bulb'+(S.level==='green'?' on-g':'');
       if(by)by.className='bulb'+(S.level==='yellow'?' on-y':'');
       if(br)br.className='bulb'+(S.level==='red'?' on-r':'');
       var pre=S.level==='green'?'🟢 绿灯':(S.level==='yellow'?'🟡 黄灯预警':'🔴 红灯警报');
-      var at=document.getElementById('alarmText');if(at)at.textContent=pre+' · '+S.text;
-      var au=document.getElementById('alarmUpd');if(au)au.textContent='更新于 '+S.updated+' · 点击查看完整分析';
+      var at=document.getElementById('alarmText'); if(at)at.textContent=pre+' · '+S.text;
+      var au=document.getElementById('alarmUpd'); if(au)au.textContent='更新于 '+S.updated+' · 点击查看完整分析';
     }
     var tb=document.getElementById('topBadge');
     if(tb)tb.textContent=S.updated.slice(5,16).replace('-','/')+' · '+S.text.slice(0,22)+'…';
-    /* 徽标带 + 实时卡区 */
-    var barEl=document.getElementById('stampBar');barEl.innerHTML='';
-    var cards=document.getElementById('liveCards');cards.innerHTML='';
-    SEC_ORDER.forEach(function(k){
-      var s=S.sections[k];if(!s)return;
-      var ok=s.ok!==false;
-      var fresh=true;
-      if(ok){var dt=new Date(s.time.replace(/-/g,'/'));fresh=(!isNaN(dt.getTime()))&&((now-dt)/3600000)<=s.stale;}
-      var el=document.createElement('a');
-      el.className='stamp'+(ok?(fresh?' fresh':' stale'):' stale');
-      if(ok)el.href=s.link;else el.style.pointerEvents='none';
-      el.innerHTML='<b>'+s.name+'</b>'+(ok?fmtHM(s.time):'未生成');
-      barEl.appendChild(el);
-      var c=document.createElement('a');
-      c.className='card'+(ok?'':'');c.style.opacity=ok?1:.5;
-      if(ok)c.href=s.link;else c.style.pointerEvents='none';
-      c.innerHTML='<div class="t">'+s.name+' <span class="tag '+(fresh?'new':'hot')+'">'+(ok?fmtHM(s.time):'未生成')+'</span></div>'
-        +'<div class="d">'+s.desc+'</div>'
-        +'<div class="meta"><span>'+(ok?(fresh?'✅ 数据新鲜':'⏰ 数据较旧 · 可喊 AI 刷新'):'⏳ 等待今日生成')+'</span><span>'+s.time.slice(5,16).replace('-','/')+'</span></div>';
-      cards.appendChild(c);
+
+    /* 2) 时间轴（分组渲染，未匹配的板块归入"其他"保险兜底） */
+    var tl=document.getElementById('timeline'); tl.innerHTML='';
+    var used={};
+    TIMELINE.forEach(function(p){p.keys.forEach(function(k){used[k]=1;});});
+    TIMELINE.forEach(function(p){
+      var keys=p.keys.filter(function(k){return S.sections&&S.sections[k];});
+      if(!keys.length)return;
+      var html='<div class="ph-head"><span class="nm">'+p.nm+'</span><span class="wn">'+p.wn+'</span></div>';
+      keys.forEach(function(k){html+=cardHTML(k,S.sections[k],now);});
+      var d=document.createElement('div'); d.className='phase'; d.innerHTML=html;
+      tl.appendChild(d);
     });
+    var rest=Object.keys(S.sections||{}).filter(function(k){return !used[k]&&k!=='holdings';});
+    if(rest.length){
+      var html='<div class="ph-head"><span class="nm">其他</span><span class="wn">自动归类</span></div>';
+      rest.forEach(function(k){html+=cardHTML(k,S.sections[k],now);});
+      var d2=document.createElement('div'); d2.className='phase'; d2.innerHTML=html;
+      tl.appendChild(d2);
+    }
+
+    /* 3) 持仓分析（集中在"我的持仓"版块，时间轴不再重复展示） */
+    var hc=document.getElementById('holdCard');
+    if(hc&&S.sections&&S.sections.holdings)hc.innerHTML=cardHTML('holdings',S.sections.holdings,now);
   }).catch(function(){
-    var b=document.getElementById('stampBar');
-    if(b)b.innerHTML='<span class="stamp">状态加载失败 · 请刷新重试</span>';
+    var t=document.getElementById('timeline');
+    if(t)t.innerHTML='<div class="empty">状态加载失败 · 请刷新重试</div>';
   });
-  </script>
+</script>
 </body>
 </html>
