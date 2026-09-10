@@ -43,3 +43,5 @@ export async function onRequestGet({ request, env }) {
 }
 
 // v2: 首页版块重构后强制 Functions 重新打包（清理旧诊断路由缓存）
+
+// v2: 首页版块重构后强制 Functions 重新打包（清理旧诊断路由缓存）
