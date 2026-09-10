@@ -51,7 +51,8 @@ a{color:var(--accent);text-decoration:none;}
     <input id="f-shares" placeholder="股数" inputmode="numeric">
   </div>
   <div class="row">
-    <input id="f-stop" placeholder="止损价(买入必填→算R额)" inputmode="decimal">
+    <input id="f-stop" placeholder="止损价(买入必填→算R额)" inputmode="decimal" style="flex:1.5;">
+    <button class="btn" style="flex:0 0 auto;padding:0 10px;font-size:12px;margin:0;" onclick="calcStop()">🧮 算止损(-7%)</button>
     <select id="f-tag">
       <option value="">行为标签</option>
       <option value="计划内">计划内（跟踪池早有）</option>
@@ -62,6 +63,7 @@ a{color:var(--accent);text-decoration:none;}
       <option value="情绪化">情绪化</option>
     </select>
   </div>
+  <div id="stopHint" class="tip" style="display:none"></div>
   <div class="row"><input id="f-reason" placeholder="理由（一句：为什么买/卖）"></div>
   <button class="btn buy" onclick="genCmd('buy')">🟥 生成买入记录</button>
   <button class="btn sell" onclick="genCmd('sell')">🟩 生成卖出记录</button>
@@ -83,6 +85,20 @@ a{color:var(--accent);text-decoration:none;}
 var KT='cg_trades_v1', KH='cg_holdings_v2';
 function load(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}}
 function save(k,a){localStorage.setItem(k,JSON.stringify(a))}
+/* 🧮 算止损：框架 8.13 硬止损 = 成本 -7%（纪律上限）。
+   注意：这只是兜底值——技术位（买入K线低点/5日线/前低）才是第一依据，
+   黄灯期应收紧至 -5%。AI 在每日报告里对重点票会给更准的结构止损位。 */
+function calcStop(){
+  var p=parseFloat(document.getElementById('f-price').value);
+  if(!p||p<=0){alert('先填「成交价」，才能按成本-7%算止损');return;}
+  var st=Math.round(p*0.93*100)/100;
+  document.getElementById('f-stop').value=st.toFixed(2);
+  var sh=parseFloat(document.getElementById('f-shares').value)||0;
+  var r=Math.round((p-st)*sh);
+  var h=document.getElementById('stopHint');
+  h.style.display='block';
+  h.innerHTML='🧮 止损 <b>'+st.toFixed(2)+'</b>（成本-7%）'+(r>0?' · R额 ≈ <b>'+r.toLocaleString()+' 元</b>（最大计划亏损）':'')+'。若知道技术位（买入K线低点/5日线/前低），以更接近的那个为准；黄灯期收紧至 -5%（'+(Math.round(p*0.95*100)/100).toFixed(2)+'）。';
+}
 function genCmd(forcedSide){
   var n=document.getElementById('f-name').value.trim();
   if(!n){alert('名称必填');return;}
