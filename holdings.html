@@ -45,10 +45,13 @@ a{color:var(--accent);text-decoration:none;}
 <body>
 <a class="back" href="index.html">← 返回研究台</a>
 <h1>💼 持仓与个股跟踪</h1>
-<div class="sub">支持加仓/减仓：点持仓旁的「＋加仓」「－减仓」，股数与成本自动重算，一键生成变动指令发 AI</div>
+<div class="sub">支持加仓/减仓：点持仓旁的「＋加仓」「－减仓」，股数与成本自动重算</div>
+<div id="syncTip" class="tip">🔄 任何改动会自动同步到研究台首页（各版块同步，无信息差）</div>
 
 <div class="card">
   <h2>① 录入（选类型后操作）</h2>
+  <div class="sub" style="margin-bottom:8px;">增/改/删都 <b>即时同步</b> 到研究台首页与每日自动化·无需再发 AI</div>
+  <div id="syncTip" class="tip">⏳ 加载云端持仓…</div>
   <div class="tabs">
     <div class="tab on" id="tab-h" onclick="switchTab('h')">💼 持仓（已买入）</div>
     <div class="tab" id="tab-w" onclick="switchTab('w')">👁 跟踪关注（未买/观察）</div>
@@ -63,8 +66,8 @@ a{color:var(--accent);text-decoration:none;}
   <div id="list"></div>
 </div>
 
-<div class="card">
-  <h2>② 发给 AI（两步：复制 → 粘贴到 WorkBuddy 对话发送）</h2>
+<div class="card" style="opacity:.85">
+  <h2>② 兜底：手动发 AI（仅在同步失败时用）</h2>
   <button class="btn gold" onclick="genCmd()">生成指令（含变动明细）</button>
   <button class="btn" onclick="copyCmd(event)">📋 一键复制</button>
   <button class="btn gray" onclick="openWb()">打开 WorkBuddy 对话</button>
@@ -89,7 +92,33 @@ function curKey(){return cur==='h'?KH:KW;}
   }catch(e){}
 })();
 function load(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}}
-function save(k,a){localStorage.setItem(k,JSON.stringify(a))}
+function save(k,a){localStorage.setItem(k,JSON.stringify(a));syncToCloud();}
+/* —— 云端自动同步（2026-09-10 新增：消除录入页与首页/自动化之间的信息差）—— */
+var SYNC_URL='/api/holdings', SECRET_H='chaogea-refresh-2026', _syncT=null;
+function setTip(t){var e=document.getElementById('syncTip');if(e)e.textContent=t;}
+function syncToCloud(){
+  clearTimeout(_syncT);
+  _syncT=setTimeout(function(){
+    setTip('⏳ 同步中…');
+    fetch(SYNC_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({secret:SECRET_H,holdings:load(KH),watch:load(KW)})})
+    .then(function(r){return r.json()})
+    .then(function(d){
+      setTip(d&&d.ok?('✅ 已同步到研究台首页（'+new Date().toLocaleTimeString('zh-CN')+'）'):'⚠️ 同步失败，数据仅存本机');
+    })
+    .catch(function(){setTip('⚠️ 同步失败（仅存本机）——可用下方「生成指令」手动发 AI');});
+  },400);
+}
+function loadCloud(){
+  fetch(SYNC_URL+'?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+    if(!d||!d.holdings)return;
+    if(!load(KH).length&&d.holdings.length){
+      localStorage.setItem(KH,JSON.stringify(d.holdings));
+      localStorage.setItem(KW,JSON.stringify(d.watch||[]));
+      render();setTip('✅ 已从研究台拉取云端持仓');
+    }
+  }).catch(function(){});
+}
 function switchTab(t){cur=t;document.getElementById('tab-h').className='tab'+(t==='h'?' on':'');document.getElementById('tab-w').className='tab'+(t==='w'?' on':'');render();}
 function render(){
   var a=load(curKey()),h='';
@@ -169,6 +198,7 @@ function openWb(){window.open('https://www.workbuddy.cn','_blank');}
   fr.src='reports/持仓分析_'+d.getFullYear()+mm+dd+'.html';
 })();
 render();
+loadCloud();
 </script>
 </body>
 </html>
