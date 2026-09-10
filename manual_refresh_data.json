@@ -1,0 +1,59 @@
+{
+  "fetchedAt": "2026-09-10 22:02",
+  "data": {
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "上涨 955 家，下跌 4512 家，平盘 82 家，强度 32，昨涨停今日均涨 -0.08%"
+        }
+      ],
+      "structuredContent": {
+        "success": true,
+        "data": {
+          "date": "2026-09-10",
+          "riseCount": 955,
+          "fallCount": 4512,
+          "flatCount": 82,
+          "marketTemperature": 32,
+          "marketStrength": 32,
+          "yesterdayLimitUpAvgPcp": -0.00082,
+          "yesterdayLimitUpAvgPct": -0.082,
+          "yesterdayLimitBoardAvgPcp": -0.00445,
+          "yesterdayLimitBoardAvgPct": -0.445,
+          "previousLimitUpCount": 48,
+          "previousLimitDownCount": 7,
+          "previousLimitUpSealRate": 0.64,
+          "limitUpCount": 35,
+          "limitDownCount": 11,
+          "brokenLimitUpCount": 22,
+          "limitUpBrokenRatio": 0.385965,
+          "fieldDefinitions": {
+            "riseCount": "上涨家数，站内市场总览口径。",
+            "fallCount": "下跌家数，站内市场总览口径。",
+            "flatCount": "平盘家数，站内市场总览口径。",
+            "marketTemperature": "兼容字段；当前取站内市场综合强度。",
+            "marketStrength": "站内市场综合强度。",
+            "yesterdayLimitUpAvgPcp": "昨日涨停今日平均涨幅原始存储值，小数比例；给人读请优先用 yesterdayLimitUpAvgPct。",
+            "yesterdayLimitUpAvgPct": "昨日涨停今日平均涨幅，单位%。",
+            "yesterdayLimitBoardAvgPct": "昨日连板今日平均涨幅，单位%。"
+          },
+          "headline": "上涨 955 家，下跌 4512 家，平盘 82 家，强度 32，昨涨停今日均涨 -0.08%",
+          "nextActions": [
+            {
+              "tool": "limit_stats",
+              "reason": "量化涨跌停和封板情绪。"
+            },
+            {
+              "tool": "limit_up_ladder",
+              "reason": "展开涨停梯队和主类题材结构。"
+            }
+          ]
+        }
+      },
+      "isError": false
+    }
+  }
+}
