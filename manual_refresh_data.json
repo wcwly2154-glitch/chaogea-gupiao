@@ -1,31 +1,20 @@
 {
-  "fetchedAt": "2026-09-11 00:38",
+  "fetchedAt": "2026-09-11 10:04",
   "data": {
     "jsonrpc": "2.0",
     "id": 2,
     "error": {
-      "code": -32052,
-      "message": "今日市场概要尚未就绪（requested=2026-09-11）。不会回退为前一交易日数据。",
+      "code": -32030,
+      "message": "服务器算力有限，悟道 MCP 免费版在 09:15-10:30 Asia/Shanghai 期间暂停调用。请在 10:30 后重试，或购买悟道 MCP 额度套餐后立即继续使用：https://stock.quicktiny.cn/membership?tab=apiQuota",
       "data": {
-        "error": "MARKET_SUMMARY_NOT_READY",
-        "statusCode": 425,
-        "tool": "market_overview",
-        "retryable": true,
-        "details": {
-          "requestedDate": "2026-09-11",
-          "availableDate": "2026-09-10",
-          "dateStatus": "not_ready",
-          "reason": "开盘啦市场概要数据获取失败: https://apphwshhq.kaipanhong.com/w1/api/index.php: 市场概要数据日期不匹配: requested=2026-09-11, actual=2026-09-10; https://apphwhq.longhuvip.com/w1/api/index.php: 市场概要数据日期不匹配: requested=2026-09-11, actual=2026-09-10",
-          "qualityWarnings": [
-            "market_summary_not_ready"
-          ],
-          "suggestedTool": "market_overview",
-          "suggestedArgs": {
-            "date": "2026-09-10"
-          },
-          "hint": "开市后重试今日；若要昨收复盘请显式传 date=2026-09-10（勿把昨日数据说成今天）",
-          "retryable": true
-        }
+        "error": "FREE_TIER_MARKET_OPEN_RESTRICTED",
+        "reason": "SERVER_CAPACITY_LIMIT",
+        "retryAfterMs": 1509257,
+        "quotaTier": "free",
+        "blockedWindow": "09:15-10:30 Asia/Shanghai",
+        "availableAfter": "2026-09-11T02:30:00.000Z",
+        "upgradeUrl": "https://stock.quicktiny.cn/membership?tab=apiQuota",
+        "agentHint": "向最终用户明确说明这是悟道 MCP 免费版早盘时段限制；不要反复重试工具。请给出可点击购买链接：[购买悟道 MCP 额度套餐](https://stock.quicktiny.cn/membership?tab=apiQuota)。"
       }
     }
   }
