@@ -160,11 +160,13 @@
     signal:'🚦 宏观信号灯', premarket:'🌅 盘前简报',
     intraday:'📡 盘中预警', intraday_pm:'📡 盘中预警·午后',
     price:'🎯 龙头买点', forecast:'🎯 龙头池与买点', review:'📋 盘后复盘',
-    holdings:'💼 持仓分析', linkage:'🔗 数据血缘诊断'
+    holdings:'💼 持仓分析', linkage:'🔗 数据血缘诊断',
+    intraday_leaders:'🎯 盘中龙头买卖分析'
   };
   /* —— 时间轴分组：按交易时序，消除平铺 7 张卡的混乱 —— */
   var TIMELINE=[
     {nm:'盘前', wn:'09:00', keys:['signal','premarket']},
+    {nm:'盘中龙头', wn:'实时', keys:['intraday_leaders']},
     {nm:'盘中', wn:'10:30 / 13:30', keys:['intraday','intraday_pm']},
     {nm:'盘后', wn:'15:20', keys:['forecast','review']}
   ];
