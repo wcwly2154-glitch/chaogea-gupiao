@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0"><title>持仓分析 2026-09-11 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:18px 15px;max-width:700px;margin:0 auto;font-size:14px;line-height:1.6}
+h1{font-size:19px;margin-bottom:4px}
+.stamp{color:var(--sub);font-size:12px;margin-bottom:12px}
+h2{font-size:15px;margin:22px 0 9px;padding-left:9px;border-left:3px solid var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:10px}
+.nm{font-size:16px;font-weight:700}
+.code{color:var(--sub);font-size:12px;font-family:monospace}
+.f{font-size:12px;line-height:1.8;color:var(--sub);margin-bottom:4px}
+.f .k{color:var(--text);font-weight:600;margin-right:6px}
+.f b{color:var(--gold)}
+.up{color:var(--up)}.down{color:var(--down)}
+.act{font-size:13px;font-weight:700;border-radius:8px;padding:10px 12px;margin-top:8px;line-height:1.8}
+.act.sell{background:rgba(224,86,86,.12);border:1px solid rgba(224,86,86,.5);color:#ff8a8a}
+.act.hold{background:rgba(63,163,114,.12);border:1px solid rgba(63,163,114,.45);color:#7fd4a8}
+.act.warn{background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.45);color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:12px;background:var(--card);border-radius:9px;overflow:hidden;margin-bottom:10px}
+th{color:var(--sub);font-weight:600;text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);font-size:11px}
+td{padding:7px 8px;border-bottom:1px solid #21262d;vertical-align:top}
+tr:last-child td{border-bottom:none}
+.warnbar{background:rgba(224,86,86,.12);border:1px solid rgba(224,86,86,.5);border-radius:10px;padding:11px 13px;font-size:12px;line-height:1.85;margin-bottom:12px}
+.warnbar b{color:#ff8a8a}
+.linkcard{background:rgba(74,143,231,.1);border:1px solid rgba(74,143,231,.4);border-radius:10px;padding:12px;font-size:13px;margin-bottom:12px}
+.disc{font-size:10px;color:#6b7689;line-height:1.7;margin-top:22px;padding-top:12px;border-top:1px dashed var(--line);text-align:center}
+</style></head><body>
+<h1>💼 持仓分析 · 2026-09-11 收盘</h1>
+<div class="stamp">盘后总管生成 · 2026-09-11 15:25 · 本页为<b>当日 AI 深度分析存档（静态快照）</b> · 实时分析入口见下方动态页</div>
+
+<div class="linkcard">📊 <b>实时持仓分析（推荐入口）</b> → <a href="../position.html" style="color:var(--accent);font-weight:700">我的持仓 · 实时分析 position.html</a><br>
+<span style="font-size:11px;color:var(--sub)">每次打开实时读当前持仓 + 实时行情 + 实时算止损止盈（框架 8.13）；本页仅为 2026-09-11 收盘快照，不作为首页入口。</span></div>
+
+<div class="warnbar">
+<b>⚠️ 明日纪律环境：🔴 红（崩盘评估触发 2 条）+ 连败熔断生效（预测连败 3 条）</b><br>
+① 明日（9/14 周一）<b>禁开新仓，只按卖点执行减仓/清仓</b>；② 跌破止损价无条件执行，不抱侥幸；③ 空出的仓位当日不回补。
+</div>
+
+<h2>组合概览（收盘快照）</h2>
+<table>
+<tr><th>标的</th><th>股数</th><th>成本</th><th>收盘</th><th>当日</th><th>浮动盈亏</th><th>R 倍数</th><th>持仓天数</th></tr>
+<tr><td><b>黑猫股份</b> <span class="code">002068</span></td><td>1100</td><td>9.919</td><td>9.68</td><td class="down">-6.02%</td><td class="down">-262.9 元（-2.41%）</td><td class="down">-0.35R</td><td>3 个交易日（9/9 起）</td></tr>
+<tr><td><b>方正科技</b> <span class="code">600601</span></td><td>800</td><td>14.573</td><td>14.83</td><td class="up">+0.07%</td><td class="up">+205.6 元（+1.76%）</td><td class="up">+0.22R</td><td>4 个交易日（9/8 起）</td></tr>
+<tr><td colspan="4"><b>合计</b>：成本 22,569 元 / 市值 22,512 元</td><td colspan="4" class="down"><b>浮动 -57.3 元（-0.25%）· 基本打平</b></td></tr>
+</table>
+<div class="f">R 倍数 = 盈亏 ÷ R 额；R 额 =（买入价-初始止损）× 股数（trades.json t003/t004：黑猫 760 元 / 方正 938.4 元）。</div>
+
+<h2>黑猫股份（002068）· 1100 股</h2>
+<div class="card">
+<div class="f"><span class="k">今日走势</span>10.29 平开后单边下杀，最低 9.27（<b>盘中破 9.48 止损线</b>），尾盘收回 9.68（-6.02%）。日 K 收大阴线。</div>
+<div class="f"><span class="k">技术位</span>止损 9.48（5 日线，今日下移风险）· 买入 K 线低点 9.10 · 前高 11.00（第一止盈）· 今日已收 3 连阴结构</div>
+<div class="f"><span class="k">资金</span>14:37 口径主力净额 +1097.7 万逆势微流入（背离，弱承接）</div>
+<div class="f"><span class="k">时间退出</span>持仓 3 个交易日未达第一止盈 11.00（短线 3 日规则触发）→ <b>降级处理</b></div>
+<div class="act sell">📌 明日指令：以 9.48 为生死线——开盘价低于 9.48 → <b>竞价/开盘清仓 1100 股</b>（约回笼 10,600 元）；守住 9.48 → 持有观察，反弹至 9.90~10.30 区间<b>减半 550 股</b>锁风险。红灯期不加仓、不补仓。</div>
+</div>
+
+<h2>方正科技（600601）· 800 股</h2>
+<div class="card">
+<div class="f"><span class="k">今日走势</span>低开 14.50 后修复，最高 15.09（距第一止盈 15.22 仅 0.9%），收 14.83（+0.07%）。盘中最低 14.28 曾破 5 日线收回。</div>
+<div class="f"><span class="k">技术位</span>止损 13.40（初始）→ 建议上移 <b>14.20</b>（5 日线，保本线 14.57 之上留缓冲）· 第一止盈 15.22（前高）</div>
+<div class="f"><span class="k">资金</span>主力净额 <b>+8055.6 万</b>（全市场前列，逆势正流入）——两只持仓中唯一有真金白银支撑的</div>
+<div class="f"><span class="k">时间退出</span>持仓 4 个交易日未达第一止盈 → 降级提示：若明日冲 15.22 失败且缩量，按纪律减 1/3</div>
+<div class="act hold">📌 明日指令：持有 800 股，止损上移 14.20；到 15.22 <b>减 1/3（约 270 股）</b>落袋；放量过 15.22 则剩余持有看 16.03（前高上方一档）。</div>
+</div>
+
+<h2>交易日志核对（8.17）</h2>
+<div class="f">· 今日（9/11）<b>0 笔新增交易</b>，无追涨/报复性交易。<br>
+· 待补：t002 黄河旋风 9/10 口述清仓的<b>卖出价仍缺</b>，请在 trades.html 补录（影响胜率统计精度）。<br>
+· 组合热度：持仓 2 只 ≤3、无同主线集中 → 合规。<br>
+· 熔断状态：预测对账连续误判 3 条 → <b>连败熔断生效：明日只减仓不开新仓</b>（复盘 1 日）。</div>
+
+<div class="disc">
+本页为 2026-09-11 收盘静态快照（生成于 15:25），持仓以 trades.json/holdings.json 为底账，实时展示入口固定为 position.html。<br>
+本页为研究辅助与纪律框架，不构成投资建议，不承诺收益。市场有风险，投资需谨慎，盈亏自负。
+</div>
+</body></html>
