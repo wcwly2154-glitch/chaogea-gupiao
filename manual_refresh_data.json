@@ -1,21 +1,59 @@
 {
-  "fetchedAt": "2026-09-11 10:05",
+  "fetchedAt": "2026-09-11 11:04",
   "data": {
     "jsonrpc": "2.0",
     "id": 2,
-    "error": {
-      "code": -32030,
-      "message": "服务器算力有限，悟道 MCP 免费版在 09:15-10:30 Asia/Shanghai 期间暂停调用。请在 10:30 后重试，或购买悟道 MCP 额度套餐后立即继续使用：https://stock.quicktiny.cn/membership?tab=apiQuota",
-      "data": {
-        "error": "FREE_TIER_MARKET_OPEN_RESTRICTED",
-        "reason": "SERVER_CAPACITY_LIMIT",
-        "retryAfterMs": 1478650,
-        "quotaTier": "free",
-        "blockedWindow": "09:15-10:30 Asia/Shanghai",
-        "availableAfter": "2026-09-11T02:30:00.000Z",
-        "upgradeUrl": "https://stock.quicktiny.cn/membership?tab=apiQuota",
-        "agentHint": "向最终用户明确说明这是悟道 MCP 免费版早盘时段限制；不要反复重试工具。请给出可点击购买链接：[购买悟道 MCP 额度套餐](https://stock.quicktiny.cn/membership?tab=apiQuota)。"
-      }
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "上涨 363 家，下跌 5168 家，平盘 19 家，强度 23，昨涨停今日均涨 +0.42%"
+        }
+      ],
+      "structuredContent": {
+        "success": true,
+        "data": {
+          "date": "2026-09-11",
+          "riseCount": 363,
+          "fallCount": 5168,
+          "flatCount": 19,
+          "marketTemperature": 23,
+          "marketStrength": 23,
+          "yesterdayLimitUpAvgPcp": 0.00421,
+          "yesterdayLimitUpAvgPct": 0.42100000000000004,
+          "yesterdayLimitBoardAvgPcp": 0.02698,
+          "yesterdayLimitBoardAvgPct": 2.698,
+          "previousLimitUpCount": 35,
+          "previousLimitDownCount": 11,
+          "previousLimitUpSealRate": 0.614035,
+          "limitUpCount": 25,
+          "limitDownCount": 11,
+          "brokenLimitUpCount": 13,
+          "limitUpBrokenRatio": 0.342105,
+          "fieldDefinitions": {
+            "riseCount": "上涨家数，站内市场总览口径。",
+            "fallCount": "下跌家数，站内市场总览口径。",
+            "flatCount": "平盘家数，站内市场总览口径。",
+            "marketTemperature": "兼容字段；当前取站内市场综合强度。",
+            "marketStrength": "站内市场综合强度。",
+            "yesterdayLimitUpAvgPcp": "昨日涨停今日平均涨幅原始存储值，小数比例；给人读请优先用 yesterdayLimitUpAvgPct。",
+            "yesterdayLimitUpAvgPct": "昨日涨停今日平均涨幅，单位%。",
+            "yesterdayLimitBoardAvgPct": "昨日连板今日平均涨幅，单位%。"
+          },
+          "headline": "上涨 363 家，下跌 5168 家，平盘 19 家，强度 23，昨涨停今日均涨 +0.42%",
+          "nextActions": [
+            {
+              "tool": "limit_stats",
+              "reason": "量化涨跌停和封板情绪。"
+            },
+            {
+              "tool": "limit_up_ladder",
+              "reason": "展开涨停梯队和主类题材结构。"
+            }
+          ]
+        }
+      },
+      "isError": false
     }
   }
 }
