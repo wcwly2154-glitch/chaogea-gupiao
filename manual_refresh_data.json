@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-11 10:04",
+  "fetchedAt": "2026-09-11 10:05",
   "data": {
     "jsonrpc": "2.0",
     "id": 2,
@@ -9,7 +9,7 @@
       "data": {
         "error": "FREE_TIER_MARKET_OPEN_RESTRICTED",
         "reason": "SERVER_CAPACITY_LIMIT",
-        "retryAfterMs": 1509257,
+        "retryAfterMs": 1478650,
         "quotaTier": "free",
         "blockedWindow": "09:15-10:30 Asia/Shanghai",
         "availableAfter": "2026-09-11T02:30:00.000Z",
