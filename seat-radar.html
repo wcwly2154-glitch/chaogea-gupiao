@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>席位雷达 v1.6 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);padding:16px;max-width:680px;margin:0 auto;font-size:14px;line-height:1.6;}
+h1{font-size:19px;margin:8px 0 3px;}
+.sub{color:var(--sub);font-size:12px;margin-bottom:12px;}
+.back{display:inline-block;margin-bottom:10px;color:var(--sub);font-size:12px;text-decoration:none;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;}
+h2{font-size:14px;color:var(--sub);font-weight:400;margin-bottom:10px;}
+h3{font-size:13px;color:var(--gold);margin:12px 0 6px;}
+.row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+input,select,textarea{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--text);font-size:14px;outline:none;font-family:inherit;}
+textarea{resize:vertical;font-size:12px;font-family:ui-monospace,Menlo,monospace;}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);}
+label{font-size:11px;color:var(--sub);display:block;margin-bottom:3px;}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;margin:4px 4px 0 0;font-family:inherit;}
+.btn.gold{background:var(--gold);color:#000;}
+.btn.gray{background:#39414d;color:var(--text);}
+.btn:active{opacity:.8;}
+.warn{background:rgba(224,86,86,.12);border:1px solid rgba(224,86,86,.5);border-radius:10px;padding:10px 12px;font-size:12px;color:#ff9a9a;margin-bottom:12px;line-height:1.7;}
+.warn b{color:#ff8a8a;}
+.tip{font-size:11px;color:var(--sub);line-height:1.7;margin-top:7px;}
+.verb{font-size:19px;font-weight:700;padding:10px 14px;border-radius:10px;margin-bottom:10px;text-align:center;}
+.v-ok{background:rgba(224,86,86,.16);border:1px solid rgba(224,86,86,.6);color:#ff8a8a;}
+.v-mid{background:rgba(217,164,65,.14);border:1px solid rgba(217,164,65,.55);color:var(--gold);}
+.v-no{background:rgba(63,163,114,.14);border:1px solid rgba(63,163,114,.55);color:#4fc98a;}
+table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:8px;}
+th,td{border:1px solid var(--line);padding:6px 7px;text-align:left;}
+th{background:var(--card2);color:var(--sub);font-weight:400;white-space:nowrap;}
+td.n{text-align:right;font-variant-numeric:tabular-nums;}
+.g0{color:#ff7a7a;font-weight:600;}
+.g1{color:var(--gold);font-weight:600;}
+.g2{color:#7fb3f0;}
+.g3{color:#c58fe0;}
+.g4{color:#5fc9a8;}
+.g5{color:#e0a03f;}
+.uk{color:var(--sub);}
+.metric{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.mbox{flex:1;min-width:98px;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 10px;}
+.mbox .k{font-size:10.5px;color:var(--sub);}
+.mbox .v{font-size:17px;font-weight:700;margin-top:2px;}
+.mbox .h{font-size:10px;color:var(--sub);margin-top:1px;}
+ul.act{list-style:none;font-size:12.5px;line-height:1.9;}
+ul.act li{padding-left:16px;position:relative;}
+ul.act li::before{content:'→';position:absolute;left:0;color:var(--gold);}
+.gold{color:#8fe0b8;} .dang{color:#ff9a9a;}
+.fold{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.fold summary{padding:10px 12px;background:var(--card2);cursor:pointer;font-size:13px;color:var(--text);}
+.fold .fb{padding:10px 12px;font-size:11.5px;color:var(--sub);line-height:1.8;}
+.empty{color:var(--sub);font-size:12px;padding:14px;text-align:center;}
+.pill{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:2px 9px;font-size:10.5px;color:var(--sub);margin:2px 3px 2px 0;}
+.foot{font-size:11px;color:var(--sub);text-align:center;line-height:1.8;border-top:1px dashed var(--line);padding-top:12px;margin-top:6px;}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← 返回研究台</a>
+<h1>🛰️ 席位雷达 <span style="font-size:12px;color:var(--gold);">v1.6</span></h1>
+<div class="sub">龙虎榜 → 基因分类 / QDR 量化主导度 / LBS 力度档 / 共振矩阵 → 一句话能不能买<br>2026 年打板已死，这是量化时代的席位判活工具（框架 8.26–8.30）</div>
+
+<div class="warn">
+  <b>⚠️ 生态位前提（8.25 · 每次看榜前先读）</b><br>
+  2026 实况：量化占成交 <b>35–42%</b> · 连板高度 <b>7→3.2 板</b> · 连板家数 <b>-69%</b> · 炸板率 <b>68%</b> · 打板隔日溢价 <b>+7.2%→-1.3%</b>。<br>
+  <b>主策略已改为「低吸接力 + 趋势中军波段」，打板降级为非主策略。</b>本页只告诉你「席位结构干不干净」，不鼓励追板。
+</div>
+
+<!-- ============ 模块 1：在线解析器 ============ -->
+<div class="card">
+  <h2>① 席位解析（粘贴龙虎榜 → 直接出判定）</h2>
+  <div class="row">
+    <div style="flex:2;min-width:120px;"><label>股票名称</label><input id="i-name" placeholder="如 光洋股份"></div>
+    <div style="flex:1;min-width:80px;"><label>代码</label><input id="i-code" placeholder="002708"></div>
+    <div style="flex:1;min-width:70px;"><label>连板数</label><input id="i-boards" type="number" placeholder="0" value="0"></div>
+    <div style="flex:1;min-width:80px;"><label>板块涨停家数</label><input id="i-sect" type="number" placeholder="0" value="0"></div>
+  </div>
+  <label>买方前五（每行一条：席位名 买入万元 卖出万元 · 用空格或逗号分隔）</label>
+  <textarea id="i-buy" rows="6" placeholder="国新证券北京分公司 9199 0
+深股通专用 7359 6040
+机构专用 4912 0
+平安证券浙江分公司 3968 3539
+开源证券西安西大街证券营业部 3719 8"></textarea>
+  <label style="margin-top:8px;">卖方前五（可留空，用于看顶级席位是否现身卖方）</label>
+  <textarea id="i-sell" rows="4" placeholder="国泰海通上海长宁区江苏路营业部 531 1925
+机构专用 0 1870"></textarea>
+  <div style="margin-top:6px;">
+    <button class="btn gold" onclick="runAnalyze()">🔍 解析席位</button>
+    <button class="btn gray" onclick="loadDemo()">📥 载入真实样例</button>
+    <button class="btn gray" onclick="loadDanger()">☠️ 高危反例</button>
+    <button class="btn gray" onclick="clearAll()">🗑 清空</button>
+  </div>
+  <div class="tip">金额单位 <b>万元</b>。席位名支持模糊匹配（"拉萨东环路" 也能认出 G5）。数据可来自悟道龙虎榜、东财、同花顺——<b>买五卖五贴进来即可</b>。</div>
+</div>
+
+<div id="result" style="display:none"></div>
+
+<!-- ============ 模块 2：实时行情校验 ============ -->
+<div class="card">
+  <h2>② 实时价校验（判定之后，看它现在站在哪）</h2>
+  <div class="row">
+    <div style="flex:1;min-width:110px;"><label>代码</label><input id="q-code" placeholder="002708"></div>
+    <div style="flex:1;min-width:110px;"><label>你的成本价（可空）</label><input id="q-cost" placeholder="15.58" inputmode="decimal"></div>
+    <div style="flex:0;min-width:80px;display:flex;align-items:flex-end;">
+      <button class="btn" onclick="doQuote()" style="margin-bottom:0;width:100%;">📡 查价</button>
+    </div>
+  </div>
+  <div id="q-out" class="tip">填入代码后点查价，实时算 8.13 止损位（-7%）与止盈三档。</div>
+</div>
+
+<!-- ============ 模块 3：席位流水 ============ -->
+<div class="card">
+  <h2>③ 席位流水（盘后自动落盘 · seat_log.json）</h2>
+  <div id="log-box"><div class="empty">加载中…</div></div>
+  <div class="tip">盘后总管每个交易日 15:20 自动追加当天龙虎榜解析结果。没有数据说明当日未触发或未上榜。</div>
+</div>
+
+<!-- ============ 模块 4：规则速查 ============ -->
+<div class="card" style="padding:8px;">
+  <h2 style="padding:8px 8px 4px;">④ v1.6 规则速查</h2>
+
+  <details class="fold">
+    <summary>🧬 席位基因库 G0–G5（点开）</summary>
+    <div class="fb" id="gene-box">加载中…</div>
+  </details>
+
+  <details class="fold">
+    <summary>📊 LBS 力度三档（实证次日上涨概率）</summary>
+    <div class="fb">
+      <table><tr><th>档</th><th>条件</th><th>次日上涨</th></tr>
+      <tr><td><b class="g1">A</b></td><td>买一 + 净买 ≥5000万 + 无卖出 + G1/G2 基因</td><td class="n"><b style="color:var(--up)">60.9%</b></td></tr>
+      <tr><td><b class="g2">B</b></td><td>买入 2000–5000万 且为主观顶级/一线</td><td class="n">50.3%</td></tr>
+      <tr><td><b class="uk">C</b></td><td>&lt;2000万 或有做 T</td><td class="n" style="color:var(--down)">43.7%</td></tr></table>
+      <div style="margin-top:6px;">样本 319 次。<b>只有 A 档能进「已确认龙头」</b>，B 档进候选，C 档不入池。</div>
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>🤖 QDR 量化主导度（最关键的一票否决）</summary>
+    <div class="fb">
+      QDR = <b>真量化买入额 ÷ 买方前五总额</b><br>
+      <table><tr><th>区间</th><th>含义与动作</th></tr>
+      <tr><td><b class="dang">≥50%</b></td><td>量化高度控盘。持筹者 <b>次日 9:25–9:33 坚决择高止盈</b>；场外严禁开盘追高；不进候选池</td></tr>
+      <tr><td><b class="gold">30–50%</b></td><td>信心 −0.15，不进候选池主位，仅作观察</td></tr>
+      <tr><td><b class="gold">&lt;30%</b></td><td>洁净，纯主观资金，正常评级</td></tr></table>
+      <div style="margin-top:6px;color:#ff9a9a;"><b>⚠️ 计算口径（易错）：分子不含「机构专用 / 深股通 / 沪股通 / 国泰海通总部」——它们是趋势资金，不是隔日砸盘机器。</b></div>
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>📉 板位衰减律（8.29）</summary>
+    <div class="fb">
+      <table><tr><th>板位</th><th>次日涨停率</th><th>规则</th></tr>
+      <tr><td>首板 / 二板</td><td class="n" style="color:var(--up)"><b>35.7%</b></td><td>允许试错仓</td></tr>
+      <tr><td><b>≥3 板</b></td><td class="n" style="color:var(--down)"><b>16.8%</b></td><td><b class="dang">禁止新开仓</b></td></tr></table>
+      <div style="margin-top:6px;">10:30 前封板较尾盘封板次日涨停概率 <b>+42%</b>。二波第 3 板 → 开盘前强制减仓 50%（8.13.4）。</div>
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>⚡ 共振矩阵（黄金 3 组 / 高危 5 组）</summary>
+    <div class="fb">
+      <b style="color:#8fe0b8;">🟢 黄金（可加码至常规仓位上限）</b><br>
+      ① G1 主观顶级 + G4 机构/北向共振<br>② G2 低位挖掘 + G4 机构共振（可持 3–8 日波段）<br>③ LBS-A 档买一 + 板块涨停 ≥3 家<br><br>
+      <b style="color:#ff9a9a;">🔴 高危（一票否决）</b><br>
+      ① G5 拉萨 + G3 量化同框<br>② G1 顶级 + 拉萨高位同框<br>③ 拉萨占买方 ≥40%<br>④ G0 黑名单现身<br>⑤ 量化独买 QDR ≥50%
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>⏱️ 跟随顶级席位纪律（8.13.6）</summary>
+    <div class="fb">
+      陈小群席位实证：次日 <b style="color:var(--up)">+4%</b>，但 <b style="color:var(--down)">60 日 −13%</b>。<br>
+      → <b>跟随上限 3 个交易日</b>，第 3 日无条件处理；席位一旦现身卖方或做 T → 立即减仓 ≥50%；<b>禁止以「大佬还在」穿越分歧期</b>。
+    </div>
+  </details>
+</div>
+
+<div class="foot">
+  本页判定基于 2026 年公开龙虎榜实证统计，是<b>概率工具不是预测</b>——它只提高你的胜率，不保证单笔结果。<br>
+  所有内容仅为研究辅助，不构成投资建议，不承诺收益。市场有风险，投资需谨慎。
+</div>
+
+<script>
+/* ---------------- 席位库 ---------------- */
+var LIB=null, IDX={};
+fetch('seats.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+  LIB=d; buildIdx(); renderGenes();
+}).catch(function(e){
+  document.getElementById('gene-box').innerHTML='<span style="color:#ff9a9a">席位库加载失败：'+e+'</span>';
+});
+
+function buildIdx(){
+  IDX={};
+  var gs=(LIB&&LIB.genes)||{};
+  Object.keys(gs).forEach(function(gk){
+    var g=gs[gk];
+    (g.seats||[]).forEach(function(s){
+      IDX[s.name]={gene:gk,code:g.code,label:g.label,weight:g.weight,
+                   who:s.who||'',tags:s.tags||[],note:s.note||'',
+                   is_quant:(s.is_quant!==undefined)?!!s.is_quant:(gk==='QUANT_1DAY')};
+    });
+  });
+}
+function matchSeat(n){
+  if(!n)return null;
+  var k=String(n).trim();
+  if(IDX[k])return IDX[k];
+  var kc=k.replace(/\s/g,'');
+  var keys=Object.keys(IDX);
+  for(var i=0;i<keys.length;i++){ if(keys[i].replace(/\s/g,'')===kc) return IDX[keys[i]]; }
+  var best=null,bl=0;
+  for(var j=0;j<keys.length;j++){
+    var c=keys[j].replace(/\s/g,'');
+    if((kc.indexOf(c)>=0||c.indexOf(kc)>=0)&&c.length>bl){best=IDX[keys[j]];bl=c.length;}
+  }
+  return best;
+}
+
+/* ---------------- 解析 ---------------- */
+function parseSide(txt){
+  var out=[],lines=txt.split('\n');
+  for(var i=0;i<lines.length;i++){
+    var ln=lines[i].trim(); if(!ln)continue;
+    var parts=ln.split(/[\s,，\t]+/).filter(function(x){return x!=='';});
+    if(parts.length<2)continue;
+    var buy=parseFloat(parts[parts.length-2])||0;
+    var sell=parseFloat(parts[parts.length-1])||0;
+    var seat=parts.slice(0,parts.length-2).join(' ');
+    if(!seat)continue;
+    out.push({seat:seat,buy:buy*10000,sell:sell*10000});   // 输入万元 → 元
+  }
+  return out.slice(0,5);
+}
+
+function analyze(rec){
+  var qdrRules=(LIB&&LIB.qdr_rules)||{}, lbsRules=(LIB&&LIB.lbs_rules)||{};
+  var buy=(rec.buy||[]).slice(0,5), sell=(rec.sell||[]).slice(0,5);
+  var tb=[],ts=[];
+  buy.forEach(function(r,i){
+    var m=matchSeat(r.seat);
+    tb.push({rank:i+1,seat:r.seat,buy:r.buy,sell:r.sell,net:r.buy-r.sell,
+             gene:m?m.gene:'UNKNOWN',code:m?m.code:'?',who:m?m.who:'',
+             weight:m?m.weight:0,note:m?m.note:'',is_quant:m?m.is_quant:false});
+  });
+  sell.forEach(function(r,i){
+    var m=matchSeat(r.seat);
+    ts.push({rank:i+1,seat:r.seat,buy:r.buy,sell:r.sell,net:r.buy-r.sell,
+             gene:m?m.gene:'UNKNOWN',code:m?m.code:'?',who:m?m.who:''});
+  });
+  var totalBuy=0; tb.forEach(function(x){totalBuy+=x.buy;}); if(!totalBuy)totalBuy=1;
+  var totalSell=0; ts.forEach(function(x){totalSell+=x.sell;});
+
+  // QDR：只算真量化
+  var qb=0; tb.forEach(function(x){ if(x.is_quant)qb+=x.buy; });
+  var qdr=Math.round(qb/totalBuy*1000)/10;
+  var qdrLevel = qdr>=50?'EXTREME':(qdr>=30?'HIGH':'CLEAN');
+
+  // 拉萨
+  var lb=0,lc=0; tb.forEach(function(x){ if(x.gene==='RETAIL_LHASA'){lb+=x.buy;lc++;} });
+  var lhasaRatio=Math.round(lb/totalBuy*1000)/10;
+
+  // 黑名单
+  var black=tb.filter(function(x){return x.gene==='BLACKLIST';});
+
+  // LBS
+  var top=tb[0]||null, lbs='N/A', lbsProb='';
+  if(top){
+    if(top.net>=50000000 && top.sell<=0 && (top.gene==='SUBJECTIVE_TOP'||top.gene==='SUBJECTIVE_ACTIVE')) lbs='A';
+    else if(top.buy>=20000000 && top.buy<50000000 && (top.gene==='SUBJECTIVE_TOP'||top.gene==='SUBJECTIVE_ACTIVE')) lbs='B';
+    else lbs='C';
+    var cfg=lbsRules[lbs]||{};
+    lbsProb=cfg.next_day_up||(lbs==='A'?'60.9%':(lbs==='B'?'50.3%':(lbs==='C'?'43.7%':'')));
+  }
+
+  // 共振
+  var gp={}; tb.forEach(function(x){gp[x.gene]=1;});
+  var golden=[],danger=[];
+  if(gp['SUBJECTIVE_TOP']&&gp['FOREIGN_INST']) golden.push('G1 主观顶级 + G4 机构/北向共振 —— 最高容错组合，可加码至常规仓位上限');
+  if(gp['SUBJECTIVE_ACTIVE']&&gp['FOREIGN_INST']) golden.push('G2 低位挖掘 + G4 机构共振 —— 中线埋伏，可持 3–8 日走波段止盈');
+  if(lbs==='A'&&(rec.sector_limitup||0)>=3) golden.push('LBS-A 档买一 + 板块涨停 ≥3 家 —— 次日盘前第一优先');
+  if(lc>=2&&gp['QUANT_1DAY']) danger.push('G5 拉萨 + G3 量化同框 —— 跟风盘叠加隔日砸盘，次日极易大幅低开【一票否决】');
+  if(lhasaRatio>=40) danger.push('拉萨占买方前五 '+lhasaRatio+'%（≥40%）—— 伪强势，剔除候选池');
+  if(qdr>=50) danger.push('QDR '+qdr+'% 量化高度控盘 —— 次日下跌概率 >70%，严禁追高');
+  if(black.length) danger.push('黑名单核按钮席位现身买方：'+black.map(function(x){return x.who||x.seat;}).join('、')+' —— 次日砸盘概率 >70%');
+  if(gp['SUBJECTIVE_TOP']&&lc>=2) danger.push('顶级游资 + 拉萨高位同框 —— 短期见顶，持仓者次日减仓 ≥50%');
+
+  // 板位
+  var boards=parseInt(rec.boards,10); if(isNaN(boards))boards=0;
+  var boardBan=false, boardNote='';
+  if(boards>=3){boardBan=true;boardNote='当前 '+boards+' 板（≥3）—— 次日涨停率由 35.7% 骤降至 16.8%，【禁止新开仓】';}
+  else if(boards>=1){boardNote='当前 '+boards+' 板（首板/二板区间）—— 次日涨停率 35.7%，允许试错仓';}
+  else{boardNote='非连板标的，按趋势/低吸逻辑处理';}
+
+  // 置信调整（金额加权）
+  var delta=0;
+  var wsum=0; tb.forEach(function(x){wsum+=x.weight*x.buy;});
+  delta+=wsum/totalBuy;
+  if(qdr>=50)delta-=0.25; else if(qdr>=30)delta-=0.15;
+  if(lhasaRatio>=40)delta-=0.20; else if(lc>=2)delta-=0.10;
+  if(black.length)delta-=0.30;
+  if(boardBan)delta-=0.20;
+  delta=Math.round(Math.max(-0.60,Math.min(0.35,delta))*1000)/1000;
+
+  // 判定
+  var verdict,vclass;
+  if(boardBan||black.length||(lhasaRatio>=40&&!golden.length)||(qdr>=50&&!golden.length)){verdict='❌ 禁入';vclass='v-no';}
+  else if(qdr>=50&&golden.length){verdict='⚠️ 谨慎（仅隔日短线，禁追高/禁加仓）';vclass='v-mid';}
+  else if(danger.length||qdr>=30||delta<=-0.15){verdict='⚠️ 谨慎（试错仓 ≤10%）';vclass='v-mid';}
+  else if(golden.length&&(delta>0.05||lbs==='A')){verdict='✅ 可进候选池';vclass='v-ok';}
+  else if(delta>0){verdict='🔵 观察';vclass='v-mid';}
+  else{verdict='⚪ 无信号';vclass='v-no';}
+
+  // 操作
+  var acts=[];
+  if(black.length) acts.push('黑名单席位在场：当日不进池；已持仓 → 次日开盘前减仓 ≥50%');
+  if(qdr>=50&&golden.length) acts.push('QDR ≥50% 但命中黄金组合：只做【隔日短线】——次日 9:25–9:33 坚决择高止盈，禁追高禁加仓，仓位 ≤10%');
+  else if(qdr>=50) acts.push('QDR ≥50%：持筹者次日 9:25–9:33 坚决择高止盈，场外严禁开盘追高');
+  else if(qdr>=30) acts.push('QDR 30–50%：量化参与度高，冲高分批止盈，不留隔夜重仓');
+  if(lhasaRatio>=40) acts.push('拉萨占买方 ≥40%：无人接力，剔除候选池');
+  if(boardBan) acts.push('≥3 板：禁止新开仓；已持仓按 8.13.4 二波三板魔咒处理（开盘前强制减半）');
+  if(golden.length) acts.push('命中黄金组合：可加码至常规仓位上限，止损按 8.13 硬止损 −7%');
+  if(lbs==='A') acts.push('LBS-A 档：列入次日盘前最高优先级观察清单');
+  else if(lbs==='C') acts.push('LBS-C 档（43.7%）：不入池，仅作流动性参考');
+  if(!acts.length) acts.push('无特殊信号，按常规 8.12 雷达 + 8.13 价区间处理');
+
+  return {rec:rec,verdict:verdict,vclass:vclass,delta:delta,qdr:qdr,qdrLevel:qdrLevel,
+          lbs:lbs,lbsProb:lbsProb,topSeat:top?top.seat:'',topWho:top?top.who:'',
+          lhasa:{count:lc,ratio:lhasaRatio},black:black,golden:golden,danger:danger,
+          boardNote:boardNote,boardBan:boardBan,tb:tb,ts:ts,
+          totalBuy:totalBuy,totalSell:totalSell,acts:acts};
+}
+
+function gcls(g){return ({SUBJECTIVE_TOP:'g1',SUBJECTIVE_ACTIVE:'g2',QUANT_1DAY:'g3',FOREIGN_INST:'g4',RETAIL_LHASA:'g5',BLACKLIST:'g0'})[g]||'uk';}
+function gname(g){return ({SUBJECTIVE_TOP:'G1 主观顶级',SUBJECTIVE_ACTIVE:'G2 一线活跃',QUANT_1DAY:'G3 量化一日游',FOREIGN_INST:'G4 外资机构',RETAIL_LHASA:'G5 拉萨散户',BLACKLIST:'G0 黑名单',UNKNOWN:'未识别'})[g]||g;}
+function yi(v){return (v/1e8).toFixed(2)+'亿';}
+function wan(v){return (v/1e4).toFixed(0)+'万';}
+
+function render(R){
+  var box=document.getElementById('result'); box.style.display='';
+  var h='<div class="card">';
+  h+='<h2>解析结果 · '+(R.rec.name||'')+(R.rec.code?'('+R.rec.code+')':'')+'</h2>';
+  h+='<div class="verb '+R.vclass+'">'+R.verdict+'　信心调整 '+(R.delta>=0?'+':'')+R.delta+'</div>';
+  h+='<div class="metric">';
+  h+='<div class="mbox"><div class="k">QDR 量化主导度</div><div class="v" style="color:'+(R.qdr>=50?'var(--down)':(R.qdr>=30?'var(--gold)':'var(--up)'))+'">'+R.qdr+'%</div><div class="h">'+R.qdrLevel+'</div></div>';
+  h+='<div class="mbox"><div class="k">LBS 力度档</div><div class="v" style="color:'+(R.lbs==='A'?'var(--up)':(R.lbs==='B'?'var(--gold)':'var(--sub)'))+'">'+R.lbs+'</div><div class="h">次日上涨 '+(R.lbsProb||'—')+'</div></div>';
+  h+='<div class="mbox"><div class="k">拉萨占比</div><div class="v" style="color:'+(R.lhasa.ratio>=40?'var(--down)':'var(--text)')+'">'+R.lhasa.ratio+'%</div><div class="h">'+R.lhasa.count+'/5 席</div></div>';
+  h+='<div class="mbox"><div class="k">净买（买五−卖五）</div><div class="v">'+yi(R.totalBuy-R.totalSell)+'</div><div class="h">买'+yi(R.totalBuy)+' / 卖'+yi(R.totalSell)+'</div></div>';
+  h+='</div>';
+
+  h+='<h3>买方前五逐席</h3><table><tr><th>#</th><th>席位</th><th>基因</th><th class="n">买</th><th class="n">卖</th><th class="n">净</th></tr>';
+  R.tb.forEach(function(x){
+    h+='<tr><td>'+x.rank+'</td><td>'+x.seat+(x.who?'<br><span style="font-size:10px;color:var(--sub)">'+x.who+'</span>':'')+'</td>'
+      +'<td class="'+gcls(x.gene)+'">'+gname(x.gene)+'</td><td class="n">'+wan(x.buy)+'</td><td class="n">'+wan(x.sell)+'</td><td class="n">'+wan(x.net)+'</td></tr>';
+  });
+  h+='</table>';
+  if(R.ts.length){
+    h+='<h3>卖方前五（看谁在跑）</h3><table><tr><th>#</th><th>席位</th><th>基因</th><th class="n">卖</th></tr>';
+    R.ts.forEach(function(x){
+      h+='<tr><td>'+x.rank+'</td><td>'+x.seat+(x.who?'<br><span style="font-size:10px;color:var(--sub)">'+x.who+'</span>':'')+'</td>'
+        +'<td class="'+gcls(x.gene)+'">'+gname(x.gene)+'</td><td class="n">'+wan(x.sell)+'</td></tr>';
+    });
+    h+='</table>';
+  }
+
+  if(R.golden.length){h+='<h3 class="gold">🟢 黄金组合</h3><ul class="act">';R.golden.forEach(function(g){h+='<li>'+g+'</li>';});h+='</ul>';}
+  if(R.danger.length){h+='<h3 class="dang">🔴 高危组合</h3><ul class="act">';R.danger.forEach(function(g){h+='<li>'+g+'</li>';});h+='</ul>';}
+  h+='<h3>📊 板位</h3><div class="tip" style="margin-top:0">'+R.boardNote+'</div>';
+  h+='<h3>🎬 操作建议</h3><ul class="act">';R.acts.forEach(function(a){h+='<li>'+a+'</li>';});h+='</ul>';
+  h+='</div>';
+  box.innerHTML=h;
+}
+
+function runAnalyze(){
+  if(!LIB){alert('席位库还在加载，请稍等 1 秒再点');return;}
+  var rec={name:document.getElementById('i-name').value.trim(),
+           code:document.getElementById('i-code').value.trim(),
+           boards:document.getElementById('i-boards').value,
+           sector_limitup:document.getElementById('i-sect').value,
+           buy:parseSide(document.getElementById('i-buy').value),
+           sell:parseSide(document.getElementById('i-sell').value)};
+  if(!rec.buy.length){alert('至少填一条买方席位');return;}
+  var R=analyze(rec); render(R);
+  document.getElementById('q-code').value=rec.code||'';
+  window.scrollTo({top:document.getElementById('result').offsetTop-10,behavior:'smooth'});
+}
+function loadDemo(){
+  document.getElementById('i-name').value='光洋股份';
+  document.getElementById('i-code').value='002708';
+  document.getElementById('i-boards').value='1';
+  document.getElementById('i-sect').value='4';
+  document.getElementById('i-buy').value='国新证券北京分公司 9199 0\n深股通专用 7359 6040\n机构专用 4912 0\n平安证券浙江分公司 3968 3539\n开源证券西安西大街证券营业部 3719 8';
+  document.getElementById('i-sell').value='深股通专用 7359 6040\n平安证券浙江分公司 3968 3539\n机构专用 2517 2418\n国泰海通上海长宁区江苏路营业部 531 1925\n机构专用 0 1870';
+}
+function loadDanger(){
+  document.getElementById('i-name').value='某高位三板票';
+  document.getElementById('i-code').value='300999';
+  document.getElementById('i-boards').value='3';
+  document.getElementById('i-sect').value='8';
+  document.getElementById('i-buy').value='东方财富证券拉萨东环路第二 3028 23\n开源证券西安太华路证券营业部 2800 0\n华鑫证券上海分公司 2100 0\n东方财富证券拉萨团结路第一 1900 0\n某不知名营业部 1500 0';
+  document.getElementById('i-sell').value='机构专用 0 3000';
+}
+function clearAll(){
+  ['i-name','i-code','i-buy','i-sell'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('i-boards').value='0';document.getElementById('i-sect').value='0';
+  document.getElementById('result').style.display='none';
+}
+
+/* ---------------- 基因库渲染 ---------------- */
+function renderGenes(){
+  var gs=(LIB&&LIB.genes)||{}, h='<table><tr><th>基因</th><th>权重</th><th>代表席位</th></tr>';
+  var order=['BLACKLIST','SUBJECTIVE_TOP','SUBJECTIVE_ACTIVE','QUANT_1DAY','FOREIGN_INST','RETAIL_LHASA'];
+  order.forEach(function(gk){
+    var g=gs[gk]; if(!g)return;
+    var names=(g.seats||[]).slice(0,3).map(function(s){return s.who||s.name;}).join('、');
+    h+='<tr><td class="'+gcls(gk)+'">'+g.code+' '+g.label+'</td><td class="n">'+(g.weight>0?'+':'')+g.weight+'</td><td>'+names+((g.seats||[]).length>3?' 等'+g.seats.length+'席':'')+'</td></tr>';
+  });
+  h+='</table><div style="margin-top:6px">共 '+Object.keys(IDX).length+' 个席位入库（seats.json v'+((LIB&&LIB._meta&&LIB._meta.version)||'2.0')+'）</div>';
+  document.getElementById('gene-box').innerHTML=h;
+}
+
+/* ---------------- 实时行情（腾讯） ---------------- */
+function mkOf(c){
+  c=String(c).trim();
+  if(/^(60|68|11|51|58|50|56|5)/.test(c))return 'sh'+c;
+  if(/^(00|30|12|15|16|18)/.test(c))return 'sz'+c;
+  if(/^(8|4|92)/.test(c))return 'bj'+c;
+  return 'sz'+c;
+}
+function doQuote(){
+  var c=document.getElementById('q-code').value.trim();
+  if(!c){alert('填代码');return;}
+  var out=document.getElementById('q-out'); out.innerHTML='加载中…';
+  var s=document.createElement('script');
+  s.src='https://qt.gtimg.cn/q='+mkOf(c);
+  s.charset='GBK';
+  s.onerror=function(){out.innerHTML='<span style="color:#ff9a9a">行情拉取失败，请检查网络</span>';};
+  window['__q']=function(){};
+  s.onload=function(){
+    try{
+      var v=window['v_'+mkOf(c)];
+      if(!v){out.innerHTML='<span style="color:#ff9a9a">无此代码行情</span>';return;}
+      var p=v.split('~');
+      var name=p[1],px=parseFloat(p[3]),chg=parseFloat(p[32]);
+      var cost=parseFloat(document.getElementById('q-cost').value)||null;
+      var stop=(cost||px)*0.93, s1=(cost||px)*1.08, s2=(cost||px)*1.20, s3=(cost||px)*1.30;
+      var h='<table><tr><th>名称</th><th class="n">现价</th><th class="n">涨跌</th>'+(cost?'<th class="n">浮动</th>':'')+'</tr>';
+      h+='<tr><td>'+name+'</td><td class="n"><b>'+px.toFixed(2)+'</b></td><td class="n" style="color:'+(chg>=0?'var(--up)':'var(--down)')+'">'+(chg>=0?'+':'')+chg.toFixed(2)+'%</td>'
+        +(cost?'<td class="n" style="color:'+((px-cost)>=0?'var(--up)':'var(--down)')+'">'+(((px-cost)/cost*100)>=0?'+':'')+((px-cost)/cost*100).toFixed(2)+'%</td>':'')+'</tr></table>';
+      h+='<div style="margin-top:8px"><b style="color:var(--gold)">8.13 硬止损 −7%：'+stop.toFixed(2)+' 元</b>（破位无条件走）</div>';
+      h+='<div class="pill">止盈一档 +8% → '+s1.toFixed(2)+'（减 1/3）</div><div class="pill">止盈二档 +20% → '+s2.toFixed(2)+'</div><div class="pill">止盈三档 +30% → '+s3.toFixed(2)+'</div>';
+      h+='<div class="tip">⚠️ 若该股已 ≥3 板，按 8.29 禁止新开仓——上表止盈止损仅用于已持仓的退出决策。</div>';
+      out.innerHTML=h;
+    }catch(e){out.innerHTML='<span style="color:#ff9a9a">解析失败：'+e+'</span>';}
+  };
+  document.body.appendChild(s);
+}
+
+/* ---------------- 席位流水 ---------------- */
+fetch('seat_log.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+  var box=document.getElementById('log-box');
+  if(!d||!d.length){box.innerHTML='<div class="empty">暂无席位流水（盘后 15:20 自动写入）</div>';return;}
+  var h='<table><tr><th>日期</th><th>标的</th><th>基因</th><th>LBS</th><th class="n">QDR</th><th>判定</th></tr>';
+  d.slice().reverse().slice(0,40).forEach(function(x){
+    h+='<tr><td>'+(x.date||'').slice(5)+'</td><td>'+(x.name||x.code||'')+'</td>'
+      +'<td class="'+gcls(x.gene)+'">'+(x.gene?gname(x.gene):'—')+'</td><td>'+(x.lbs||'—')+'</td>'
+      +'<td class="n">'+((x.qdr!=null?x.qdr+'%':'—'))+'</td><td style="font-size:10.5px">'+(x.verdict||'—')+'</td></tr>';
+  });
+  h+='</table><div class="tip">最近 '+Math.min(40,d.length)+' 条 / 共 '+d.length+' 条</div>';
+  box.innerHTML=h;
+}).catch(function(){document.getElementById('log-box').innerHTML='<div class="empty">暂无席位流水</div>';});
+</script>
+</body>
+</html>

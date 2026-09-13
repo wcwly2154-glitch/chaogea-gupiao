@@ -23,17 +23,55 @@ textarea{resize:vertical;}
 #cmd{width:100%;background:#0d1420;border:1px dashed var(--line);border-radius:8px;padding:10px;color:var(--gold);font-size:12px;min-height:64px;margin-top:8px;word-break:break-all;}
 .tip{color:var(--sub);font-size:12px;line-height:1.7;margin-top:8px;}
 .tip b{color:var(--gold);}
-.q6{background:rgba(217,164,65,.06);border:1px solid rgba(217,164,65,.3);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12px;color:var(--sub);line-height:1.9;}
-.q6 b{color:var(--gold);}
-a{color:var(--accent);text-decoration:none;}
-.back{display:inline-block;margin-bottom:10px;color:var(--sub);font-size:12px;}
-.empty{color:var(--sub);font-size:13px;padding:14px;text-align:center;}
+  .q6{background:rgba(217,164,65,.06);border:1px solid rgba(217,164,65,.3);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12px;color:var(--sub);line-height:1.9;}
+  .q6 b{color:var(--gold);}
+  a{color:var(--accent);text-decoration:none;}
+  .back{display:inline-block;margin-bottom:10px;color:var(--sub);font-size:12px;}
+  .empty{color:var(--sub);font-size:13px;padding:14px;text-align:center;}
+  /* v1.6 硬否决闸门 */
+  .gate{background:rgba(224,86,86,.06);border:1px solid rgba(224,86,86,.35);border-radius:10px;padding:10px 12px;margin-bottom:10px;}
+  .gate .gh{font-size:12.5px;color:#ff9a9a;font-weight:600;margin-bottom:6px;}
+  .gsel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px;}
+  .gsel>div{flex:1;min-width:140px;}
+  .gsel label{font-size:10.5px;color:var(--sub);display:block;margin-bottom:2px;}
+  .gsel select{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:7px 8px;color:var(--text);font-size:12.5px;outline:none;}
+  .verdict{margin-top:8px;padding:10px 12px;border-radius:10px;font-size:13.5px;font-weight:700;text-align:center;display:none;}
+  .vstop{background:rgba(63,163,114,.16);border:1px solid rgba(63,163,114,.6);color:#4fc98a;}
+  .vpass{background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.5);color:var(--gold);}
+  .vlist{font-size:11.5px;color:var(--sub);line-height:1.9;margin-top:7px;font-weight:400;text-align:left;}
 </style>
 </head>
 <body>
 <a class="back" href="index.html">← 返回研究台</a>
 <h1>🚧 买前 6 问</h1>
 <div class="sub">想买一只股票时，先过 6 问——AI 默认当刹车不当军师，答不清第 3 问就先不动（框架 8.17）</div>
+
+<div class="card">
+  <h2>⓪ v1.6 硬否决闸门（先过这关，不过直接不用填下面）</h2>
+  <div class="gate">
+    <div class="gh">🚦 2026 打板已死 —— 这 4 条触发任意一条，无论多想买都别买</div>
+    <div class="gsel">
+      <div><label>当前连板数</label>
+        <select id="g-board"><option value="0">0 板（非连板）</option><option value="1">首板</option><option value="2">二板</option><option value="3">3 板</option><option value="4">4 板及以上</option></select></div>
+      <div><label>龙虎榜 G0 黑名单席位</label>
+        <select id="g-black"><option value="no">未现身 / 未上榜</option><option value="yes">现身买方（上塘路·紫阳东路·中山东路）</option></select></div>
+    </div>
+    <div class="gsel">
+      <div><label>量化主导度 QDR</label>
+        <select id="g-qdr"><option value="clean">&lt;30% 洁净</option><option value="high">30–50% 偏高</option><option value="ext">&ge;50% 量化控盘</option></select></div>
+      <div><label>拉萨系占买方</label>
+        <select id="g-lhasa"><option value="lt">&lt;40%</option><option value="ge">&ge;40% 伪强势</option></select></div>
+    </div>
+    <div class="gsel">
+      <div><label>这笔交易的依据</label>
+        <select id="g-src"><option value="hard">硬逻辑（订单/产能/业绩）+ 计划内</option><option value="board">看到它涨停了才想买</option><option value="say">群里/别人说会涨</option></select></div>
+    </div>
+    <div class="verdict" id="g-verdict"></div>
+    <div class="vlist">
+      <b>实证依据：</b>连板高度 7→<b>3.2 板</b> · 炸板率 <b>68%</b> · 打板隔日溢价 <b>−1.3%</b> · ≥3 板次日涨停率仅 <b>16.8%</b>（首板/二板 35.7%）· 量化占成交 <b>35–42%</b>。
+    </div>
+  </div>
+</div>
 
 <div class="card">
   <h2>① 填写这笔交易（想清楚再填，填不出来本身就是信号）</h2>
@@ -80,9 +118,49 @@ a{color:var(--accent);text-decoration:none;}
 </div>
 
 <script>
+/* —— v1.6 硬否决闸门 —— */
+var GATE=null;
+function gateCheck(){
+  var b=parseInt(document.getElementById('g-board').value,10)||0;
+  var blk=document.getElementById('g-black').value==='yes';
+  var qdr=document.getElementById('g-qdr').value;
+  var lh=document.getElementById('g-lhasa').value==='ge';
+  var src=document.getElementById('g-src').value;
+  var hits=[];
+  if(b>=3) hits.push('≥3 板：次日涨停率由 35.7% 骤降至 16.8%，【8.29 禁止新开仓】');
+  if(blk) hits.push('G0 黑名单席位现身买方：次日砸盘概率 >70%，一票否决');
+  if(qdr==='ext') hits.push('QDR ≥50% 量化控盘：次日下跌概率 >70%，严禁追高');
+  if(lh) hits.push('拉萨系占买方 ≥40%：伪强势无人接力，剔除候选池');
+  var soft=[];
+  if(qdr==='high') soft.push('QDR 30–50%：信心 −0.15，仓位上限减半');
+  if(src==='board') soft.push('依据是「它涨停了」——这是价格异动（C 级证据），不是买入理由');
+  if(src==='say') soft.push('依据是别人说的——无 A/B 级证据，按 8.17 第 4 问直接拦截');
+  var v=document.getElementById('g-verdict');
+  v.style.display='block';
+  if(hits.length){
+    GATE={pass:false,hits:hits,soft:soft};
+    v.className='verdict vstop';
+    v.innerHTML='🛑 硬否决触发 '+hits.length+' 条 —— 不买<br><span style="font-size:11.5px;font-weight:400;line-height:1.8;display:block;margin-top:6px;text-align:left">'
+      +hits.map(function(x){return '· '+x;}).join('<br>')+'</span>';
+  }else if(soft.length){
+    GATE={pass:true,hits:[],soft:soft};
+    v.className='verdict vpass';
+    v.innerHTML='⚠️ 未触发硬否决，但有 '+soft.length+' 条降权项<br><span style="font-size:11.5px;font-weight:400;line-height:1.8;display:block;margin-top:6px;text-align:left">'
+      +soft.map(function(x){return '· '+x;}).join('<br>')+'<br>· 仓位按 8.10 上限减半，硬止损 −7% 不放宽</span>';
+  }else{
+    GATE={pass:true,hits:[],soft:[]};
+    v.className='verdict vpass';
+    v.innerHTML='✅ 闸门通过 —— 继续填下面 6 问';
+  }
+}
+['g-board','g-black','g-qdr','g-lhasa','g-src'].forEach(function(id){
+  var el=document.getElementById(id); if(el) el.addEventListener('change',gateCheck);
+});
+
 function genCmd(){
   var n=document.getElementById('f-name').value.trim();
   if(!n){alert('股票名称必填');return;}
+  if(!GATE)gateCheck();
   var p=document.getElementById('f-price').value.trim();
   var pos=document.getElementById('f-pos').value.trim();
   var plan=document.getElementById('f-plan').value||'未填';
@@ -97,6 +175,18 @@ function genCmd(){
     +'。买入理由：'+rs
     +'。失效条件：'+st
     +'。请按 8.17 六问反方拦截：拉实时行情、证据 A/B/C 分级、利好除以体量、两问分离（基本面 vs 市场是否已交易）、跟踪池核对计划内外、仓位对照 8.10；输出《真正依据/最可疑3处/是否重复历史错误/失效条件/缺失信息》与评级，通过再按 8.13 给价位，并落盘拦截报告。';
+
+  /* v1.6 闸门结论前置 */
+  var g='';
+  if(GATE&&GATE.hits.length){
+    g='【v1.6 硬否决闸门已触发 '+GATE.hits.length+' 条，我的默认立场是不买：'+GATE.hits.join('；')
+      +'。除非你能给出推翻这些实证规则的 A 级新事实，否则请直接给「不建议买」结论并说明理由，不要给价位。】';
+  }else if(GATE&&GATE.soft.length){
+    g='【v1.6 闸门未触发硬否决，但有降权项：'+GATE.soft.join('；')+'。请按降权后仓位评估，硬止损 −7% 不放宽。】';
+  }else{
+    g='【v1.6 闸门通过（板位/席位/量化洁净度均无否决）。】';
+  }
+  cmd = g + cmd;
   document.getElementById('cmd').value=cmd;
 }
 function copyCmd(e){
@@ -107,6 +197,7 @@ function copyCmd(e){
   var b=e.target;b.textContent='✅ 已复制';setTimeout(function(){b.textContent='📋 一键复制'},1800);
 }
 (function(){
+  gateCheck();
   var d=new Date(),m=d.getMonth()+1,day=d.getDate();
   var mm=(m<10?'0':'')+m,dd=(day<10?'0':'')+day;
   var fr=document.getElementById('ana');
