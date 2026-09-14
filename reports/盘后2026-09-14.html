@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘后复盘 2026-09-14（周一）· 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:14px 12px;max-width:780px;margin:0 auto;font-size:13px;line-height:1.55;}
+h1{font-size:18px;margin:6px 0 3px;}
+.sub{color:var(--sub);font-size:11px;margin-bottom:10px;line-height:1.6;}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:6px;color:var(--sub);font-size:12px;}
+h2{font-size:14px;margin:18px 0 7px;padding-left:8px;border-left:3px solid var(--accent);}
+table{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--card);border-radius:9px;overflow:hidden;margin-bottom:8px;}
+th{color:var(--sub);font-weight:600;text-align:left;padding:6px 7px;border-bottom:1px solid var(--line);font-size:10.5px;white-space:nowrap;}
+td{padding:6px 7px;border-bottom:1px solid #21262d;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.up{color:var(--up);}.down{color:var(--down);}
+.mono{font-family:monospace;font-size:10px;color:var(--sub);}
+.warn{background:rgba(224,86,86,.12);border:1px solid rgba(224,86,86,.5);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.warn b{color:#ff8a8a;}
+.ok{background:rgba(63,163,114,.10);border:1px solid rgba(63,163,114,.45);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.ok b{color:#6dd3a3;}
+.note{background:rgba(74,143,231,.10);border:1px solid rgba(74,143,231,.4);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.kpi{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.kpi div{flex:1;min-width:92px;background:var(--card2);border-radius:9px;padding:8px 10px;}
+.kpi .l{font-size:10px;color:var(--sub);}
+.kpi .v{font-size:15px;font-weight:700;margin-top:2px;}
+.disc{font-size:10px;color:#6b7689;line-height:1.65;margin-top:16px;padding-top:10px;border-top:1px dashed var(--line);text-align:center;}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">← 返回研究台</a>
+<h1>📊 盘后复盘 · 2026-09-14（周一）</h1>
+<div class="sub"><b>框架 v1.6</b> · 六层流水线 · 数据源：悟道 MCP（涨停复盘/情绪/板块资金/龙虎榜）+ 腾讯行情 + seat_analyzer.py</div>
+
+<h2>① 市场概况</h2>
+<div class="kpi">
+ <div><div class="l">上证指数</div><div class="v down">3885.33 <span class="mono">-0.07%</span></div></div>
+ <div><div class="l">深证成指</div><div class="v down">13384.57 <span class="mono">-0.64%</span></div></div>
+ <div><div class="l">创业板指</div><div class="v down">3285.58 <span class="mono">-1.10%</span></div></div>
+ <div><div class="l">科创50</div><div class="v down">1528.27 <span class="mono">-1.62%</span></div></div>
+</div>
+<table>
+<tr><th>宽度</th><th>数值</th><th>解读</th></tr>
+<tr><td>上涨 / 下跌 / 平盘</td><td><span class="up">3126</span> / <span class="down">2224</span> / 200</td><td>涨多跌少，但指数收跌 → <b>权重拖累、小票活跃</b></td></tr>
+<tr><td>两市成交</td><td>1.64 万亿（-3440 亿）</td><td>缩量，存量博弈特征</td></tr>
+<tr><td>主力净额（全市场）</td><td class="down">-124.70 亿</td><td>整体资金净流出，板块间腾挪</td></tr>
+</table>
+
+<h2>② 涨停结构</h2>
+<table>
+<tr><th>指标</th><th>今日</th><th>上一交易日（9/11）</th></tr>
+<tr><td>涨停（触板 / 炸板）</td><td class="up">55（85 / 30）</td><td>40（58 / 18）</td></tr>
+<tr><td>封板率</td><td>64.71%</td><td>68.97%</td></tr>
+<tr><td>跌停</td><td class="down">16</td><td>21</td></tr>
+<tr><td>连板高度</td><td><b>4 板</b>（闽东电力）</td><td>4 板</td></tr>
+<tr><td>梯队分布</td><td>4板1 / 3板3 / 2板7 / 1板44</td><td>—</td></tr>
+<tr><td>涨停主类</td><td>AI应用 9 · 通信 8 · 汽车类 4 · 医药 4 · 元器件 3</td><td>通信 11</td></tr>
+</table>
+<div class="note"><b>结构解读</b>：涨停家数由 40 升至 55（+37.5%），跌停由 21 降至 16 → <b>情绪明显修复</b>；但封板率下降 4.3pct、炸板 30 家 → <b>分歧同时加大</b>。首板占比 80%（44/55）＝没有形成连板梯队，属"低位扩散"而非"高位接力"。</div>
+
+<h2>③ 情绪指标</h2>
+<table>
+<tr><th>指标</th><th>今日</th><th>含义</th></tr>
+<tr><td>1→2 晋级率</td><td class="down">21%（7/33）</td><td>首板接力意愿弱，隔日打板风险高</td></tr>
+<tr><td>2→3 晋级率</td><td class="up">75%（3/4）</td><td>样本少但显示强势股韧性</td></tr>
+<tr><td>3→4 晋级率</td><td>50%（1/2）</td><td>—</td></tr>
+<tr><td>高位晋级率</td><td class="down">0%</td><td>高位股无接力，印证 8.29</td></tr>
+<tr><td><b>昨涨停今日均涨</b></td><td class="up"><b>+3.21%</b>（昨连板 +3.53%）</td><td><b>隔日溢价转正、情绪修复</b>（年度基准 -1.3%）</td></tr>
+<tr><td>涨停委买 / 一字封单</td><td>49.89 亿 / 38.48 亿</td><td>买盘承接尚可</td></tr>
+</table>
+
+<h2>④ 资金面（板块 + 个股）</h2>
+<table>
+<tr><th>板块（行业）</th><th>主力净额</th><th>板块涨幅</th></tr>
+<tr><td><b>元器件</b></td><td class="up">+30.25 亿 <span class="mono">(第1)</span></td><td class="down">-0.10%</td></tr>
+<tr><td>矿物制品</td><td class="up">+16.96 亿</td><td class="up">+1.84%</td></tr>
+<tr><td>化学制药</td><td class="up">+13.78 亿</td><td class="up">+2.68%</td></tr>
+<tr><td>食品 / 化工原料 / 陶瓷</td><td class="up">+9.00 / +7.93 / +7.85 亿</td><td>—</td></tr>
+<tr><td>火力发电 / 玻璃 / 生物制药</td><td class="up">+6.88 / +6.08 / +5.14 亿</td><td>—</td></tr>
+</table>
+<table>
+<tr><th>个股主力净额 TOP</th><th>金额</th><th>今日</th></tr>
+<tr><td>豫能控股</td><td class="up">+8.60 亿 <span class="mono">(全场第1)</span></td><td class="up">+9.99%</td></tr>
+<tr><td>中京电子</td><td class="up">+5.73 亿</td><td class="up">+10.01%</td></tr>
+<tr><td>超声电子</td><td class="up">+4.11 亿</td><td class="up">+10.01%</td></tr>
+<tr><td>科翔股份</td><td class="up">+3.90 亿</td><td class="up">+20.00%</td></tr>
+<tr><td>宝鼎科技</td><td class="up">+3.57 亿</td><td class="up">+8.00%</td></tr>
+<tr><td><b>方正科技（持仓）</b></td><td class="down"><b>-2.85 亿</b></td><td class="down">-0.07%</td></tr>
+</table>
+
+<h2>⑤ 板块与题材（主线排序）</h2>
+<table>
+<tr><th>排序</th><th>主线</th><th>强度</th><th>状态</th></tr>
+<tr><td>1</td><td>元器件 / PCB / AI 硬件</td><td>★★★★★</td><td>资金断层第一（+30.25 亿），涨停多点开花</td></tr>
+<tr><td>2</td><td>AI 应用</td><td>★★★★</td><td>涨停 9 家（主类第1），中新赛克一字 3 板锁仓</td></tr>
+<tr><td>3</td><td>电力 / 算力</td><td>★★★★</td><td>豫能控股主力第一 + 闽东电力 4 板</td></tr>
+<tr><td>4</td><td>医药（化学/生物制药）</td><td>★★★</td><td>+18.92 亿合计，低位启动，涨停 4 家</td></tr>
+<tr><td>5</td><td>矿物制品 / 金刚石</td><td>★★★</td><td>+16.96 亿；黄河旋风涨停（席位被 G0 否决）</td></tr>
+<tr><td>⚠️</td><td>趋势中军（光模块 / PCB 龙头）</td><td>—</td><td><b>集体杀跌</b>：旭创 -5.72% / 新易盛 -4.99%</td></tr>
+</table>
+
+<h2>⑥ 结论与明日策略</h2>
+<div class="ok"><b>结论</b>：情绪修复（涨停 55 / 跌停 16 / 昨涨停 +3.21%）但结构脆弱 —— ① 首板 80%、高位晋级 0%；② 趋势中军集体杀跌，量化与游资在小票内快速轮动；③ 成交缩量 3440 亿，增量资金缺席。<b>属"修复性反弹"而非"新周期启动"。</b></div>
+<div class="note"><b>明日（9/15）策略</b>：预警灯 🔴 → <b>🟡 黄灯</b>（A 项 0 条触发 + 熔断解除）→ 可小仓试错（单笔 ≤10% 总仓），<b>但仍禁打板、禁追高</b>。<br>
+· 进攻方向：元器件低位分支（覆铜板/连接器/MLCC）、电力/算力；<br>
+· 回避方向：≥3 板高标（4 只）、G0 席位标的（5 只）、趋势中军（4 只）；<br>
+· 持仓优先：黑猫守 9.48、方正守 14.20（破位减 400 股），冲高按止盈位减仓锁利。</div>
+
+<h2>⑦ 预测对账（9/11 盘后 20 条 → 9/14 实际）</h2>
+<div class="kpi">
+ <div><div class="l">方向命中率</div><div class="v up">85%</div></div>
+ <div><div class="l">✅ 命中</div><div class="v up">12</div></div>
+ <div><div class="l">⚠️ 部分</div><div class="v">5</div></div>
+ <div><div class="l">❌ 未中</div><div class="v down">3</div></div>
+</div>
+<table>
+<tr><th>标的 / 主线</th><th>预测</th><th>今日实际</th><th>结果</th></tr>
+<tr><td>通信/PCB/光模块</td><td>高开续强=主线第3日确认</td><td>通信涨停8家第2、元器件主力+30.25亿第1、PCB多点涨停</td><td class="up">✅</td></tr>
+<tr><td>AI应用</td><td>中新赛克3板=副主线确认</td><td>AI应用涨停9家主类第1；中新赛克一字3板</td><td class="up">✅</td></tr>
+<tr><td>电力</td><td>闽东冲4板则升级候选</td><td>闽东电力4板（方向对；v1.6下≥3板改判禁入）</td><td class="up">✅</td></tr>
+<tr><td>农业退潮</td><td>负反馈延续禁入</td><td>亚盛/敦煌/中粮/新农四只跌停</td><td class="up">✅</td></tr>
+<tr><td>超声电子</td><td>高开不炸板=冲3板</td><td>3板（+10.01%）未炸板</td><td class="up">✅</td></tr>
+<tr><td>中新赛克</td><td>一字或秒板=3板</td><td>一字3板（09:25封死）</td><td class="up">✅</td></tr>
+<tr><td>闽东电力</td><td>冲4板=电力确认</td><td>4板</td><td class="up">✅</td></tr>
+<tr><td>光电股份</td><td>通信延续则补涨</td><td>+3.00%（低19.8未破19.4）</td><td class="up">✅</td></tr>
+<tr><td>瑞尔特</td><td>淘汰·禁入</td><td>-9.99% 跌停</td><td class="up">✅</td></tr>
+<tr><td>鼎信通讯</td><td>淘汰·禁入</td><td>-6.48%</td><td class="up">✅</td></tr>
+<tr><td>远望谷</td><td>淘汰·禁入</td><td>-9.95% 跌停</td><td class="up">✅</td></tr>
+<tr><td>亚盛集团</td><td>淘汰·禁入</td><td>-9.94% 跌停</td><td class="up">✅</td></tr>
+<tr><td>协和电子</td><td>PCB延续则跟随</td><td>+0.83%（冲高36.66后回落至35.06）</td><td>⚠️</td></tr>
+<tr><td>华胜天成</td><td>AI延续则跟随</td><td>+1.36%（换手20.59%，力度弱）</td><td>⚠️</td></tr>
+<tr><td>深南电路</td><td>中军跟随</td><td>-1.90%</td><td>⚠️</td></tr>
+<tr><td>生益科技</td><td>中军跟随</td><td>-1.64%</td><td>⚠️</td></tr>
+<tr><td>宏辉果蔬</td><td>淘汰·禁入</td><td>+2.97%（冲高11.1后回落）</td><td>⚠️</td></tr>
+<tr><td><b>中际旭创</b></td><td>续强=主线确认；转跌=警报</td><td class="down"><b>-5.72%</b>（成交239亿）</td><td class="down">❌（警报成立）</td></tr>
+<tr><td><b>新易盛</b></td><td>跟随旭创</td><td class="down"><b>-4.99%</b></td><td class="down">❌</td></tr>
+<tr><td><b>中视传媒</b></td><td>淘汰·禁入</td><td class="up"><b>+10.00% 涨停 2 板</b></td><td class="down">❌（淘汰误判）</td></tr>
+</table>
+<table>
+<tr><th>固定四行（8.22）</th><th>数值</th><th>目标</th><th>判定</th></tr>
+<tr><td>平均盈利 R</td><td>N/A（当日无平仓）</td><td>—</td><td>—</td></tr>
+<tr><td>平均亏损 R</td><td>N/A（当日无平仓）</td><td>—</td><td>—</td></tr>
+<tr><td><b>盈亏比</b></td><td><b>N/A</b></td><td>≥2.5</td><td>⚠️ 数据缺口</td></tr>
+<tr><td>期望值 R / 笔</td><td>N/A</td><td>&gt;0.4R</td><td>⚠️ 数据缺口</td></tr>
+</table>
+<div class="warn"><b>⚠️ 盈亏比无法计算（数据缺口必须补）</b>：trades.json 中 2 条历史清仓（t001 翠微股份 9/9 跌停破止损、t002 黄河旋风 9/10 口述清仓）<b>卖出价未回填</b>，导致累计盈亏比与期望值无法计算。请超哥补录两笔实际成交价，否则 8.22「盈亏比否决权」无法执行。<br>
+当前持仓浮动 R（替代参考）：黑猫 <b>+0.32R</b> / 方正 <b>+0.21R</b> / 组合 <b>+0.27R</b>。</div>
+
+<h2>⑧ 策略漂移检测（v1.6）</h2>
+<table>
+<tr><th>#</th><th>漂移项</th><th>证据</th><th>处置</th></tr>
+<tr><td>1</td><td><b>趋势中军验证器失效</b></td><td>原规则"中军续强=主线确认"；今日题材涨停 55 家而中军集体杀跌（旭创 -5.72%、新易盛 -4.99%）</td><td>标记为<b>本日反例</b>；中军信号改为"仅作风险预警，不作买入触发"。累计 2 次反例后评估降权</td></tr>
+<tr><td>2</td><td><b>淘汰区漏判（过严）</b></td><td>中视传媒 9/11 被判"传媒孤板"淘汰，今日涨停 2 板</td><td>淘汰区新增例外条款：<b>同时具备 ≥2 条主线属性的标的，淘汰降级为"观察"，不直接禁入</b></td></tr>
+<tr><td>3</td><td><b>G0 席位频率异常</b></td><td>紫阳东路今日在 6 只标的买方现身（全场最高频），其中津药药业为买一、双星新材做 T</td><td>已触发 5 只一票否决；<b>9/15 为 G0 有效性关键验证日</b>（预测：五票冲高回落或低开）</td></tr>
+<tr><td>4</td><td><b>版本升级导致规则反转</b></td><td>9/11 预测（v1.3）"闽东冲 4 板=升级候选"；v1.6 下 4 板属禁入</td><td>方向命中仍计入 ✅，但<b>操作含义已按 v1.6 反转</b>；历史预测仅在方向维度对账，不追溯操作结论</td></tr>
+</table>
+
+<div class="disc">
+本页为 2026-09-14（周一）盘后复盘（框架 v1.6），六层流水线 + 预测对账 + 策略漂移检测，归档于 daily_review/ 与 site/reports/。<br>
+<b>去重说明</b>：交易日志与行为熔断（8.17.7 / 8.17.9）归「盘后总管 E 项」负责，本页不重复列示。<br>
+数据源：悟道 MCP（涨停复盘/短线情绪/板块资金/龙虎榜）+ 腾讯行情 + seat_analyzer.py（席位基因 G0–G5）。<br>
+本页为研究辅助与纪律框架，不构成投资建议，不承诺收益。市场有风险，投资需谨慎，盈亏自负。
+</div>
+</body>
+</html>
