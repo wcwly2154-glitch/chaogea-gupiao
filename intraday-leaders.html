@@ -99,7 +99,9 @@ var LEADERS=[
  {n:'豫能控股',c:'001896',mk:'sz001896',px:12.99,mid:12.73,tier:'B',lo:12.47,hi:12.99,stop:12.08,tp:14.29,cf:0.62,note:'电力+算力首板·主力+8.60亿全场第1·封单11.45亿·G1陈小群+北向黄金共振·QDR 0%·跟随上限3日'},
  /* ===== 萌芽可买区（2 只 · 观察/试错 ≤5%）===== */
  {n:'宝鼎科技',c:'002552',mk:'sz002552',px:54.00,mid:54.00,tier:'C',lo:52.38,hi:55.62,stop:50.22,tp:56.00,cf:0.48,note:'覆铜板+黄金+业绩预增·今日炸板收+8%·G1陈小群+机构2.1亿·成交29亿·雷达7/9'},
- {n:'意华股份',c:'002897',mk:'sz002897',px:71.39,mid:69.96,tier:'C',lo:68.53,hi:71.39,stop:66.39,tp:75.00,cf:0.46,note:'高速连接器+液冷·机构三席2.38亿零卖出·弱转强洗盘·雷达9/9但成交16.2亿<20亿容量不足'}
+ {n:'意华股份',c:'002897',mk:'sz002897',px:71.39,mid:69.96,tier:'C',lo:68.53,hi:71.39,stop:66.39,tp:75.00,cf:0.46,note:'高速连接器+液冷·机构三席2.38亿零卖出·弱转强洗盘·雷达9/9但成交16.2亿<20亿容量不足'},
+ /* ===== 持仓联动（2026-09-14 21:25 补录 · 已建仓标的纳入买卖参照）===== */
+ {n:'杭州热电',c:'605011',mk:'sh605011',px:20.30,mid:20.30,tier:'H',lo:19.70,hi:20.60,stop:18.85,tp:21.70,cf:0.50,ban:'已持仓 900股@19.712',note:'电力2板未封·换手9.88%·今日+6.67%·⚠️明日封第3板→开盘前强制减450股（8.13.4）·非尾盘确认买入→按试错仓管理（8.23）·跌19.40减300股、跌18.85清仓900股'}
 ];
 var MIDS=[
  {n:'中际旭创',c:'300308',mk:'sz300308',px:873.00,txt:'⚠️ 光模块全球龙头·-5.72% 跌破5日线·主线验证器转弱 → 趋势中军波段路径本日不成立'},
@@ -153,8 +155,8 @@ function render(){
   LEADERS.forEach(function(x){
     var q=Q[x.mk]||null, px=q?q.price:x.px, chg=q?q.chg:null;
     var cls=chg==null?'':(chg>0?'up':(chg<0?'down':''));
-    var tg=x.tier==='X'?'<span class="tag ban">⛔ 禁入</span>':(x.tier==='A'?'<span class="tag a">已确认龙头</span>':(x.tier==='B'?'<span class="tag b">候选龙头</span>':'<span class="tag c">萌芽</span>'));
-    if(x.ban) tg+='<br><span class="mono" style="color:var(--down);font-size:10px">'+x.ban+'</span>';
+    var tg=x.tier==='X'?'<span class="tag ban">⛔ 禁入</span>':(x.tier==='A'?'<span class="tag a">已确认龙头</span>':(x.tier==='B'?'<span class="tag b">候选龙头</span>':(x.tier==='H'?'<span class="tag a">已持仓</span>':'<span class="tag c">萌芽</span>')));
+    if(x.ban) tg+='<br><span class="mono" style="color:'+(x.tier==='H'?'var(--up)':'var(--up)')+';font-size:10px">'+x.ban+'</span>';
     var tr=tl.insertRow(-1);
     tr.innerHTML='<td><b>'+x.n+'</b>'+tg+'<br><span class="mono">'+x.c+'</span></td>'
       +'<td class="'+cls+'" style="font-weight:700">'+fmt(px)+(chg!=null?('<br><span style="font-size:10px">'+(chg>=0?'+':'')+fmt(chg)+'%</span>'):'')+'</td>'
