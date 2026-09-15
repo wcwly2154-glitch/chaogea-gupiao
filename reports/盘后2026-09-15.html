@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘后复盘 2026-09-15 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:14px 12px;max-width:780px;margin:0 auto;font-size:13px;line-height:1.55;}
+h1{font-size:18px;margin:6px 0 3px;}
+.sub{color:var(--sub);font-size:11px;margin-bottom:10px;line-height:1.6;}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:6px;color:var(--sub);font-size:12px;}
+h2{font-size:14px;margin:18px 0 7px;padding-left:8px;border-left:3px solid var(--accent);}
+table{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--card);border-radius:9px;overflow:hidden;margin-bottom:8px;}
+th{color:var(--sub);font-weight:600;text-align:left;padding:6px 7px;border-bottom:1px solid var(--line);font-size:10.5px;white-space:nowrap;}
+td{padding:6px 7px;border-bottom:1px solid #21262d;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.up{color:var(--up);}.down{color:var(--down);}
+.mono{font-family:monospace;font-size:10px;color:var(--sub);}
+.warn{background:rgba(224,86,86,.12);border:1px solid rgba(224,86,86,.5);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.warn b{color:#ff8a8a;}
+.ok{background:rgba(63,163,114,.10);border:1px solid rgba(63,163,114,.45);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.ok b{color:#6dd3a3;}
+.note{background:rgba(74,143,231,.10);border:1px solid rgba(74,143,231,.4);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.kpi{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.kpi div{flex:1;min-width:96px;background:var(--card2);border-radius:9px;padding:8px 10px;}
+.kpi .l{font-size:10px;color:var(--sub);}
+.kpi .v{font-size:15px;font-weight:700;}
+.disc{font-size:10px;color:#6b7689;line-height:1.65;margin-top:16px;padding-top:10px;border-top:1px dashed var(--line);}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">← 返回研究台</a>
+<h1>盘后复盘 · 2026-09-15（周二）</h1>
+<div class="sub">框架 v1.6 · 生成 15:45 · 数据源：悟道 MCP（6 次有效调用）+ 东财备用链路 + 腾讯收盘快照（15:30）· 交易日志与行为熔断见自动化 E 段汇报</div>
+
+<div class="warn"><b>🔴 A 崩盘评估：触发 1 条 → 顶层红灯</b><br>
+✅ <b>超 4000 只下跌（4156 家，1063 涨）</b>——宽度崩坏；其余 5 条未触发：沪指 -0.54%（阈值 -2%）、创业板 -1.15%（阈值 -3%）、跌停 25（阈值 >50）、主线板块跌>5% 超 3 只（未触发，主线 PCB/半导体全红）、昨涨停 49% 走弱（阈值 60%）。<b>红灯动作：只减仓不开新仓，已写入 status.json 顶层置顶。</b></div>
+
+<h2>第 1 层 · 大盘宽度</h2>
+<table>
+<tr><th>指数</th><th>收盘</th><th>涨跌</th><th>解读</th></tr>
+<tr><td>上证指数</td><td>3864.28</td><td class="down">-0.54%</td><td>权重护盘假象：银行 -17.07 亿失血、工行 -1.09%，指数仅微跌</td></tr>
+<tr><td>深证成指</td><td>13287.97</td><td class="down">-0.72%</td><td>同步弱势</td></tr>
+<tr><td>创业板指</td><td>3247.92</td><td class="down">-1.15%</td><td>锂电/医药拖累</td></tr>
+<tr><td>科创50</td><td>1551.96</td><td class="up">+1.55%</td><td>唯一红盘：半导体 +44.61 亿驱动</td></tr>
+<tr><td><b>全市场宽度</b></td><td colspan="2"><b class="up">1063 涨 / 4156 跌</b></td><td><b>跌家数是涨家数 3.9 倍 → 真实市场状态远弱于指数表面</b>（9/15 铁律：禁据指数判断情绪）</td></tr>
+</table>
+
+<h2>第 2 层 · 短线情绪</h2>
+<div class="kpi">
+<div><div class="l">涨停</div><div class="v">32（昨55）</div></div>
+<div><div class="l">跌停</div><div class="v up">25（昨16）↑</div></div>
+<div><div class="l">炸板率</div><div class="v up">42.9%</div></div>
+<div><div class="l">1进2晋级</div><div class="v up">7%</div></div>
+</div>
+<table>
+<tr><th>指标</th><th>今日</th><th>昨日</th><th>解读</th></tr>
+<tr><td>封板率</td><td>57.14%（触板56炸24）</td><td>64.7%</td><td>封板坚决度继续恶化</td></tr>
+<tr><td>最高连板</td><td>5 板（闽东电力）</td><td>4 板</td><td>高度靠独苗撑，梯队断层</td></tr>
+<tr><td>梯队结构</td><td>5板1/4板1/3板2/2板3/1板25</td><td>4板1/3板3/2板4/1板47</td><td>腰部塌陷：2-4 板合计仅 6 只</td></tr>
+<tr><td>晋级率</td><td>1→2 仅 7% / 2→3 29% / 3→4 33%</td><td>1→2 20.55%</td><td><b>1进2 断层 = 接力策略收益预期显著下调</b></td></tr>
+<tr><td>昨涨停今日均涨</td><td class="down">+0.67%（49% 下跌）</td><td>+3.21%</td><td>打板隔日溢价快速衰减，8.25 生态位判断再验证</td></tr>
+</table>
+
+<h2>第 3 层 · 板块资金（主力净额）</h2>
+<table>
+<tr><th>方向</th><th>金额</th><th>代表信号</th></tr>
+<tr><td class="up">流入：半导体</td><td class="up">+44.61 亿（+2.3%）</td><td>全场第一；存储芯片 +28.81 亿、半导体设备 +16.81 亿、材料 +12.09 亿跟随</td></tr>
+<tr><td class="up">流入：PCB/覆铜板</td><td class="up">+39.18 亿（+1.5%）</td><td>第二；生益科技 +2.91% 修复</td></tr>
+<tr><td class="up">流入：风电</td><td class="up">+23.5 亿（+8.0~11.7%）</td><td>零部件 +11.97 亿涨幅全行业第一 + 4 家涨停 → 唯一"资金+涨停"双证新方向</td></tr>
+<tr><td class="up">流入：通信线缆</td><td class="up">+22.74 亿（+6.0%）</td><td>华正新材涨停联动</td></tr>
+<tr><td class="up">流出：通信网络设备</td><td class="up">-36.36 亿（-5.5%）</td><td>全场流出第一，光模块中军承压</td></tr>
+<tr><td class="up">流出：电力设备</td><td class="up">-31.55 亿（-2.4%）</td><td>崩塌第 2 日 → 杭州热电破止损直接诱因</td></tr>
+<tr><td class="up">流出：医药生物</td><td class="up">-28.18 亿（-3.8%）</td><td>涨停归零，昨日预测 ❌ 实证</td></tr>
+<tr><td class="up">流出：消费电子/锂电/银行</td><td class="up">-24.93 / -20.15 / -17.07 亿</td><td>多线失血</td></tr>
+</table>
+
+<h2>第 4 层 · 连板梯队</h2>
+<table>
+<tr><th>板位</th><th>标的</th><th>收盘/换手</th><th>明日判定</th></tr>
+<tr><td>5 板</td><td><b>闽东电力</b> 000993</td><td>16.80 +10.02% / 17.79%</td><td>⛔ 8.29 禁入；独苗高位，明日若开板为情绪试金石</td></tr>
+<tr><td>4 板</td><td><b>中新赛克</b> 002912</td><td>28.45 +10.02% / 23.27%</td><td>⛔ 禁入 + 换手超 15% 危险线</td></tr>
+<tr><td>3 板</td><td><b>双星新材</b> / <b>澳弘电子</b></td><td>12.06 +10.04% / 40.30 +9.99%</td><td>⛔ 双双禁入（双星另叠 G0 待补验）</td></tr>
+<tr><td>2 板</td><td>启明信息 / 博汇科技 / +1</td><td>—</td><td>观察，红灯期不参与</td></tr>
+<tr><td>首板 25</td><td>风电4/通信4/芯片4/电力2/化工3/锂电3…</td><td>—</td><td>候选筛选源（本日留 大金重工/华正新材 2 只，见龙头池报告）</td></tr>
+</table>
+
+<h2>第 5 层 · 个股复盘（持仓 + 候选）</h2>
+<table>
+<tr><th>标的</th><th>收盘</th><th>复盘结论</th></tr>
+<tr><td><b>杭州热电</b>（持仓）</td><td class="down">18.78 -7.49%</td><td>破硬止损 18.85，主力竞价 +1478 万→盘中 -1480 万派发确认（8.12 触发器第 4 条最强信号）；R = -1.08；清仓指令维持，未成交明日竞价 18.70 卖</td></tr>
+<tr><td>豫能控股（昨候选）</td><td class="down">12.50 -3.77%</td><td>❌ 证伪：主力 +8.60 亿全场第一的隔日强度未兑现，破低吸区下沿 12.47 → 剔除记 ❌</td></tr>
+<tr><td>宝鼎科技（昨萌芽）</td><td>54.20 +0.37%</td><td>未封板维持"试错仓"档，买区 52.38-55.62 未破坏（今低 53.60），席位维度待补验</td></tr>
+<tr><td>意华股份（昨萌芽）</td><td class="up">74.99 +5.04%</td><td>✅ 低吸区买入者浮盈约 +7%（验证 8.23 尾盘确认+试错仓纪律）</td></tr>
+<tr><td>满坤科技（今萌芽）</td><td class="up">61.90 +6.05%</td><td>PCB 补涨线连续 2 日走强，唯一萌芽；换手 22.57% 警戒</td></tr>
+<tr><td>龙版传媒（关注池）</td><td class="down">跌停 9.35 -9.98%</td><td>出版/大消费跌停潮成员，关注优先级移除，禁接</td></tr>
+</table>
+
+<h2>第 6 层 · 明日策略（9/16）</h2>
+<div class="note">
+① <b>FOMC 周四凌晨 2:00 决议</b>（加息概率 92%）→ 隔夜风险事件落地前，一切仓位动作降级；盘前 08:15 自动化根据结果更新信号灯。<br>
+② <b>杭州热电竞价处置</b>：未成交则 9:25 挂 18.70 卖 900 股（约 16,830 元）。<br>
+③ <b>红灯纪律</b>：只减仓不开新仓；候选池（大金重工/华正新材）仅作观察锚，等待 ① 龙虎榜席位补验 ② 信号灯降回黄/绿。<br>
+④ <b>席位雷达 17:30 补跑</b>：今日榜未出（15:40 确认），补验大金/华正/满坤的 G0/QDR/LBS 三维 + 双星/澳弘的 QDR 复核，seat_log.json 随后追加。<br>
+⑤ <b>若风电明日分化回踩</b>：大金重工低吸区 37.86-39.44 作为首个候选观察位（仍需绿灯/黄灯 + 席位通过双条件）。
+</div>
+
+<h2>📈 预测对账（8.22 固定四行 + 9/14 预测 13 条）</h2>
+<div class="warn"><b>⚠️ 盈亏比数据缺口（第 3 日）</b>：t001 翠微 / t002 黄河旋风 / t003 黑猫 / t004 方正 <b>卖出价均未回填 trades.json</b> → 平均盈利 R / 平均亏损 R / 盈亏比 / 期望值 R 无法计算，8.22「盈亏比否决权」持续不可执行。<b>请补录卖出价，否则本次四行报 N/A。</b></div>
+<table>
+<tr><th>结果</th><th>条目（9/14 预测 → 9/15 实际）</th></tr>
+<tr><td class="down">✅ 命中 6</td><td>PCB 主线分化延续 · AI 应用副主线（中新赛克4板）· 中军反向预警（晋级率降至7%）· G0 五票走弱（2/5 票>+3% 未达失效线）· 宝鼎按试错仓处理 · 意华低吸兑现 +5.04%</td></tr>
+<tr><td>⚠️ 部分 2</td><td>电力主线（闽东5板✓但豫能未晋级-3.77%）· 超声电子（+5.61% 冲高回落换手40%，分歧成立未走弱）</td></tr>
+<tr><td class="up">❌ 未中 3</td><td><b>医药</b>（涨停归零+板块-28.18亿，invalid 成立）· <b>豫能冲2板</b>（-3.77% 证伪）· <b>闽东断板概率高</b>（实际封5板，连续第 2 日错）</td></tr>
+<tr><td>⏳ N/A 2</td><td>黑猫/方正持仓预测——9/14 人工清仓，无法对账</td></tr>
+</table>
+<div class="kpi">
+<div><div class="l">方向命中率</div><div class="v">72.7%（8/11）</div></div>
+<div><div class="l">最大连败</div><div class="v">1 条（不熔断）</div></div>
+<div><div class="l">盈亏比</div><div class="v">N/A（缺口）</div></div>
+<div><div class="l">期望值R</div><div class="v">N/A（缺口）</div></div>
+</div>
+
+<h2>策略漂移检测</h2>
+<table>
+<tr><th>#</th><th>漂移项</th><th>证据与处理</th></tr>
+<tr><td>1</td><td><b>8.29 板位衰减律 vs 闽东电力连续反例</b></td><td>连续 2 日"≥3板断板"预测失败（4板→5板→5板续封）。<b>规则本身不撤销</b>（统计基础 35.7% vs 16.8% 仍在），但需注意：衰减律是概率不是确定性；执行上继续禁入，预测层面把"断板概率高"改为"分歧加剧、盈亏比恶化"的弱表述，避免连续硬预测打脸。</td></tr>
+<tr><td>2</td><td><b>G0 溢出效应</b></td><td>双星新材（G0 现身+换手超标三重危险）今日仍涨停 → G0"次日砸盘>70%"在连板加速期可能被情绪盖过；周末席位库复核时把"G0+高位连板加速"列为 G0 边界条件样本（累计 2 例：双星、超声）。</td></tr>
+<tr><td>3</td><td><b>电力板块资金口径</b></td><td>昨日豫能"主力+8.60亿全场第一"未能预示今日 -3.77%——个股主力净额的隔日预测力 < 板块级净额；后续候选评级中"板块资金"权重 > "个股资金"。</td></tr>
+<tr><td>4</td><td><b>宽度阈值有效性</b></td><td>"超4000只下跌"红灯首日执行：触发时持仓已破止损（杭州热电），红线动作与持仓风控重合，无新增减仓对象 → 阈值保留，继续观察首次独立触发场景。</td></tr>
+</table>
+
+<div class="disc">免责声明：本报告为个人研究辅助与纪律框架记录，不构成任何投资建议，不承诺收益。数据来自悟道 MCP/东财/腾讯收盘快照，可能存在延迟或误差。市场有风险，投资需谨慎，盈亏自负。</div>
+</body>
+</html>

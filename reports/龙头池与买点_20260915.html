@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>龙头池与买点 2026-09-15 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#0f1420;--card:#1a2232;--card2:#212c42;--text:#e8ecf4;--sub:#8b96ab;--line:#2c3a55;--up:#e05656;--down:#3fa372;--gold:#d9a441;--accent:#4a8fe7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:14px 12px;max-width:780px;margin:0 auto;font-size:13px;line-height:1.55;}
+h1{font-size:18px;margin:6px 0 3px;}
+.sub{color:var(--sub);font-size:11px;margin-bottom:10px;line-height:1.6;}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:6px;color:var(--sub);font-size:12px;}
+h2{font-size:14px;margin:18px 0 7px;padding-left:8px;border-left:3px solid var(--accent);}
+h3{font-size:12px;margin:10px 0 5px;color:var(--gold);}
+table{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--card);border-radius:9px;overflow:hidden;margin-bottom:8px;}
+th{color:var(--sub);font-weight:600;text-align:left;padding:6px 7px;border-bottom:1px solid var(--line);font-size:10.5px;white-space:nowrap;}
+td{padding:6px 7px;border-bottom:1px solid #21262d;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.up{color:var(--up);}.down{color:var(--down);}
+.mono{font-family:monospace;font-size:10px;color:var(--sub);}
+.warn{background:rgba(224,86,86,.12);border:1px solid rgba(224,86,86,.5);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.warn b{color:#ff8a8a;}
+.ok{background:rgba(63,163,114,.10);border:1px solid rgba(63,163,114,.45);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.ok b{color:#6dd3a3;}
+.note{background:rgba(74,143,231,.10);border:1px solid rgba(74,143,231,.4);border-radius:9px;padding:9px 11px;font-size:11.5px;line-height:1.85;margin-bottom:10px;}
+.kpi{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.kpi div{flex:1;min-width:96px;background:var(--card2);border-radius:9px;padding:8px 10px;}
+.kpi .l{font-size:10px;color:var(--sub);}
+.kpi .v{font-size:15px;font-weight:700;}
+.disc{font-size:10px;color:#6b7689;line-height:1.65;margin-top:16px;padding-top:10px;border-top:1px dashed var(--line);}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">← 返回研究台</a>
+<h1>龙头池与买点 · 2026-09-15 收盘</h1>
+<div class="sub">框架 v1.6 · 数据：悟道 MCP（涨停复盘包/板块梯队）+ 东财（板块资金/涨跌停池）+ 腾讯行情（15:30 收盘快照）· 生成 15:40</div>
+
+<div class="warn"><b>⚠️ v1.6 战略前置 · 生态位判断（8.25）</b><br>
+<b>打板已降级为非主策略</b>。今日实证继续恶化：炸板率 42.9%（24/56，昨日 34.5% 再升）、1进2 晋级率仅 <b>7%</b>（情绪断层）、最高 5 板。选股主路径维持：<b>① 低吸接力 ② 趋势中军波段</b>。本日按 8.29 硬规则<b>不推荐任何 ≥3 板标的作为新开仓</b>（首板/二板涨停率 35.7% vs 3板+ 16.8%）。叠加顶层红灯（4156 家下跌）+ FOMC 周四凌晨 → <b>候选池全部冻结，本报告仅作次日观察锚，禁执行买入</b>。</div>
+
+<h2>📊 筛选透明化（先说筛掉了什么）</h2>
+<div class="kpi">
+<div><div class="l">今日涨停</div><div class="v">32 家</div></div>
+<div><div class="l">连板分布</div><div class="v">5板1/4板1/3板2/2板3/1板25</div></div>
+<div><div class="l">跌停</div><div class="v up">25 家</div></div>
+<div><div class="l">炸板率</div><div class="v up">42.9%</div></div>
+</div>
+<table>
+<tr><th>项目</th><th>内容</th></tr>
+<tr><td>筛选标准</td><td>板块内身位第一 + 板块真金白银净流入 + 同题材涨停 ≥3 + 剔除孤高标（v1.6 容量门槛 8.31 优先：日均成交 ≥20 亿 / 硬逻辑 / 低位低吸 ≥2 条）</td></tr>
+<tr><td>入围过程</td><td>32 家涨停中 ≥3 板禁入 4 只（闽东/中新赛克/双星/澳弘）→ 换手超标剔除 3 只（泰金 28.54%/通鼎 22.70%/超声 40.42%）→ 板块资金不支持的剔除：电力 3 涨停（电力设备板块 -31.55 亿流出，豫能再证伪）、化工 3 / 锂电 3（板块流出或无板块效应）→ 医药涨停归零</td></tr>
+<tr><td><b>筛掉 24 只 · 留 2 候选 + 1 萌芽</b></td><td>留下：大金重工（风电 4 涨停板块身位第一·成交 30.5 亿）、华正新材（通信/覆铜板双板块资金·成交 24.8 亿）、满坤科技（PCB 补涨萌芽延续）。<b>宁缺毋滥：红灯期一律冻结不买</b></td></tr>
+<tr><td>一票否决执行</td><td>≥3 板禁入 <b>4 只</b>（8.29）✓ 已执行；QDR ≥50% / G0 / 拉萨≥40% → <b>今日龙虎榜 15:40 未出榜（正常 17:00+ 公布），三维度待 17:30 补验后回填</b>，昨日 G0 五票滞后验证见⑧</td></tr>
+</table>
+
+<h2>① 板块主线（4 条 · 预测 / 依据 / 失效条件）</h2>
+<table>
+<tr><th>板块</th><th>预测</th><th>依据</th><th>失效条件</th></tr>
+<tr><td><b>风电设备/零部件</b>（新）</td><td>明日低位分歧回踩可低吸接力，是红灯后首个有资金+涨停双证的方向</td><td>4 家涨停（吉鑫/大金/天顺/锡华）+ 风电零部件 +11.97 亿（+11.7% 全行业涨幅第一）+ 风电设备 +11.57 亿（+8.0%）——资金与涨停同时共振且全部首板低位</td><td>明日风电涨停 <2 家 或 板块资金转负</td></tr>
+<tr><td><b>半导体/PCB（中军线）</b>（延续）</td><td>中军修复但涨停端杂毛化（4 家芯片涨停全首板、多与前高辨识度无关），资金利好中军不利情绪股</td><td>半导体 +44.61 亿全场第一 + PCB 概念 +39.18 亿第二 + 生益科技 +2.91% 修复 + 存储芯片 +28.81 亿</td><td>半导体主力净额转负 或 生益科技跌破 145</td></tr>
+<tr><td><b>AI应用</b>（延续）</td><td>中新赛克 4 板锁仓带动副主线，但 4 板后接力风险大，只看不追</td><td>4 家涨停（主类第二）：中新赛克 28.45（4板）+ 启明信息/博汇科技 2 板 + 汉王科技首板</td><td>中新赛克开板不回封</td></tr>
+<tr><td><b>❌ 大消费/电力/光通信</b>（走弱）</td><td>三大旧方向继续回避</td><td>零售+旅游+农业 13 家跌停潮；医药 -28.18 亿涨停归零；电力设备 -31.55 亿；旭创 -1.03%/新易盛 -1.22% 续弱</td><td>跌停潮收敛 + 板块资金转正（暂无迹象）</td></tr>
+</table>
+
+<h2>② 已确认龙头（今日空缺 · 附说明）</h2>
+<div class="note">今日无标的满足"已确认龙头"三条件（板块身位第一 + 资金共振 + 席位维度确认）。原因：① 龙虎榜未出，⑤席位基因/⑨QDR 两维缺失，无法完成 9 维完整评分；② 红灯期禁止升级候选。昨日候选豫能控股已证伪（-3.77%）剔除。空缺是纪律，不是失误。</div>
+
+<h2>③ 候选龙头（2 只 · 红灯冻结）</h2>
+<table>
+<tr><th>标的</th><th>收盘</th><th>9维命中</th><th>低吸区(元)</th><th>止损</th><th>容量门槛(8.31)</th><th>信心</th></tr>
+<tr>
+<td><b>大金重工</b> 002487<br><span class="mono">风电塔筒·海风出海</span></td>
+<td><b class="up">39.44</b> +10.01%（首板）<br><span class="mono">换手12.81%·成交30.5亿</span></td>
+<td><b>5/9</b>：②资金✓③涨停✓④板块强度✓⑥低位首板✓⑧换手✓；⑤⑨待补验；①⑦缺</td>
+<td>37.86 / 38.65 / 39.44</td>
+<td>36.68</td>
+<td>成交30.5亿≥20亿✓ + 板块硬逻辑✓ → 2条满足</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td><b>华正新材</b> 603186<br><span class="mono">覆铜板·通信PCB联动</span></td>
+<td><b class="up">251.57</b> +10.00%（首板）<br><span class="mono">换手6.35%·成交24.8亿</span></td>
+<td><b>4/9</b>：②资金✓（通信线缆+22.74亿×PCB+39.18亿双板块）③涨停✓④强度✓⑧换手✓；⑤⑥⑨待核；位置偏高存疑</td>
+<td>241.51 / 246.54 / 251.57</td>
+<td>233.96</td>
+<td>成交24.8亿≥20亿✓ + 硬逻辑✓ → 2条满足</td>
+<td>0.50<br><span class="mono">高位板降权</span></td>
+</tr>
+</table>
+<div class="warn"><b>🔴 红灯冻结声明</b>：两只候选的全部买区数字仅作次日观察锚。<b>红灯期（4156 家下跌）禁开新仓</b>；且两只标的的 ⑤龙虎榜席位基因 ⑨QDR 待 17:30 补验——若 G0 现身买方或 QDR ≥50%，直接剔除，不因已列入候选而放行。所有席位信号买入的标的遵循 8.13.6：跟随上限 3 日，席位现身卖方即减仓 ≥50%。</div>
+
+<h2>④ 萌芽可买区（1 只 · 观察）</h2>
+<table>
+<tr><th>标的</th><th>收盘</th><th>逻辑</th><th>观察区(元)</th><th>止损</th></tr>
+<tr>
+<td><b>满坤科技</b> 301132<br><span class="mono">PCB 低位补涨</span></td>
+<td><b class="up">61.90</b> +6.05%<br><span class="mono">换手22.57%⚠️偏高</span></td>
+<td>PCB +39.18 亿主线内低位补涨线连续第 2 日走强（昨 +6.42% 今 +6.05%），未涨停不占板位资源；换手连续两日 >20% 需警惕</td>
+<td>58.62 / 60.00 / 62.12</td>
+<td>57.50</td>
+</tr>
+</table>
+
+<h2>⑤ 趋势中军（观察不买 · 8.25 主策略通道之二）</h2>
+<table>
+<tr><th>标的</th><th>收盘</th><th>状态</th></tr>
+<tr><td><b>生益科技</b> 600183</td><td class="up">150.25 +2.91%</td><td>✅ 覆铜板龙头修复中，半导体+PCB 双资金第一/第二背书；站稳 145 上方则中军线修复有效</td></tr>
+<tr><td><b>深南电路</b> 002916</td><td class="up">389.72 +0.15%</td><td>✅ 微涨企稳，暂无买点，等回踩确认</td></tr>
+<tr><td><b>中际旭创</b> 300308</td><td class="down">864.01 -1.03%</td><td>⚠️ 续弱第 2 日，通信网络设备板块 -36.36 亿流出最多；中军验证器对光模块维持"风险预警"档</td></tr>
+<tr><td><b>新易盛</b> 300502</td><td class="down">397.01 -1.22%</td><td>⚠️ 同上，光模块中军未修复</td></tr>
+</table>
+
+<h2>⑥ 淘汰区（禁入 8 只 · 逐条理由）</h2>
+<table>
+<tr><th>标的</th><th>收盘</th><th>今日</th><th>淘汰理由</th></tr>
+<tr><td><b>闽东电力</b> 000993</td><td>16.80</td><td class="up">+10.02%</td><td>⛔ 8.29 禁入：<b>5 板</b>（最高板）。连续 2 日"断板预测"失败已记入对账，但纪律不因预测失败而放行——5板换手22.83%昨日+封板反复，风险收益比劣于首板二板</td></tr>
+<tr><td><b>中新赛克</b> 002912</td><td>28.45</td><td class="up">+10.02%</td><td>⛔ 8.29 禁入：4 板，且换手 23.27% >15%（8.21 板位条件化危险线）</td></tr>
+<tr><td><b>双星新材</b> 002585</td><td>12.06</td><td class="up">+10.04%</td><td>⛔ 8.29 禁入：3 板 + 换手 22.25% + 昨日 G0 紫阳东路现身买方（G0 补验若确认在场则双重否决）</td></tr>
+<tr><td><b>澳弘电子</b> 605058</td><td>40.30</td><td class="up">+9.99%</td><td>⛔ 8.29 禁入：3 板；昨日 QDR 40.4% 进入 30-50% 降权区，今日待补验</td></tr>
+<tr><td><b>豫能控股</b> 001896</td><td>12.50</td><td class="down">-3.77%</td><td>❌ 资金证伪：昨日主力 +8.60 亿全场第一 → 今日主力转卖、收 -3.77% 破低吸区下沿 12.47；候选资格取消，记入对账</td></tr>
+<tr><td><b>泰金新能</b> 688813</td><td>146.50</td><td class="up">+2.95%</td><td>❌ 换手 28.54% 极端（连续第 2 日 >15%），+QDR 昨日 35.6% 偏高，一票否决预备</td></tr>
+<tr><td><b>通鼎互联</b> 002491</td><td>22.23</td><td class="up">+10.00%</td><td>❌ 换手 22.70% 危险线 + 通信首板内非身位第一（华正新材优先）</td></tr>
+<tr><td><b>超声电子</b> 000823</td><td>23.90</td><td class="up">+5.61%</td><td>❌ 换手 40.42% 全场极端高位，冲高 24.89 回落长上影 = 8.20 出货形态预备，禁碰</td></tr>
+</table>
+
+<h2>⑦ 走弱区（回避）</h2>
+<table>
+<tr><th>方向</th><th>状态</th><th>代表</th></tr>
+<tr><td><b>大消费（零售/旅游/农业）</b></td><td class="up">❌ 跌停潮 13 家</td><td>中央商场/南宁百货/百大集团/国芳集团/中百集团（零售）+ 天目湖/云南旅游/桂林旅游（旅游）+ 敦煌种业/新农开发/国投丰乐（农业）——<b>龙版传媒跌停 605577</b>，观察股池同步移除优先级</td></tr>
+<tr><td><b>医药</b></td><td class="up">❌ 资金+涨停双杀</td><td>医药生物 -28.18 亿流出，涨停主类归零（昨日预测 ❌ 实证）</td></tr>
+<tr><td><b>电力设备/绿电</b></td><td class="up">❌ 崩塌延续第 2 日</td><td>板块 -31.55 亿；杭州热电 -7.49% 破止损清仓线；豫能 -3.77%；仅闽东独苗撑场（禁入）</td></tr>
+<tr><td><b>光通信/CPO</b></td><td class="up">❌ 续弱</td><td>通信网络设备 -36.36 亿全场流出第一；旭创 -1.03% / 新易盛 -1.22%</td></tr>
+<tr><td><b>银行/权重</b></td><td class="up">⚠️ 失血</td><td>银行 -17.07 亿，工商银行 -1.09%——权重失血但指数仅 -0.54%，个股普跌 4156 家为真实宽度</td></tr>
+</table>
+
+<h2>⑧ 持仓联动 + 昨日候选复核</h2>
+<table>
+<tr><th>标的</th><th>联动结论</th></tr>
+<tr><td><b>杭州热电</b> 605011（唯一持仓·900股）</td><td class="up"><b>收盘 18.78 破硬止损 18.85 → 清仓指令维持</b>：已成交则回填 trades.json；未成交明日 9:25 竞价挂 18.70 元卖出 900 股（约 16,830 元）。主力竞价 +1478 万 → 盘中 -1480 万派发确认。详见 持仓分析_20260915.html</td></tr>
+<tr><td>昨日候选 <b>豫能控股</b></td><td class="down">❌ 证伪剔除（-3.77%，主力转卖）——9/14 的"主力+8.60亿+G1共振"未兑现隔日强度，低吸区 12.47-12.73 被击穿；对账记 ❌</td></tr>
+<tr><td>昨日萌芽 <b>宝鼎科技</b></td><td>维持观察（+0.37% 收 54.20，未封板按 8.13.4 前置条款维持"试错仓"档位不升级；买区 52.38-55.62 今日低点 53.60 在区内）；席位维度待补验</td></tr>
+<tr><td>昨日萌芽 <b>意华股份</b></td><td>✅ 延续（+5.04% 收 74.99，低吸区买入者浮盈 ~+7%）；今日未开新仓（黄灯→红灯），仅记验证</td></tr>
+<tr><td>昨日萌芽 <b>满坤科技</b></td><td>✅ 延续升级为今日唯一萌芽（+6.05% 收 61.90）</td></tr>
+<tr><td>G0 五票滞后验证（9/14 席位）</td><td>科翔 +1.03% / 黄河旋风 -1.03% / 中京电子 -1.01% / 津药 +3.57% / 双星 +10.04%——2/5 票>+3% 未达失效线，G0"次日砸盘>70%"判定 <b>✅ 弱有效</b>（3/5 票走弱；双星涨停为显著反例，记入周末席位库复核）</td></tr>
+</table>
+
+<div class="note">📌 <b>明日（9/16）动作清单</b>：① 杭州热电竞价处置（见⑧）② FOMC 周四凌晨结果 → 盘前自动化更新信号灯 ③ 17:30 后补跑席位雷达（大金重工/华正新材/满坤科技的 G0/QDR/LBS 三维回填）④ 红灯期第一任务仍是减仓离场，非抄底。</div>
+
+<div class="disc">免责声明：本报告为个人研究辅助与纪律框架记录，不构成任何投资建议，不承诺收益。候选/萌芽仅为观察锚，买卖区为框架算法参考价。数据来自悟道 MCP/东财/腾讯收盘快照，可能存在延迟或误差。市场有风险，投资需谨慎，盈亏自负。</div>
+</body>
+</html>
