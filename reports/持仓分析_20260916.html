@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓分析 2026-09-16 · 超哥A股研究台</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--ink:#1a2233;--sub:#5a6b85;--line:#e3e9f2;--up:#d9302c;--dn:#1a9c5b;--warn:#b45309;--red:#c02626;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);padding:16px;}
+.wrap{max-width:1080px;margin:0 auto;}
+h1{font-size:19px;margin-bottom:4px;}
+h2{font-size:15px;margin:18px 0 8px;padding-left:8px;border-left:4px solid var(--red);}
+.meta{color:var(--sub);font-size:12px;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
+th{background:#eef2f8;font-weight:600;white-space:nowrap;}
+.up{color:var(--up);font-weight:600;}
+.dn{color:var(--dn);font-weight:600;}
+.red{color:var(--red);font-weight:700;}
+.orange{color:var(--warn);font-weight:600;}
+.tag{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;font-weight:600;}
+.tag-red{background:#fde8e8;color:var(--red);}
+.tag-orange{background:#fef3e2;color:var(--warn);}
+.tag-gray{background:#eef1f6;color:var(--sub);}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:13px;}
+.box.alert{border-color:#f3b4b4;background:#fdf2f2;}
+.disc{margin-top:16px;padding:10px 12px;background:#eef1f6;border-radius:8px;color:var(--sub);font-size:12px;}
+small{color:var(--sub);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>📊 持仓分析 · 2026-09-16（周三）收盘快照</h1>
+<div class="meta">框架 v1.6（8.12/8.13/8.13.4/8.13.6/8.14/8.15/8.20/8.21-8.31/8.23）· 持仓入口固定为动态页 position.html，本页为当日收盘快照存档 · 生成于 15:20 盘后总管</div>
+
+<div class="box alert">🚨 <b>明日（9/17）置顶指令：开盘竞价无条件清仓杭州热电 900 股</b>（市价或跌停价保护性限价 17.30 挂出，防再次错过）。9/15 破止损 18.85 已下达清仓指令，9/16 竞价未成交且盘中冲高 19.50 未执行，收盘 18.26 创调整新低——破位第 2 日，纪律不再给宽容窗口。按 18.26 估算卖出回款约 <b>16,434 元</b>，实现亏损约 <b>-1,306.8 元（-1.68R）</b>。叠加 FOMC 周四凌晨 2 点落地，落地前禁一切新仓。</div>
+
+<h2>一、持仓明细（holdings.json · shares&gt;0）</h2>
+<table>
+<tr><th>标的</th><th>持仓</th><th>成本</th><th>收盘</th><th>当日涨跌</th><th>浮盈亏</th><th>R 倍数</th><th>持仓天数</th><th>止损/目标</th><th>状态</th></tr>
+<tr>
+<td><b>杭州热电</b> 605011</td><td>900 股</td><td>19.712</td><td><b>18.26</b></td>
+<td class="dn">-2.77%</td>
+<td class="red">-1,306.8 元</td>
+<td class="red">-1.68R</td>
+<td>3 个交易日（9/14→9/16）</td>
+<td>止损 18.85（已破）/ 目标 21.70（未达）</td>
+<td><span class="tag tag-red">深破止损·明日清仓</span></td>
+</tr>
+</table>
+<p style="font-size:12px;color:var(--sub);margin:6px 0 0;">组合合计：浮亏 -1,306.8 元 / -1.68R · 当日变动：-0.52 元/股（较 9/15 收 18.78 又跌 2.77%，9/15 已按 18.70 竞价指令测算，未执行则今日多亏约 396 元）。收盘价经腾讯行情 15:21 收盘快照确认。</p>
+
+<h2>二、当日走势还原（9/16）</h2>
+<table>
+<tr><th>项</th><th>数值</th><th>解读</th></tr>
+<tr><td>开/高/低/收</td><td>— / 19.50 / 18.21 / 18.26</td><td><b>早盘冲高 19.50（+3.8%）未能站住，午后回落翻绿创新低</b>——典型反抽出货形态（8.20），高点恰在 5 日线附近受阻</td></tr>
+<tr><td>成交额 / 换手</td><td>3.93 亿 / 5.27%</td><td>缩量下跌，承接弱（对比 9/14 涨停日 18 亿级）</td></tr>
+<tr><td>主力净额（悟道）</td><td class="dn">-3,275.5 万</td><td><b>连续第 3 日净流出</b>（9/15 竞价+1478万→盘中-1480万派发→今日续卖），派发链条完整</td></tr>
+<tr><td>板块背景</td><td>电力设备延续弱势</td><td>全场主线在芯片/通信（+267亿/+212亿），电力板块资金继续被抽血</td></tr>
+</table>
+
+<h2>三、五项必做检查（v1.6 硬规则）</h2>
+<table>
+<tr><th>检查项</th><th>结论</th><th>依据与指令</th></tr>
+<tr><td><b>8.13.4 二波三板魔咒</b></td><td><span class="tag tag-gray">不适用</span></td><td>二波仅 2 板未封（9/13 首板/9/14 二板未封即买入），未到第 3 板，无魔咒触发</td></tr>
+<tr><td><b>8.20 出货信号</b></td><td><span class="tag tag-red">命中 3 条</span></td><td>①主力连续 3 日净流出（-1480万/-3275万+竞价派发）；②今日冲高 19.50 回落收长上影创新低＝尾盘拉升失败/天量滞涨变体；③板块崩塌第 3 日。→ <b>维持次日减仓/清仓指令</b></td></tr>
+<tr><td><b>8.23 尾盘确认</b></td><td><span class="tag tag-gray">不适用</span></td><td>无新买入；存量持仓处置指令不受 14:45 确认约束（破位清仓本就应在竞价/早盘执行）</td></tr>
+<tr><td><b>8.13.6 跟随纪律（v1.6）</b></td><td><span class="tag tag-orange">按上限到期处理</span></td><td>本仓为低吸接力（非席位信号买入），严格口径不适用；但按持有天数计已 3 个交易日，即便按跟随上限亦到「第 3 日无条件处理」线——<b>两种口径殊途同归：明日清仓</b></td></tr>
+<tr><td><b>8.29 板位衰减</b></td><td><span class="tag tag-gray">不适用</span></td><td>持仓未连板（9/14 二板未封），无 ≥3 板加仓禁令问题</td></tr>
+</table>
+
+<h2>四、操作建议（具体到标的+动作+金额）</h2>
+<table>
+<tr><th>标的</th><th>动作</th><th>执行细节</th><th>金额估算</th><th>备注</th></tr>
+<tr>
+<td>杭州热电 605011</td>
+<td class="red"><b>明日 9:25 竞价清仓 900 股</b></td>
+<td>市价单或保护性限价 17.30（跌停价 16.43 上方留缓冲）；竞价未成交则 9:30 前后 10 分钟内市价补单，<b>当日必须完成</b></td>
+<td>按 18.26 计回款约 16,434 元；按 17.30 保护价计约 15,570 元（最差情形）</td>
+<td>浮亏 -1,306.8 元/-1.68R 落袋。清仓后<b>空仓等 FOMC 落地</b>（周四凌晨 2 点），信号灯降黄/绿且出现 8.31 容量门槛双证标的前不开新仓</td>
+</tr>
+</table>
+<p style="font-size:13px;margin:8px 0;"><b>仓位状态推演：</b>清仓后组合空仓（总仓位 0% ≤ 50% 上限 ✓，单票 0% ≤ 20% ✓，主线 0% ≤ 30% ✓）。当前框架 8.25 主策略为①低吸接力②趋势中军波段——FOMC 落地后若芯片/通信中军（生益科技/中际旭创/新易盛）回踩买区，优先按趋势中军低吸评估，禁打板。</p>
+
+<div class="disc"><b>免责声明：</b>本报告为个人研究框架（v1.6）下的纪律辅助工具，所有价格来自公开行情快照（腾讯 15:21 收盘 + 悟道主力资金），仅供超哥本人决策参考，不构成任何投资建议；股市有风险，盈亏自负。主力净额为"开盘红"口径，与传统四档资金流口径不同。</div>
+</div>
+</body>
+</html>
