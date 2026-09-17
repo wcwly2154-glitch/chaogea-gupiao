@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘前简报 · 2026-09-17（周四）</title>
+<style>
+  :root{--bg:#0f1420;--card:#171e2e;--card2:#1c2436;--line:#2a3450;--tx:#e8ecf5;--tx2:#9aa7c0;--red:#ff5a5a;--amber:#ffb020;--green:#33cc8f;--blue:#4da3ff;--purple:#a78bfa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--tx);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:20px;max-width:1080px;margin:0 auto;line-height:1.65}
+  h1{font-size:22px;margin-bottom:4px}
+  h2{font-size:17px;margin:26px 0 12px;padding-left:10px;border-left:4px solid var(--blue)}
+  h3{font-size:14.5px;margin:14px 0 8px;color:var(--tx2)}
+  .meta{color:var(--tx2);font-size:12.5px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .top-alert{background:linear-gradient(135deg,#3a1d24,#2a1520);border:1px solid #7a3040;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+  .top-alert .t{font-size:17px;font-weight:800;color:var(--red);margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--card2);color:var(--tx2);font-weight:600;white-space:nowrap}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11.5px;font-weight:600;margin-right:6px}
+  .tag-red{background:#3a1d24;color:var(--red)}
+  .tag-amber{background:#3a2d14;color:var(--amber)}
+  .tag-green{background:#12332a;color:var(--green)}
+  .tag-blue{background:#14273a;color:var(--blue)}
+  .tag-purple{background:#241d3a;color:var(--purple)}
+  .warn{background:#3a2d14;border:1px solid #6a5420;border-radius:10px;padding:12px 14px;font-size:13px;margin:10px 0}
+  .note{color:var(--tx2);font-size:12px;margin-top:6px}
+  .disclaimer{margin-top:26px;padding:14px 16px;background:var(--card2);border-radius:10px;color:var(--tx2);font-size:12px;border:1px dashed var(--line)}
+  ul{padding-left:20px;font-size:13.5px}
+  li{margin:4px 0}
+  .big{font-size:15px;font-weight:700}
+  .a{color:var(--amber)}.r{color:var(--red)}.g{color:var(--green)}.b{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<h1>📋 盘前简报 · 2026-09-17（周四）</h1>
+<div class="meta">生成 09:17 · 框架 v1.6 · 悟道 MCP×6 + WebSearch×4 · 席位流水由龙虎榜直连重建（seat_log 落盘缺失，9-16 数据 66 条）· 免责声明见文末</div>
+
+<div class="top-alert">
+  <div class="t">🔴 置顶操作指令：杭州热电（605011）今日 9:25 竞价清仓 900 股</div>
+  <div>9-16 收 <b>18.26</b>（腾讯+新浪双源验证，较 9-15 再跌 2.77%，两日累计约 -10%）；9-16 主力净卖 <b>3275 万</b>（买 4565 万 / 卖 7840 万），9-15 竞价 +1478 万 → 盘中转卖的派发结构未止。<b>按昨日既定指令执行：9:25 竞价卖出，成本 19.712，约 -7.4% ≈ -1.31R 止损离场。</b>若竞价跌停无法成交，9:30 后反抽 18.30+ 无条件离场。成交后回填 trades.json（side=sell + exit_date/exit_price/exit_pnl）并清空 holdings.json。卖出后空仓观望——今日禁开新仓。</div>
+</div>
+
+<h2>① 生态位提示（8.25 · 2026 打板已终结）</h2>
+<div class="card">
+<span class="tag tag-purple">主策略：① 低吸接力 ② 趋势中军波段</span><span class="tag tag-red">打板 = 降级动作，禁用</span>
+<ul>
+  <li>量化占比 35-42%、连板高度中值 3.2 板、炸板率 68%、隔日溢价 -1.3% —— 2026 年打板生态已死，v1.6 框架下<b>只做低吸接力与趋势中军</b>。</li>
+  <li>昨日虽是修复日（涨停 89 家封板率 90.8%），但 6 板闽东电力换手 21.8% + 陈小群高位出货 6797 万，<b>高位板群体风险仍在释放</b>；≥3 板全部禁新开仓（8.29 板位衰减：3 板+ 隔日胜率仅 16.8%）。</li>
+  <li>今日机会只存在于：<b>LBS-A 档席位低吸接力</b>（实证次日胜率 60.9%）与主线回调低吸，一律试错仓 ≤10%，默认 14:45 尾盘确认（8.23）。</li>
+</ul>
+</div>
+
+<h2>② 宏观信号灯引用（8.15）</h2>
+<div class="card">
+<div class="big">🟡 <span class="a">黄灯</span>（阈值命中 2.5 条）→ <b>禁开新仓、只处理持仓；LBS-A 仅试错仓</b></div>
+<table>
+<tr><th>维度</th><th>读数</th><th>判定</th></tr>
+<tr><td>美 10Y</td><td>收 5.006%~5.02%，<b>三年来首次收盘站上 5%</b>；30Y 5.35%</td><td class="r">命中</td></tr>
+<tr><td>美元</td><td>指数 100.24~100.34 重新站上 100（7 月末以来最高）</td><td class="r">命中</td></tr>
+<tr><td>原油/地缘</td><td>布油 105.83（-2.69%）、WTI 102.43（-3.21%），沙特管道恢复半数运力 → 百元上方但回落</td><td class="a">半命中</td></tr>
+<tr><td>美股/VIX</td><td>道 -1.21%（决议日最大跌幅/新低）但纳指 -0.01%、<b>费半 +0.63%</b>、VIX 17.71；Lumentum +9.59%/Coherent +6.92% 光通信暴涨</td><td class="g">未命中（结构抗跌）</td></tr>
+<tr><td>亚太</td><td>A50 -0.30% 温和；日经/KOSPI 今晨高开 +1.0%/+1.15%</td><td class="g">未命中</td></tr>
+<tr><td>事件</td><td>FOMC 加息 25bp 落地（12:0 全票）+ 点阵图鹰派（16/18 人预计年内再加息）；<b>今晚日本央行议息</b>（套息平仓尾部风险）</td><td class="a">半命中</td></tr>
+</table>
+<div class="note">详细阈值表与传导链见 <a href="宏观信号灯_20260917.html" style="color:var(--blue)">宏观信号灯_20260917</a>。昨日红灯（10Y 创 2007 新高 + FOMC 前夜）今晨解除 → 降级黄灯；但"禁开新仓"延续一天，等日本央行平稳落地+周五三巫日过后再评估。</div>
+</div>
+
+<h2>③ 主力板块与资金（9-16 复盘）</h2>
+<div class="card">
+<table>
+<tr><th>板块</th><th>主力净额</th><th>涨跌幅</th><th>涨停数</th><th>点评</th></tr>
+<tr><td class="b"><b>芯片</b></td><td class="g">+267.4 亿</td><td>+2.85%</td><td>13</td><td>资金第一主攻；硅片/设备/材料全面开花</td></tr>
+<tr><td class="b"><b>通信</b></td><td class="g">+211.7 亿</td><td>+2.81%</td><td><b>20</b></td><td>涨停数第一；光通信为主（隔夜美股光通信暴涨直接共振）</td></tr>
+<tr><td>算力</td><td class="g">+25.5 亿</td><td>+1.90%</td><td>7</td><td>液冷/PCB 扩散方向</td></tr>
+<tr><td>海峡两岸</td><td class="g">+18.0 亿</td><td>+2.26%</td><td>6</td><td>闽东电力 6 板带动；高位克隆风险高</td></tr>
+<tr><td>元器件/PCB</td><td class="g">+19.0 亿</td><td>+2.70%</td><td>2</td><td>澳弘电子 4 板为旗；4 板禁新开仓</td></tr>
+<tr><td>光伏</td><td class="g">+18.6 亿</td><td>+1.79%</td><td>3</td><td>修复性反弹</td></tr>
+<tr><td>锂电池</td><td class="r">-10.3 亿</td><td>+1.86%</td><td>1</td><td>资金流出（宁德连跌）</td></tr>
+<tr><td>AI应用</td><td class="r">-11.1 亿</td><td>+1.06%</td><td>1</td><td>资金流出；龙版传媒拉萨独买跌 9.8% 为警示</td></tr>
+</table>
+<div class="note">两市成交 1.84 万亿（放量 2300 亿）。主线收敛为 <b>AI 硬件（通信/芯片/算力）</b>，资金集中度极高——主线内部做低吸，不碰资金流出分支。今日关注竞价：主线若高开 &gt;2% 需防兑现，低开或平量回踩反而是低吸观察位。</div>
+</div>
+
+<h2>④ 席位雷达观察清单（v1.6 盘前转化 · 9-16 龙虎榜 66 条重建）</h2>
+
+<div class="card">
+<h3>⭐ LBS-A 档最高优先级（实证次日胜率 60.9%）—— 共 2 只</h3>
+<table>
+<tr><th>标的</th><th>板位/题材</th><th>LBS-A 依据</th><th>今日确认方式</th><th>跟随纪律</th><th>容量门槛 8.31</th></tr>
+<tr>
+  <td><b>青山纸业（600103）</b><br>3.69 收盘</td>
+  <td>首板<br>光通信+竹浆纸</td>
+  <td><b>陈小群（国新证券北京分公司，G1 顶级）买一 9309 万、卖出 0、净买 9309 万</b>；知春路 5647 万 + 沪股通 5050 万辅助；卖方为高盛/瑞银等 G4 无砸盘核按钮</td>
+  <td>竞价后 5 分钟（9:30-9:35）是否接力：竞价 +2%~+5%（3.76~3.87）放量接力 → 有效；竞价绿盘或平量 → 放弃</td>
+  <td>第 1 日 / 上限 3 日<br>试错仓 ≤10%<br>默认 14:45 尾盘确认买入（8.23）</td>
+  <td>满足 1 条（首板低位 ✓；成交约 3.5 亿 &lt;20 亿 ✗；题材硬逻辑一般 △）</td>
+</tr>
+<tr>
+  <td><b>西陇科学（002584）</b><br>9.55 收盘</td>
+  <td>2 板<br>光刻胶试剂+PCB 化学品</td>
+  <td><b>陈小群（G1）买 8560 万、卖出 0、净买 8560 万</b>（最大净买 G1 席位）；注：名义买一为深股通 8625 万但做T（净仅 319 万）——严格口径标注此瑕疵</td>
+  <td>竞价 +2%~+5%（9.74~10.03）放量接力 → 有效；2 板晋级失败（炸板）→ 立即放弃</td>
+  <td>第 1 日 / 上限 3 日<br>试错仓 ≤10%<br>默认 14:45 尾盘确认买入（8.23）</td>
+  <td>满足 1 条（光刻胶硬逻辑 ✓；成交 5.3 亿 &lt;20 亿 ✗；2 板非低位 ✗）</td>
+</tr>
+</table>
+<div class="warn">⚠️ 黄灯环境 + 今晚日本央行尾部风险：即使 LBS-A 档也<b>只给试错仓（≤10%）</b>，且默认 14:45 尾盘确认后再进（8.23 尾盘确认律），竞价直接追高禁止。两只均只满足 1 条容量门槛 → 若开盘主线分歧（通信/芯片集体翻绿），直接整单放弃。</div>
+</div>
+
+<div class="card">
+<h3>🚫 一票否决名单（今日禁入，共 11 只）</h3>
+<table>
+<tr><th>否决类型</th><th>标的</th><th>否决原因</th></tr>
+<tr><td class="r">G0 黑名单现身买方（8 只）</td>
+  <td>光迅科技（净买 10.15 亿/首板）、通鼎互联（2板）、有研硅（首板 20cm）、平潭发展（首板）、超声电子（3板/5天3板）、威尔高（首板 20cm）、星网锐捷（首板）、凌玮科技（20cm）</td>
+  <td><b>紫阳东路（国泰海通武汉紫阳东路，G0 核按钮，次日砸盘概率 &gt;70%）全部现身买方</b>；其中光迅科技紫阳净买 2.26 亿、通鼎 2.44 亿、星网锐捷更居买一 2.31 亿。⚠️ 特别警示：超声电子叠加<b>公司澄清"高频板通过英伟达认证"传闻不属实</b>，双杀</td></tr>
+<tr><td class="r">G5 拉萨独买（1 只）</td><td>龙版传媒（-9.79% 断板）</td><td>买方前五<b>全部为拉萨东环/团结/金融城</b>（散户通道），G5 拉萨独买 = 一票否决；AI 漫剧题材退潮。<b>此前关注过的龙版传媒正式移出观察池</b></td></tr>
+<tr><td class="r">QDR ≥50% 量化独买（2 只）</td><td>威帝股份（63%）、乐凯胶片（60%）</td><td>开源西安西大街（G3 量化）占买方前五比例超 50% 红线；另星徽股份 47% 接近线，标注量化主导风险、谨慎</td></tr>
+<tr><td class="a">≥3 板禁新开仓（8.29，3 只）</td><td>闽东电力（6板）、澳弘电子（4板）、博汇科技（3板）</td><td>板位衰减律：3 板+ 隔日胜率仅 16.8%；闽东电力 6 板换手 21.8%（&gt;15% 危险信号）+ <b>陈小群高位出货 6797 万</b> + 2026 新规监管风险（爱丽家居 9 板停牌核查案例）；博汇科技净买转负 -1055 万 + 换手 28.3% 危险</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>👁 弱转强观察（8.19.1）与顶级席位卖方警示（8.13.6）</h3>
+<ul>
+  <li><b>弱转强候选（质量一般，不重点推荐）</b>：中新赛克（AI 安全，9-15 涨停 → 9-16 跌停断板）、天融信（AI 安全跌停）——均为监管降温标的（高位自曝），若今日竞价放量撬板翻红可标"弱转强试错"（≤10% 仓、硬止损 -7%），但<b>主线（通信/芯片）内部无断板龙头，弱转强质量低，默认放弃</b>。</li>
+  <li><b>顶级席位卖方警示</b>：陈小群（G1）昨日现身卖方——山子高科卖 8077 万、闽东电力卖 6797 万（高位派发）。持仓与今日清单均无关联标的，无需动作，但<b>青山纸业/西陇科学今日若见陈小群反手卖出 → 立即按 8.13.6 减仓 ≥50%</b>。</li>
+  <li><b>机构撤退信号</b>：昂瑞微卖方前五全机构专用（净卖 2.06 亿）——半导体高位机构出货样本，同位个股警惕。</li>
+</ul>
+</div>
+
+<h2>⑤ 龙头价区间（今日操作参考）</h2>
+<div class="card">
+<table>
+<tr><th>标的</th><th>昨收</th><th>观察/试错区间</th><th>止损</th><th>备注</th></tr>
+<tr><td>青山纸业 600103</td><td>3.69</td><td>竞价 3.76~3.87（+2~5%）接力有效；确认后回踩 3.69~3.76 低吸区更优</td><td>3.58（约 -3% 破首板实体）</td><td>试错仓 ≤10%，14:45 确认优先</td></tr>
+<tr><td>西陇科学 002584</td><td>9.55</td><td>竞价 9.74~10.03（+2~5%）接力有效；炸板/晋级失败立即放弃</td><td>9.08（-5%）</td><td>试错仓 ≤10%，2 板位博弈，风险高于青山</td></tr>
+<tr><td>杭州热电 605011</td><td>18.26</td><td class="r"><b>9:25 竞价清仓（无区间、无条件）</b></td><td>—</td><td>止损离场 ≈ -1.31R</td></tr>
+</table>
+<div class="note">8.13 价区框架：0.96/0.98/1.0 分批；所有买入默认 14:45 尾盘确认（8.23），竞价抢跑只算"试错仓"且 ≤10%。今日黄灯：总仓位上限 3 成、新开仓 0 成（试错仓为唯一例外）。</div>
+</div>
+
+<h2>⑥ 跟踪池提示（8.13.6 跟随纪律）</h2>
+<div class="card">
+<table>
+<tr><th>标的</th><th>来源</th><th>跟随天数</th><th>今日处理</th></tr>
+<tr><td>青山纸业 / 西陇科学</td><td>今日新增（LBS-A）</td><td class="g">第 1 日 / 上限 3 日</td><td>按 LBS-A 清单执行；3 日内未走出预期即移出</td></tr>
+<tr><td>watchlist.json</td><td>—</td><td>—</td><td>空池（9-15 起算口径），今日起重建</td></tr>
+<tr><td>闽东电力 / 澳弘电子 / 博汇科技 / 通鼎互联</td><td>龙虎榜高位组</td><td>—</td><td>全部禁入名单，仅跟踪不参与；用于判断主线高度衰减节奏</td></tr>
+</table>
+</div>
+
+<h2>⑦ 今日操作清单（按时间轴）</h2>
+<div class="card">
+<table>
+<tr><th>时间</th><th>动作</th><th>权责</th></tr>
+<tr><td class="a"><b>9:25</b></td><td class="r"><b>杭州热电 900 股竞价清仓</b>（无条件执行昨日指令）</td><td>超哥下单</td></tr>
+<tr><td>9:25-9:30</td><td>卖出成交回填 trades.json（side=sell, exit_price=成交价, exit_pnl, r_multiple≈-1.31R）+ holdings.json 清仓删条目</td><td>AI 回填</td></tr>
+<tr><td>9:30-9:35</td><td>青山纸业/西陇科学竞价接力确认：+2~5% 放量 → 记录；绿盘/平量 → 整单放弃</td><td>AI 盘中监控（11:00 窗口复核）</td></tr>
+<tr><td>盘中</td><td>盯两个升级触发器：①A50/上证跌 &gt;1% ②通信/芯片跌停潮 → 任一出现即升红、试错仓取消</td><td>AI 盘中自动化</td></tr>
+<tr><td class="a"><b>14:45</b></td><td>尾盘确认窗口：青山/西陇若全天强势（封板或 +5% 以上站稳）→ 允许试错买入；其余一律不动作</td><td>超哥决策 + AI 提示</td></tr>
+<tr><td>今晚</td><td>日本央行议息（明日晨公布）——重仓动作继续冻结</td><td>—</td></tr>
+</table>
+<div class="note">总仓位纪律（8.10）：主线 ≤30% / 总仓 ≤50% / 单票 ≤20%；黄灯日存量 ≤3 成。卖出杭州热电后默认空仓观望——空仓等待也是执行框架的一部分。</div>
+</div>
+
+<div class="disclaimer">
+<b>免责声明：</b>本简报为个人研究笔记，由自动化流程于 2026-09-17 09:17 生成（数据源：悟道 MCP 复盘/龙虎榜、腾讯+新浪行情、WebSearch 宏观），不构成任何投资建议。席位基因/胜率均基于历史统计，不保证未来有效；据此操作风险自担。股市有风险，入市需谨慎。
+</div>
+
+</body>
+</html>
