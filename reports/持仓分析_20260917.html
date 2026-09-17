@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓分析 2026-09-17 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#f5f7fa;--card:#ffffff;--text:#1a2232;--sub:#5a6577;--line:#e3e8ef;--up:#d43a3a;--down:#1f9d55;--gold:#b8860b;--accent:#2563eb;--red:#d43a3a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);padding:16px 14px;max-width:760px;margin:0 auto;font-size:13.5px;line-height:1.6;}
+h1{font-size:19px;margin:4px 0 2px;}
+.sub{color:var(--sub);font-size:11.5px;margin-bottom:12px;line-height:1.6;}
+a{color:var(--accent);text-decoration:none;}
+.back{display:inline-block;margin-bottom:6px;color:var(--sub);font-size:12px;}
+h2{font-size:14.5px;margin:18px 0 8px;padding-left:8px;border-left:3px solid var(--accent);}
+table{width:100%;border-collapse:collapse;font-size:12px;background:var(--card);border-radius:9px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+th{background:#eef2f7;color:var(--sub);font-weight:600;text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);font-size:11px;white-space:nowrap;}
+td{padding:7px 8px;border-bottom:1px solid #f0f3f7;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.up{color:var(--up);font-weight:600;}.down{color:var(--down);font-weight:600;}
+.warn{background:#fef2f2;border:1px solid #fca5a5;border-radius:9px;padding:11px 13px;font-size:12.5px;line-height:1.85;margin:10px 0;}
+.warn b{color:#b91c1c;}
+.note{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:10px 13px;font-size:12px;line-height:1.8;margin:10px 0;}
+.disc{font-size:10.5px;color:#8a94a6;line-height:1.7;margin-top:18px;padding-top:10px;border-top:1px dashed var(--line);text-align:center;}
+.mono{font-family:monospace;font-size:11px;color:var(--sub);}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;font-weight:700;}
+.tag.red{background:#fee2e2;color:#b91c1c;}
+.tag.gray{background:#f1f5f9;color:#64748b;}
+ul{margin:6px 0 6px 18px;}
+li{margin:3px 0;}
+</style>
+</head>
+<body>
+<a class="back" href="/index.html">← 返回研究台</a>
+<h1>📋 持仓分析 · 2026-09-17 收盘快照</h1>
+<div class="sub">框架 v1.6 · 数据：腾讯 15:25 收盘快照（ts=20260917152216，双源核验：东财 push2delay 17.90 / 新浪 17.90 三源一致）· 本页为当日静态快照，<b>实时持仓入口固定 <a href="position.html">position.html</a></b></div>
+
+<div class="warn">
+<b>🚨 置顶指令（连续第 3 日）——杭州热电清仓执行缺口必须闭环</b><br>
+① 若今日 9:25 竞价已按约 <b>18.39 元</b>卖出 900 股（回款约 <b>16,551 元</b>，实现亏损约 <b>-1,189.8 元 / -1.53R</b>）→ 请回填 trades.json 卖出价，指令闭环。<br>
+② 若仍未执行 → <b>明日（9/18）9:25 竞价无条件市价卖出 900 股</b>，保护性限价 <b>17.00 元</b>（今日最低 17.45，回款下限约 15,300 元）。<br>
+③ 该标的 9/14 买入，8.13.6 跟随上限 3 个交易日已于 9/16 到期，<b>现处超期第 2 日</b>；破止损第 3 日（18.85）、浮亏扩大至 -2.10R，无任何继续持有理由。
+</div>
+
+<h2>一、持仓总览（1 只 · shares&gt;0）</h2>
+<table>
+<tr><th>标的</th><th>持仓</th><th>成本</th><th>收盘</th><th>当日</th><th>浮盈亏</th><th>R 倍数</th><th>持仓天数</th><th>止损位</th></tr>
+<tr>
+<td><b>杭州热电</b><br><span class="mono">605011</span> <span class="tag red">破止损第3日</span></td>
+<td>900 股</td><td>19.712</td><td><b>17.90</b></td><td class="down">-1.97%</td>
+<td class="down">-1,630.8 元</td><td class="down"><b>-2.10R</b></td>
+<td>第 4 日（9/14 买入）</td><td>18.85（已破）</td>
+</tr>
+<tr><td colspan="9" style="font-size:11px;color:var(--sub)">当日区间：开 18.39（竞价，即清仓指令挂价附近）→ 高 18.39 → 低 17.45（创新低）→ 收 17.90；成交 2.69 亿，换手 3.77%。组合浮亏 -1,630.8 元（唯一持仓）。</td></tr>
+</table>
+
+<h2>二、五项必做检查</h2>
+<table>
+<tr><th>#</th><th>检查项</th><th>结论</th></tr>
+<tr><td>1</td><td><b>8.13.4 二波三板魔咒</b></td><td>不适用——持仓期间未连板（9/14 为二波 2 板未封分歧位买入，之后未再涨停）。</td></tr>
+<tr><td>2</td><td><b>8.20 出货信号</b></td><td><b>命中（延续）</b>：反抽出货形态 9/16 已确认（冲 19.50 失败收新低）；今日竞价开 18.39 全天重心下移、最低 17.45 再创新低——出货进行时。已处减仓/清仓流程，无新动作。</td></tr>
+<tr><td>3</td><td><b>8.23 尾盘确认</b></td><td>不适用（无新买入建议；清仓指令不需要尾盘确认，竞价执行优先）。</td></tr>
+<tr><td>4</td><td><b>8.13.6 跟随纪律</b></td><td><b>超期</b>：席位/二波信号买入上限 3 个交易日，第 3 日（9/16）应无条件处理；今日第 4 日，指令已两日未执行 → 升级为<b>竞价无条件市价</b>（见置顶）。</td></tr>
+<tr><td>5</td><td><b>8.29 板位衰减</b></td><td>不适用（当前 0 板，非连板持仓）。板块维度：电力板块持续走弱第 4 日，无回补迹象。</td></tr>
+</table>
+
+<h2>三、持有/减仓/清仓建议</h2>
+<table>
+<tr><th>标的</th><th>建议</th><th>具体动作（金额）</th></tr>
+<tr>
+<td>杭州热电 605011</td>
+<td><span class="tag red">清仓（无条件）</span></td>
+<td><b>明日 9:25 竞价市价卖出 900 股</b>，保护限价 17.00 元；预期回款 15,300~16,300 元（按今收 17.90 约 16,110 元）。不设反抽等待、不做 T、不补仓（8.29/8.31 禁加仓）。</td>
+</tr>
+<tr><td colspan="3" style="font-size:11.5px;color:var(--sub)">清仓后组合空仓。空仓期按框架 8.10 仓位规则重置：主线≤30%/总仓≤50%/单票≤20%，红灯期（现红）只减仓不开新仓。</td></tr>
+</table>
+
+<h2>四、交易纪律记分（8.17）</h2>
+<ul>
+<li>该笔交易（t005）：买入理由"电力二波低吸接力"，标签<b>计划内</b>；止损后未按时执行属<b>执行纪律缺口</b>（连续 3 日），已记入策略漂移检测——<b>非判断错误，是执行错误</b>，超期持有多亏约 -441 元（18.39 vs 17.90 差额）。</li>
+<li>连败熔断：当前连续误判 <b>0 次</b>（t001-t004 待补卖出价，暂不计入）；组合热度 1/3 合规。</li>
+<li>教训入库（同 9/16 漂移第 3 条）：清仓指令必须"竞价无条件市价"，禁挂限价等待。</li>
+</ul>
+
+<div class="disc">
+数据源：腾讯 qt.gtimg.cn 15:25 收盘快照 + 东财 push2delay + 新浪（三源一致 17.90）。本报告为纪律框架下的研究辅助，不构成投资建议，不承诺收益；市场有风险，投资需谨慎，盈亏自负。<br>
+生成：盘后总管 2026-09-17 15:20 场次 · 框架 v1.6
+</div>
+</body>
+</html>
