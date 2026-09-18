@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股盘中预警 · 2026-09-18（周五 13:30 下午场）</title>
+<style>
+  :root{--bg:#0f1722;--panel:#15202f;--panel-2:#1c2a3d;--line:#243447;--txt:#e6edf3;--sub:#9aa9bb;--accent:#ffd400;--green:#22c55e;--red:#ef4444;--warn:#f97316;--ok:#22c55e;--bad:#ef4444;--purple:#a855f7;--teal:#14b8a6;--blue:#3b82f6;--gold:#fbbf24}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding:16px;max-width:1100px;margin:0 auto;font-size:14px}
+  h1{font-size:22px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  h2{font-size:16px;color:var(--accent);margin:24px 0 12px;padding-left:10px;border-left:3px solid var(--accent)}
+  h3{font-size:14px;color:var(--gold);margin:14px 0 8px}
+  .meta{color:var(--sub);font-size:12px;margin-bottom:16px;display:flex;gap:14px;flex-wrap:wrap}
+  .meta span{background:var(--panel);padding:4px 10px;border-radius:4px;border:1px solid var(--line)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .panel.warn{border-left:3px solid var(--warn)}
+  .panel.danger{border-left:3px solid var(--bad)}
+  .panel.good{border-left:3px solid var(--ok)}
+  .panel.info{border-left:3px solid var(--blue)}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+  .kpi{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .kpi .label{font-size:11px;color:var(--sub);margin-bottom:4px}
+  .kpi .val{font-size:18px;font-weight:600;color:var(--txt)}
+  .kpi.bad .val{color:var(--bad)}
+  .kpi.ok .val{color:var(--ok)}
+  .kpi.warn .val{color:var(--warn)}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:var(--panel-2);color:var(--accent);font-weight:600;font-size:12px}
+  tr:hover td{background:rgba(255,255,255,0.02)}
+  .tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;margin-right:4px;font-weight:500}
+  .tag-buy{background:var(--ok);color:#fff}
+  .tag-warn{background:var(--warn);color:#fff}
+  .tag-bad{background:var(--bad);color:#fff}
+  .tag-info{background:var(--blue);color:#fff}
+  .tag-purple{background:var(--purple);color:#fff}
+  .tag-teal{background:var(--teal);color:#fff}
+  .tag-gray{background:#4b5563;color:#fff}
+  .up{color:#ff5c5c}
+  .down{color:#22c55e}
+  .flat{color:var(--sub)}
+  ul{margin:8px 0 8px 20px}
+  li{margin-bottom:5px}
+  .alert-top{border:2px solid var(--bad);animation:none}
+  .disc{background:rgba(239,68,68,0.08);border:1px dashed var(--bad);border-radius:6px;padding:12px 14px;font-size:12px;color:#fca5a5;margin-top:20px}
+  .src{background:var(--panel-2);border:1px solid var(--warn);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--warn);margin-bottom:14px}
+  .mono{font-family:"SF Mono",Menlo,Consolas,monospace}
+  .bar{height:6px;background:var(--panel-2);border-radius:3px;overflow:hidden;margin-top:4px}
+  .bar>i{display:block;height:100%}
+  .small{font-size:12px;color:var(--sub)}
+  .act{background:rgba(255,212,0,0.07);border:1px solid var(--accent);border-radius:6px;padding:12px 14px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<h1>🚨 A股盘中预警 · 下午场</h1>
+<div class="meta">
+  <span>日期：2026-09-18（周五）</span>
+  <span>触发：13:30 午后场</span>
+  <span>数据快照：<span class="mono">13:31:01 / 13:32:37</span></span>
+  <span>框架：v1.6（8.12 / 8.13 / 8.25 / 8.29 / 8.31）</span>
+  <span>信号灯：<span style="color:#ef4444;font-weight:600">🔴 红灯（维持·第2日）</span></span>
+</div>
+
+<div class="src">
+  ⚠️ <b>数据源说明</b>：悟道 MCP 本会话仅暴露 <span class="mono">stock_screener</span>（盘中库滞后，两次筛选均 0 命中），全程走<b>东财公开四步法</b>：腾讯 <span class="mono">qt.gtimg.cn</span> 行情 / 东财 <span class="mono">push2ex</span> 涨停·跌停池 / <span class="mono">push2delay</span> 涨跌家数+板块资金 / 新浪 <span class="mono">hq.sinajs.cn</span> 交叉核验。持仓价格已<b>三源核验</b>。
+</div>
+
+<!-- ============ 一句话结论 ============ -->
+<div class="panel danger">
+  <h3 style="margin-top:0;color:#ef4444">📌 一句话结论</h3>
+  <p style="font-size:15px"><b>午后资金显著回流（半导体 +67亿、国产芯片 +101亿），涨停 51→73、跌停持续 0、全行业无一净流出 → 市场面已完全转暖；但结构仍缺高度梯队（半导体最高仅 1 板、首板占 86.3%、炸板 58→86 次恶化）。唯一持仓 杭州热电 18.27 仍破止损 18.85（-3.08%）第 5 日 + 8.13.6 超期第 2 日 + 今日主力净流入 +682 万（减仓良机、非加仓理由）→ <span class="up">尾盘前必须清仓 900 股，14:30 未成交转市价</span>。信号灯维持 🔴：降级三条件已达标 2/3，仅剩「清仓成交回填」未完成。</b></p>
+</div>
+
+<!-- ============ 预警清单 ============ -->
+<h2>一、预警清单（倒序·🔴 置顶）</h2>
+
+<div class="panel danger alert-top">
+  <h3 style="margin-top:0">🔴 红级 · 1 条</h3>
+  <table>
+    <tr><th style="width:130px">标的</th><th style="width:180px">触发条件（8.12）</th><th>详情与判定</th></tr>
+    <tr>
+      <td><b>杭州热电</b><br><span class="mono small">605011</span></td>
+      <td><span class="tag tag-bad">跌破止损</span><br><span class="tag tag-bad">8.13.6 超期</span></td>
+      <td>
+        现价 <b class="up">18.27</b>（东财 f43 / 新浪 13:32:37 一致；腾讯 18.29 @13:31:01）· 昨收 17.90 · 今开 17.80 · 高 <b>18.69</b> · 低 17.79 · 换手 2.36% · 成交 1.73 亿<br>
+        硬止损 <b>18.85</b> → 现价低于止损 <b class="up">3.08%</b>，<b>破位第 5 个交易日</b>；8.13.6 跟随上限（3 日）<b>已超期第 2 日</b><br>
+        成本 19.712 × 900 股 = 17,740.8 元 → 市值 <b>16,443 元</b>，浮亏 <b class="down">-1,297.8 元（-7.31%）= -1.67R</b>（R = 775.8）<br>
+        资金结构：主力净额 <b class="up">+682.1 万</b>（占比 +3.94%）｜超大单 +502.2 万 · 大单 +179.9 万 · 中单 -127.5 万 · 小单 -554.6 万<br>
+        <span class="tag tag-warn">关键解读</span> <b>主力在接、散户在抛 = 典型减仓良机，不是持有或加仓理由。禁补仓、禁摊平、禁做 T。</b><br>
+        <span class="tag tag-info">执行缺口</span> 上午场指令「11:30 前清仓 900 股」<b>至今未回填 trades.json</b>，为清仓建议拖延第 4 日（9.15 @18.90 → 9.18 @18.27，价格累计恶化 3.3%）。今日最高 18.69 恰为上午挂单价，若已成交请立即回填。
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="panel warn">
+  <h3 style="margin-top:0">🟠 橙级 · 2 条</h3>
+  <table>
+    <tr><th style="width:130px">项目</th><th style="width:180px">触发条件（8.12）</th><th>详情与判定</th></tr>
+    <tr>
+      <td><b>新卡位</b><br>华天科技<br><span class="mono small">002185</span></td>
+      <td><span class="tag tag-warn">午后新卡位</span><br><span class="tag tag-warn">主线成型</span></td>
+      <td>
+        首板 · 现价 18.03（+10.01%）· 封单 <b>25.07 亿</b> · 成交 <b>61.77 亿</b> · 换手 10.57% · 炸板 1 次<br>
+        8.31 容量门槛：<b>成交 ≥20 亿 ✅ + 硬逻辑（先进封装/国产替代）✅ = 2 条达标</b>，可入池<br>
+        按 8.12 第 3 条：<b>半导体资金 +178.13 亿（全场第 1 梯队）+ 涨停 5 家 → 资金侧与涨停侧首次同向达标</b>（上午「资金第 1 但涨停仅 3 家」的分层背离已修复）<br>
+        <span class="tag tag-bad">红灯冻结</span> 信号灯 🔴 期内全池禁新仓，<b>仅登记</b>，待清仓回填 + 17:35 席位雷达（8.26 基因库 / 8.27 QDR / 8.28 LBS）后再评估。
+      </td>
+    </tr>
+    <tr>
+      <td><b>高位分歧</b><br>4 板 + 超高换手</td>
+      <td><span class="tag tag-warn">封板不稳</span><br><span class="tag tag-warn">8.29 板位衰减</span></td>
+      <td>
+        <b>锡华科技 603248</b>：4 板 · 换手 <b>32.22%</b> · 炸 1 次 · 封单仅 0.95 亿（风电设备）→ 8.29「≥3 板禁新开仓」+ 换手 >20%<br>
+        <b>华瓷股份 001216</b>：4 板 · 换手 9.09% · 炸 1 次 · 封单 1.74 亿（家居用品）→ 同为 4 板，封单质量优于锡华<br>
+        <b>超高换手组</b>：腾信精密 920298 换手 <b>66.68%</b> 炸 2 · 电科思仪 301689 换手 <b>48.21%</b> · 托伦斯 301583 换手 <b>40.27%</b> · 马矿股份 22.16%<br>
+        <span class="tag tag-bad">判定</span> 全部 <b>≥3 板或换手 >20% → 8.29 一律禁入</b>，仅作情绪温度计读数。
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="panel info">
+  <h3 style="margin-top:0">🟡 黄级 · 3 条</h3>
+  <table>
+    <tr><th style="width:130px">项目</th><th style="width:180px">触发条件（8.12）</th><th>详情与判定</th></tr>
+    <tr>
+      <td>炸板率恶化</td>
+      <td><span class="tag tag-info">炸板 / 冲高回落</span></td>
+      <td>炸板 <b>86 次 / 43 只</b>（上午 58 次 → <b class="up">+28 次恶化</b>）。TOP：国芳集团 601086 炸 9 次换手 16.64%、科森科技 603626 炸 5 次（2 板）、天津普林 002134 炸 5 次、华塑控股 000509 炸 5 次、威星智能 002849 炸 5 次、和顺石油 603353 炸 5 次。<b>涨停家数创新高但炸板同步走高 = 承接不实，是「量增质不增」的典型特征。</b></td>
+    </tr>
+    <tr>
+      <td>宽度边际收敛</td>
+      <td><span class="tag tag-info">市场宽度背离</span></td>
+      <td>涨 <b>4081</b> / 跌 <b>1006</b> / 平 199（沪 1809/452/91 + 深 2272/554/108）。对比上午 4203 涨 / 880 跌 → <b>涨家数 -122、跌家数 +126</b>。绝对水位仍极强，但<b>边际在收敛</b>，与「涨停 51→73」方向背离 → 判 🟡 观望，不追高。</td>
+    </tr>
+    <tr>
+      <td>主线高度梯队缺位</td>
+      <td><span class="tag tag-info">8.12 第 3 条</span></td>
+      <td>资金 + 涨停双达标已成立（半导体），但<b>高度梯队未跟上</b>：全场最高仅 <b>4 板</b>（华瓷·家居、锡华·风电），<b>与半导体/芯片无关</b>；半导体板块内部最高仅 <b>1 板</b>（华天/托伦斯/东微/博通/诚邦全为首板）。按 8.12 主线成型三要素（资金 + 涨停 + 高度梯队）→ <b>2/3 达标，判「主线成型进行中」而非「已成型」</b>。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="panel good">
+  <h3 style="margin-top:0">🟢 转正信号 · 2 条（上午场 🟠/🟡 已修复）</h3>
+  <table>
+    <tr><th style="width:130px">项目</th><th style="width:180px">上午 → 下午</th><th>详情</th></tr>
+    <tr>
+      <td>涨停 / 跌停</td>
+      <td><b>51 → 73</b> / 0 → 0</td>
+      <td>午后新增 22 家涨停，<b>跌停连续 0 家</b>。连板分布：1 板 63 / 2 板 7 / 3 板 1 / 4 板 2。1 进 2 晋级率 <b>14.89%</b>（7/47，昨涨停 47；上午 12.77%）→ 小幅改善但仍处低位。</td>
+    </tr>
+    <tr>
+      <td>行业资金全线转正</td>
+      <td>PCB -44.70 亿 → <b>转正</b></td>
+      <td>上午净流出前三位 <b>PCB -44.70 亿 / 元件 -45.74 亿 / 通信线缆 -23.06 亿 已全部转正</b>。<b>行业资金前 100 名无一净流出</b>（最末位 其他自动化设备 +1.50 亿）→ 上午的「资金背离」🟡 已解除。</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ============ 午后专项 ============ -->
+<h2>二、午后专项（下午场核心）</h2>
+
+<h3>① 午后资金是否回流今日主线？→ <span class="up">是，显著回流且为普涨式</span></h3>
+<div class="panel">
+  <table>
+    <tr><th>板块</th><th>上午 10:42</th><th>下午 13:31</th><th>午后增量</th><th>板块涨幅</th><th>主力占比</th><th>判定</th></tr>
+    <tr><td><b>半导体</b></td><td>+111.13 亿</td><td class="up"><b>+178.13 亿</b></td><td class="up"><b>+67.00 亿</b></td><td class="up">+4.60%</td><td>+6.80%</td><td><span class="tag tag-bad">主线第 1 梯队</span></td></tr>
+    <tr><td><b>国产芯片</b>（概念）</td><td>+109.65 亿</td><td class="up"><b>+210.78 亿</b></td><td class="up"><b>+101.13 亿</b></td><td class="up">+2.85%</td><td>+5.51%</td><td><span class="tag tag-bad">概念第 1</span></td></tr>
+    <tr><td>电子</td><td>—</td><td class="up"><b>+192.09 亿</b></td><td>—</td><td class="up">+2.88%</td><td>+3.84%</td><td>行业第 1</td></tr>
+    <tr><td>数字芯片设计</td><td>—</td><td class="up">+77.60 亿</td><td>—</td><td class="up">+4.69%</td><td>+7.38%</td><td>强</td></tr>
+    <tr><td>通信网络设备及器件</td><td>—</td><td class="up">+64.15 亿</td><td>—</td><td class="up">+2.83%</td><td>+6.87%</td><td>强</td></tr>
+    <tr><td>集成电路封测</td><td>—</td><td class="up">+45.87 亿</td><td>—</td><td class="up">+2.83%</td><td><b>+16.24%</b></td><td><span class="tag tag-warn">占比最高</span></td></tr>
+    <tr><td>通信设备</td><td>—</td><td class="up">+42.21 亿</td><td>—</td><td class="up">+2.18%</td><td>+2.80%</td><td>中</td></tr>
+    <tr><td>CPO 概念</td><td>—</td><td class="up">+125.18 亿</td><td>—</td><td class="up">+2.46%</td><td>+5.36%</td><td>中强</td></tr>
+    <tr><td>电力设备</td><td>—</td><td class="up">+16.85 亿</td><td>—</td><td class="up">+1.88%</td><td>+1.64%</td><td>中</td></tr>
+    <tr><td>电网设备</td><td>—</td><td class="up">+9.94 亿</td><td>—</td><td class="up">+1.87%</td><td>+3.88%</td><td>中</td></tr>
+    <tr><td><b>电力</b></td><td>+9.35 亿</td><td class="up">+6.77 亿</td><td class="down"><b>-2.58 亿</b></td><td class="up">+1.06%</td><td>+2.73%</td><td><span class="tag tag-gray">持仓所属·午后走弱</span></td></tr>
+  </table>
+  <p class="small" style="margin-top:10px"><b>结论</b>：午后资金<b>明确回流今日主线（半导体/国产芯片）</b>，且是<b>普涨式回流</b>——上午的净流出板块全部转正，行业前 100 无一净流出。但<b>持仓所属电力板块午后反而净减 2.58 亿</b>，杭州热电 +2.18% 明显跑输半导体 +4.60%，属「被主线抽血的非主线品种」→ 进一步支持减仓而非持有。</p>
+</div>
+
+<h3>② 尾盘 30 分钟强弱 → <span class="tag tag-info">13:30 不可观测，交付三分支判据</span></h3>
+<div class="panel">
+  <p class="small">本窗 13:30 触发，距尾盘 30 分钟（14:30–15:00）尚有 1 小时，无法直接观测。按 9.11 下午场既定做法，交付<b>「判据 → 触发动作」</b>三分支，超哥 14:30 起按表对号入座：</p>
+  <table>
+    <tr><th style="width:110px">分支</th><th style="width:300px">14:30–15:00 判据</th><th>明日惯性判断</th><th style="width:260px">触发动作</th></tr>
+    <tr>
+      <td><span class="tag tag-buy">A · 加速拉升</span></td>
+      <td>涨停数 <b>&gt; 85</b> 且 炸板 &lt; 95 次，指数收在日内高点 -0.3% 以内</td>
+      <td class="up"><b>明日惯性偏强</b>，半导体主线有望延续</td>
+      <td>杭州热电仍在 14:30 前清完；半导体先手标的<b>明日 9:25–9:33 观察华天科技 1 进 2</b>，不打板只等分歧低吸</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-info">B · 横盘</span>（概率最高）</td>
+      <td>涨停数 <b>70–85</b>，炸板 95–110 次，指数自高点回落 &lt; 0.5%</td>
+      <td><b>明日中性</b>，无明确先手</td>
+      <td>杭州热电 14:30 未成交<b>无条件转市价全清</b>；明日不追高，等 17:35 席位雷达出结果</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-bad">C · 跳水</span></td>
+      <td>涨停数 <b>&lt; 65</b> 或 炸板 &gt; 110 次，或指数自高点回落 &gt; 0.8%</td>
+      <td class="down"><b>明日高开低走概率大</b>，禁止追高</td>
+      <td>杭州热电<b>立即市价离场，不再挂单</b>；全池维持冻结，明日竞价不做任何买入动作</td>
+    </tr>
+  </table>
+  <p class="small" style="margin-top:10px"><span class="tag tag-warn">当前倾向</span> 13:31 时点位于 <b>A 与 B 之间偏 B</b>：涨停已 +22 家，但炸板同步恶化 58→86 次、宽度边际收敛（涨 -122 / 跌 +126），属「量增质不增」→ 默认按 <b>B 分支</b>准备。</p>
+</div>
+
+<h3>③ 午后新崛起板块 → 次日先手候选（8.12 萌芽判断）</h3>
+<div class="panel">
+  <table>
+    <tr><th>板块</th><th>涨停家数</th><th>主力净额</th><th>板块涨幅</th><th>8.12 第 3 条判定</th></tr>
+    <tr>
+      <td><b>半导体 / 先进封装</b></td><td class="up"><b>5</b>（华天、托伦斯、东微半导、博通集成、诚邦）</td><td class="up"><b>+178.13 亿</b>（全场第 1 梯队）</td><td class="up">+4.60%</td>
+      <td><span class="tag tag-buy">资金 ✅ + 涨停 ✅ 双向达标</span><br><span class="small">上午「资金第 1 / 涨停 3 家」的分层背离<b>已修复</b> → 升级为 🌱 萌芽主线。缺口：高度梯队（板块内最高仅 1 板）</span></td>
+    </tr>
+    <tr>
+      <td>电网设备</td><td>5（中电鑫龙、太阳电缆、中超控股、精达股份、新宏泰）</td><td class="up">+9.94 亿</td><td class="up">+1.87%</td>
+      <td><span class="tag tag-warn">涨停 ✅ / 资金偏弱 ⚠️ 单腿</span><br><span class="small">涨停达标但资金仅列中游，未进前列 → 判育苗观察，不构成主线</span></td>
+    </tr>
+    <tr>
+      <td>家居用品</td><td>5（华瓷 4 板领涨、大亚圣象、天安新材、双枪、德尔未来）</td><td class="down"><b>未进前 100</b></td><td>—</td>
+      <td><span class="tag tag-bad">涨停 ✅ / 资金 ❌ 纯游资</span><br><span class="small">涨停达 5 家但板块资金榜上无名 → 无机构与主力背书，<b>排除</b>，不纳入先手</span></td>
+    </tr>
+    <tr>
+      <td>服装家纺 / 纺织制造</td><td>4 + 1</td><td class="down">未进前 100</td><td>—</td>
+      <td><span class="tag tag-bad">同上·排除</span></td>
+    </tr>
+  </table>
+  <p class="small" style="margin-top:10px"><b>先手主线结论</b>：唯一具备「资金 + 涨停」双背书的明日先手方向 = <b>半导体 / 先进封装 / 存储</b>。但同时满足 <b>8.29（≥3 板禁入）</b> 与 <b>8.31（容量 ≥20 亿）</b> 的可用标的主要集中在<b>首板与未涨停的趋势中军</b>，见下表。</p>
+</div>
+
+<h3>④ 持仓的尾盘处理建议（含具体金额）</h3>
+<div class="panel danger">
+  <table>
+    <tr><th style="width:230px">条件（按优先级）</th><th style="width:230px">动作</th><th>金额 / 盈亏</th></tr>
+    <tr>
+      <td><b>立即执行</b>（现价 18.27）</td>
+      <td><span class="tag tag-bad">卖出</span> 挂 <b>18.30</b> 卖出 <b>900 股</b>（全清）</td>
+      <td>回款 <b>16,470 元</b>｜亏损 <b class="down">-1,270.8 元（-7.16%）= -1.64R</b></td>
+    </tr>
+    <tr>
+      <td>冲高至 <b>18.85</b>（止损位）</td>
+      <td><span class="tag tag-bad">无条件全清</span>（减亏良机，不留残仓）</td>
+      <td>回款 <b>16,965 元</b>｜亏损 <b class="down">-775.8 元 = -1.00R</b></td>
+    </tr>
+    <tr>
+      <td>跌破 <b>18.00</b></td>
+      <td><span class="tag tag-bad">立即市价离场</span>，不再挂单等待</td>
+      <td>回款约 <b>16,200 元</b>｜亏损 <b class="down">-1,541 元 = -1.99R</b></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-warn">时间兜底（硬条款）</span><br><b>14:30 前未成交</b></td>
+      <td><b>无条件转市价全清 900 股</b></td>
+      <td>回款约 <b>16,380–16,443 元</b>｜亏损 <b class="down">约 -1.67R</b></td>
+    </tr>
+    <tr>
+      <td>全池其他标的</td>
+      <td><span class="tag tag-bad">🔴 红灯冻结·一律禁新仓</span></td>
+      <td>—</td>
+    </tr>
+  </table>
+  <div class="act">
+    <b>⏰ 时间兜底条款（9.18 硬性要求）</b>：本条卖出建议<b>必须</b>在 <b>14:30 前</b>成交；<b>14:30 未成交即无条件转市价全清，不得继续挂单等待</b>。该条款是为杜绝 9.15（@18.90）→ 9.18（@18.27）拖延 4 日、价格恶化 3.3% 的执行缺口重演。
+  </div>
+  <p style="margin-top:10px"><span class="tag tag-bad">反向解读否定</span> 今日杭州热电主力净流入 +682 万、电力板块 +6.77 亿 —— <b>这是减仓良机，不是持有或加仓理由。禁补仓、禁摊平、禁做 T。</b>电力板块午后资金不增反减（-2.58 亿），且涨幅 +1.06% 大幅跑输半导体 +4.60%，属被主线抽血方向。</p>
+</div>
+
+<!-- ============ 市场全景 ============ -->
+<h2>三、市场全景（13:31 快照）</h2>
+<div class="kpi-row">
+  <div class="kpi ok"><div class="label">上证指数</div><div class="val up">3913.18 <span style="font-size:13px">+0.97%</span></div></div>
+  <div class="kpi ok"><div class="label">深证成指</div><div class="val up">13635.70 <span style="font-size:13px">+1.68%</span></div></div>
+  <div class="kpi ok"><div class="label">创业板指</div><div class="val up">3373.38 <span style="font-size:13px">+2.28%</span></div></div>
+  <div class="kpi ok"><div class="label">科创 50</div><div class="val up">1653.40 <span style="font-size:13px">+2.93%</span></div></div>
+  <div class="kpi ok"><div class="label">涨停 / 跌停</div><div class="val up">73 / 0</div><div class="small">上午 51 / 0</div></div>
+  <div class="kpi ok"><div class="label">涨 / 跌 家数</div><div class="val">4081 / 1006</div><div class="small">上午 4203 / 880</div></div>
+  <div class="kpi warn"><div class="label">首板占比</div><div class="val" style="color:#f97316">86.30%</div><div class="small">63/73 · 上午 82.4%</div></div>
+  <div class="kpi warn"><div class="label">1 进 2 晋级率</div><div class="val" style="color:#f97316">14.89%</div><div class="small">7/47 · 上午 12.77%</div></div>
+  <div class="kpi bad"><div class="label">炸板次数</div><div class="val" style="color:#ef4444">86 次 / 43 只</div><div class="small">上午 58 次 · 恶化</div></div>
+  <div class="kpi warn"><div class="label">最高连板</div><div class="val" style="color:#f97316">4 板</div><div class="small">华瓷·家居 / 锡华·风电</div></div>
+</div>
+
+<h3>连板天梯</h3>
+<div class="panel">
+  <table>
+    <tr><th>层级</th><th>数量</th><th>标的</th></tr>
+    <tr><td><b>4 板</b></td><td>2</td><td>华瓷股份 001216（家居·换手 9.09%·炸 1·封单 1.74 亿）／ 锡华科技 603248（风电·换手 <b>32.22%</b>·炸 1·封单 0.95 亿）</td></tr>
+    <tr><td><b>3 板</b></td><td>1</td><td>世联行 002285（房地产服务·换手 12.29%·炸 1·封单 0.82 亿）</td></tr>
+    <tr><td><b>2 板</b></td><td>7</td><td>华软科技 002453（化学·炸 1）／经纬股份 301390（工程咨询）／华纺股份 600448（纺织）／南华生物 000504（医疗服务·炸 1）／龙头股份 600630（服装·炸 1）／科森科技 603626（消费电子·<b>炸 5</b>）／新宏泽 002836（包装·炸 2·封单 3.02 亿）</td></tr>
+    <tr><td><b>首板</b></td><td>63</td><td>占比 <b>86.30%</b>。封单 TOP：华天科技 25.07 亿 ／ 共进股份 7.79 亿 ／ 托伦斯 7.31 亿 ／ 电科思仪 3.89 亿 ／ 华鑫股份 3.60 亿 ／ 航天动力 3.27 亿 ／ 东微半导 3.25 亿</td></tr>
+  </table>
+</div>
+
+<!-- ============ 龙头矩阵 ============ -->
+<h2>四、龙头矩阵（8.25 / 8.28 / 8.29 / 8.31）</h2>
+<div class="panel">
+  <table>
+    <tr><th style="width:110px">标的</th><th style="width:70px">现价</th><th style="width:70px">涨幅</th><th style="width:80px">成交额</th><th style="width:70px">换手</th><th style="width:70px">板位</th><th>判定</th></tr>
+    <tr><td><b>华天科技</b><br><span class="mono small">002185</span></td><td>18.03</td><td class="up">+10.01%</td><td><b>61.77 亿</b></td><td>10.57%</td><td>1 板</td><td><span class="tag tag-teal">先手候选 #1</span> 封单 25.07 亿·炸 1 · 容量 ✅ + 硬逻辑 ✅ = 8.31 双条达标。<span class="tag tag-bad">红灯冻结仅登记</span>待 17:35 席位雷达</td></tr>
+    <tr><td><b>普冉股份</b><br><span class="mono small">688426</span></td><td>426.58</td><td class="up">+9.18%</td><td><b>52.99 亿</b></td><td>8.53%</td><td>未涨停</td><td><span class="tag tag-info">趋势中军</span> 存储·容量 ✅ 未封板 = 无打板风险，符合 8.25 主策略②趋势波段，明日观察回踩</td></tr>
+    <tr><td><b>中科飞测</b><br><span class="mono small">688361</span></td><td>388.72</td><td class="up">+8.37%</td><td><b>38.01 亿</b></td><td>2.84%</td><td>未涨停</td><td><span class="tag tag-info">趋势中军</span> 半导体设备·容量 ✅ 换手极低（2.84%）·机构盘特征，8.25 策略②适配</td></tr>
+    <tr><td>华峰测控<br><span class="mono small">688200</span></td><td>409.02</td><td class="up"><b>+14.66%</b></td><td>24.61 亿</td><td>3.17%</td><td>未涨停</td><td><span class="tag tag-warn">已拉升</span> 测试设备·容量 ✅ 但单日涨幅过高，追高风险大 → 仅观察不建仓</td></tr>
+    <tr><td>盛合晶微<br><span class="mono small">688820</span></td><td>144.39</td><td class="up">+8.25%</td><td>24.17 亿</td><td>9.80%</td><td>未涨停</td><td><span class="tag tag-info">趋势候选</span> 先进封装·容量 ✅ ·与华天同赛道身位第二</td></tr>
+    <tr><td>圣邦股份<br><span class="mono small">300661</span></td><td>125.18</td><td class="up">+7.49%</td><td>21.16 亿</td><td>2.84%</td><td>未涨停</td><td><span class="tag tag-info">趋势候选</span> 模拟芯片·容量 ✅ 低位低吸型</td></tr>
+    <tr><td>托伦斯<br><span class="mono small">301583</span></td><td>142.56</td><td class="up">+20.00%</td><td>16.37 亿</td><td class="up"><b>40.27%</b></td><td>1 板</td><td><span class="tag tag-bad">禁入</span> 换手 40.27% 远超 20% 阈值（8.12 封板不稳）+ 容量未达 20 亿 → 双重排除</td></tr>
+    <tr><td>锡华科技<br><span class="mono small">603248</span></td><td>—</td><td class="up">涨停</td><td>5.47 亿</td><td class="up"><b>32.22%</b></td><td>4 板</td><td><span class="tag tag-bad">8.29 禁入</span> ≥3 板禁新开仓 + 换手 32.22% + 炸 1 次</td></tr>
+    <tr><td>华瓷股份<br><span class="mono small">001216</span></td><td>21.87</td><td class="up">+10.01%</td><td>4.85 亿</td><td>9.09%</td><td>4 板</td><td><span class="tag tag-bad">8.29 禁入</span> 4 板 + 家居板块无资金背书（未进前 100）</td></tr>
+    <tr><td>国芳集团<br><span class="mono small">601086</span></td><td>—</td><td class="up">涨停</td><td>—</td><td class="up">16.64%</td><td>1 板</td><td><span class="tag tag-bad">排除</span> 炸板 9 次全场最高 + 换手 16.64% + 封单仅 0.39 亿 → 封板极不实</td></tr>
+  </table>
+</div>
+
+<!-- ============ 关注股信号 ============ -->
+<h2>五、持仓与关注股信号</h2>
+<div class="panel danger">
+  <h3 style="margin-top:0">持仓 · 杭州热电 605011（唯一持仓）</h3>
+  <table>
+    <tr><th>维度</th><th>数值</th><th>说明</th></tr>
+    <tr><td>现价（三源核验）</td><td class="up"><b>18.27</b></td><td>东财 f43=1827 / 新浪 18.27 @13:32:37 一致；腾讯 18.29 @13:31:01 → 取最新双源值 18.27</td></tr>
+    <tr><td>成本 / 股数</td><td>19.712 × 900</td><td>成本额 17,740.8 元 · 市值 <b>16,443 元</b></td></tr>
+    <tr><td>浮动盈亏</td><td class="down"><b>-1,297.8 元（-7.31%）= -1.67R</b></td><td>R = 775.8 元（(19.712-18.85)×900）</td></tr>
+    <tr><td>止损距离</td><td class="up"><b>破位 -3.08%</b></td><td>止损 18.85 → <b>破位第 5 个交易日</b>；8.13.6 跟随上限超期 <b>第 2 日</b></td></tr>
+    <tr><td>日内区间</td><td>17.79 – <b>18.69</b></td><td>今开 17.80 · 最高 18.69（<b>恰为上午场挂单价</b>）· 换手 2.36% · 量 94,859 手 · 成交 1.73 亿</td></tr>
+    <tr><td>资金结构</td><td>主力 <b class="up">+682.1 万</b></td><td>主力占比 +3.94%｜超大单 +502.2 万 · 大单 +179.9 万 · 中单 -127.5 万 · 小单 -554.6 万 → <b>主力接 / 散户抛</b></td></tr>
+    <tr><td>板块环境</td><td>电力 <b>+6.77 亿</b></td><td>涨幅仅 +1.06%（半导体 +4.60%）→ <b>跑输主线 3.5 个百分点</b>；板块内百通能源、大连热电涨停，<b>杭州热电未跟上</b></td></tr>
+    <tr><td><b>处置</b></td><td colspan="2"><span class="tag tag-bad">清仓</span> <b>挂 18.30 卖出 900 股（回款 16,470 元 / -1.64R）；14:30 未成交转市价全清；破 18.00 立即市价离场。禁补仓、禁摊平、禁做 T。</b></td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h3 style="margin-top:0">先手候选（登记 · 🔴 冻结不建仓）</h3>
+  <p class="small">watchlist.json 当前为空池；以下为今日午后按 8.31 容量门槛 + 8.25 主策略实时筛选，<b>仅登记不建仓</b>，等清仓回填 + 17:35 席位雷达（8.26/8.27/8.28）后再评估。</p>
+  <table>
+    <tr><th>标的</th><th>方向</th><th>8.31 达标项</th><th>8.25 策略定位</th><th>明日观察要点</th></tr>
+    <tr><td>华天科技 002185</td><td>先进封装</td><td>容量 61.77 亿 ✅ + 硬逻辑 ✅ = <b>2 条</b></td><td>①低吸接力（首板后等分歧，<b>不打板</b>）</td><td>9:25–9:33 观察 1 进 2；回踩不破 17.30（首板实体下沿）为有效</td></tr>
+    <tr><td>普冉股份 688426</td><td>存储</td><td>容量 52.99 亿 ✅</td><td>②趋势中军波段</td><td>未封板无打板风险；回踩 5 日线不破为低吸区</td></tr>
+    <tr><td>中科飞测 688361</td><td>半导体设备</td><td>容量 38.01 亿 ✅</td><td>②趋势中军波段</td><td>换手仅 2.84%，机构盘，适合波段不适合接力</td></tr>
+    <tr><td>盛合晶微 688820</td><td>先进封装</td><td>容量 24.17 亿 ✅</td><td>②趋势波段</td><td>华天同赛道身位第二；封测主力占比 +16.24% 全场最高</td></tr>
+    <tr><td>圣邦股份 300661</td><td>模拟芯片</td><td>容量 21.16 亿 ✅</td><td>②趋势波段·低位低吸</td><td>涨幅温和（+7.49%），位置低</td></tr>
+  </table>
+</div>
+
+<!-- ============ 条件化建议 ============ -->
+<h2>六、条件化建议（按触发顺序执行）</h2>
+<div class="panel">
+  <table>
+    <tr><th style="width:60px">序</th><th style="width:280px">触发条件</th><th style="width:250px">动作</th><th>金额</th></tr>
+    <tr><td>1</td><td><b>立即</b>（现价 18.27）</td><td>挂 <b>18.30</b> 卖出 杭州热电 <b>900 股</b></td><td>回款 16,470 元 · -1.64R</td></tr>
+    <tr><td>2</td><td>反弹触及 <b>18.85</b></td><td>无条件全清 900 股（减亏良机）</td><td>回款 16,965 元 · -1.00R</td></tr>
+    <tr><td>3</td><td>跌破 <b>18.00</b></td><td>立即市价离场，不再挂单</td><td>回款约 16,200 元 · -1.99R</td></tr>
+    <tr><td>4</td><td><b>14:30 前未成交</b>（时间兜底）</td><td><b>无条件转市价全清 900 股</b></td><td>回款约 16,380–16,443 元</td></tr>
+    <tr><td>5</td><td>成交后</td><td><b>立即回填</b> trades.json（side=sell + exit_date/exit_price/exit_pnl）并扣减 holdings.json（清仓则删除条目）</td><td>—（数据债最高优先级）</td></tr>
+    <tr><td>6</td><td>三条件齐备</td><td>信号灯降级 🔴 → 🟡（清仓回填 ✅ + 收盘跌停 &lt; 10 ✅ + 涨停 &gt; 40 ✅）</td><td>目前 2/3 达标</td></tr>
+    <tr><td>7</td><td>14:30–15:00 尾盘</td><td>按「三分支判据」对号入座（默认 B 分支）</td><td>见第二节 ②</td></tr>
+    <tr><td>8</td><td>17:35</td><td>席位雷达自动化补跑（8.26 基因库 / 8.27 QDR / 8.28 LBS）→ 回填先手候选第⑤⑨维</td><td>—</td></tr>
+    <tr><td>9</td><td>🔴 红灯未解除期间</td><td><b>全池禁新仓</b>（含上述先手候选，一律只登记）</td><td>—</td></tr>
+  </table>
+</div>
+
+<!-- ============ 信号灯 ============ -->
+<h2>七、信号灯复核</h2>
+<div class="panel danger">
+  <table>
+    <tr><th style="width:220px">降级条件（上午场写死）</th><th style="width:100px">状态</th><th>当前值</th></tr>
+    <tr><td>① 清仓成交并回填 trades.json</td><td><span class="tag tag-bad">❌ 未达成</span></td><td>杭州热电 900 股仍持仓，exit 字段全空。<b>执行缺口第 4 日</b></td></tr>
+    <tr><td>② 收盘跌停 &lt; 10 家</td><td><span class="tag tag-buy">✅ 达成</span></td><td>跌停 <b>0 家</b>（全天持续 0）</td></tr>
+    <tr><td>③ 涨停 &gt; 40 家</td><td><span class="tag tag-buy">✅ 达成</span></td><td>涨停 <b>73 家</b>（上午 51 → 午后 73）</td></tr>
+  </table>
+  <p style="margin-top:10px"><b>复核结论：维持 🔴 红灯（第 2 日）。</b>市场面三项阈值已 2/3 达标且全面转暖（跌停 0、涨停 73、全行业无一净流出、四大指数全红），<b>唯一卡点是持仓未了结</b>。按框架纪律，持仓未清 + 破止损第 5 日 + 8.13.6 超期，红灯不予降级。<b>清仓回填完成即刻转 🟡。</b></p>
+</div>
+
+<div class="disc">
+  <b>⚠️ 投资风险免责声明</b><br>
+  本报告由「超哥 A 股研究台」自动化引擎于 2026-09-18 13:30 生成，数据源为腾讯行情、东方财富公开接口、新浪财经（三源交叉核验），数据快照时刻 13:31:01 / 13:32:37，<b>盘中数据存在延迟，实际价格以交易软件为准</b>。<br>
+  全文所有观点、评级、价位与仓位建议均为<b>基于 v1.6 框架的纪律化推演</b>，<b>不构成任何投资建议、买卖要约或收益承诺</b>。股市有风险，入市需谨慎；据此操作，风险自担，盈亏自负。<br>
+  <b>特别提示</b>：本窗 13:30 触发，无法观测 14:30–15:00 尾盘 30 分钟真实走势，第二节②以「判据 + 触发动作」形式交付，请于 14:30 起按表对号入座。席位维度（8.26 基因库 / 8.27 QDR / 8.28 LBS）待 17:35 龙虎榜数据出炉后由自动化补跑，本报告未含该维度结论。
+</div>
+
+<div class="small" style="margin-top:16px;text-align:center;color:#6b7a8d">
+  超哥 A 股研究台 · 盘中预警官（下午场）· 框架 v1.6 · 生成于 2026-09-18 13:30 · www.chaogea.cn
+</div>
+
+</body>
+</html>
