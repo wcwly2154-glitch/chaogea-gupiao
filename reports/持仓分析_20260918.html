@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓分析 · 2026-09-18（周五）收盘快照</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1c2333;--sub:#5a6478;--line:#e3e7f0;--red:#d8262c;--green:#0a8f4e;--amber:#b97708;--blue:#2050b3;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);padding:16px;font-size:14px;line-height:1.55;}
+.wrap{max-width:1080px;margin:0 auto;}
+h1{font-size:20px;margin-bottom:4px;}
+.meta{color:var(--sub);font-size:12px;margin-bottom:14px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+.card h2{font-size:15px;margin-bottom:10px;border-left:4px solid var(--blue);padding-left:8px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;}
+th{background:#eef1f7;font-weight:600;white-space:nowrap;}
+.num{text-align:right;font-variant-numeric:tabular-nums;}
+.up{color:var(--red);font-weight:600;}
+.down{color:var(--green);font-weight:600;}
+.warn{background:#fdf2f2;border:1px solid #f2c4c6;border-left:5px solid var(--red);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:13.5px;}
+.tag{display:inline-block;background:#eef1f7;border:1px solid var(--line);border-radius:4px;padding:0 6px;font-size:12px;margin-right:4px;}
+.ok{color:var(--green);}.no{color:var(--red);font-weight:600;}
+.disc{color:var(--sub);font-size:12px;border-top:1px dashed var(--line);padding-top:8px;margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>持仓分析 · 2026-09-18（周五）收盘快照</h1>
+<div class="meta">生成：2026-09-18 15:20 盘后总管 · 框架 v1.6 · 数据：腾讯行情（快照 15:24:54）+ 东财单股接口（f43=18.22 双源一致）+ 悟道 capital_flow · 本页为当日快照，实时持仓入口固定 <b>position.html</b></div>
+
+<div class="warn"><b>🚨 清仓指令执行缺口第 4 日（最高优先级执行债）</b><br>
+杭州热电 900 股清仓指令自 9/15 首次下达至今已第 4 个交易日未成交回填。今日竞价 17.80 高于保护限价 17.00，若执行可回款约 <b>16,020 元</b>；今日收盘 18.22，执行缺口按收盘计约 -378 元（相对竞价执行少回款）。<b>下周一 2026-09-21 9:25 竞价无条件市价卖出 900 股，保护限价 17.30；09:40 前未成交立即转市价单（时间兜底硬条款）。</b></div>
+
+<div class="card">
+<h2>一、持仓总览（holdings.json · shares>0）</h2>
+<table>
+<tr><th>标的</th><th>股数</th><th>成本</th><th class="num">收盘</th><th class="num">今日涨跌</th><th class="num">市值(元)</th><th class="num">浮动盈亏(元)</th><th class="num">较成本</th><th class="num">R 倍数</th><th>持仓天数</th><th>止损/止盈</th></tr>
+<tr>
+<td><b>杭州热电</b> 605011</td><td>900</td><td>19.712</td><td class="num">18.22</td>
+<td class="num up">+1.79%</td><td class="num">16,398.0</td>
+<td class="num down">-1,342.8</td><td class="num down">-7.57%</td><td class="num down">-1.73R</td>
+<td>5 个交易日（9/14 买入）</td>
+<td>止损 18.85（<b>已破第 5 日</b>）/ 止盈 21.70（远）</td>
+</tr>
+<tr><td colspan="11" style="background:#fbfbfd;color:var(--sub);font-size:12px">组合浮亏 <b>-1,342.8 元 / -1.73R</b>（单持仓组合）· 今日盘面：开 17.80 / 高 18.69 / 低 17.79，缩量反抽（成交 2.27 亿，换手 3.11%），全天未触及 18.85 止损回抽位</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>二、v1.6 五项必做检查</h2>
+<table>
+<tr><th style="width:190px">检查项</th><th>结论</th><th style="width:330px">依据 / 动作</th></tr>
+<tr><td><b>① 8.13.4 二波三板魔咒</b></td><td class="ok">不适用</td><td>当前 0 板（今日最高 18.69 距涨停 19.69 未触板），无魔咒触发条件</td></tr>
+<tr><td><b>② 8.20 出货信号</b></td><td class="no">部分命中</td><td>主力净额转正 +447.81 万（超大单 +672.39 万 / 大单 -224.58 万）＝主力接散户抛。按 9.18 纪律：<b>这是减仓良机，不是持有或加仓理由</b>——<b>禁补仓、禁摊平、禁做 T</b>，严禁解读为转多信号</td></tr>
+<tr><td><b>③ 8.23 尾盘确认</b></td><td class="ok">不适用</td><td>当前仅清仓指令，无新买入建议</td></tr>
+<tr><td><b>④ 8.13.6 跟随纪律（3 日上限）</b></td><td class="no">超期第 2 日</td><td>9/14 建仓至 9/18 已 5 个交易日 &gt; 3 日上限 → <b>第 3 日即应无条件处理，现在已超期 2 日</b>，只欠执行</td></tr>
+<tr><td><b>⑤ 8.29 板位衰减</b></td><td class="ok">不适用</td><td>0 板状态；但 -7.57% 已触发持仓红线（≥ -7%），红线本身就是清仓依据</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>三、操作指令（具体到标的 + 动作 + 金额）</h2>
+<table>
+<tr><th>优先级</th><th>标的</th><th>动作</th><th>执行细节</th></tr>
+<tr>
+<td><b>🔴 唯一指令</b></td>
+<td>杭州热电 605011（持仓 900 股）</td>
+<td><b>清仓卖出 900 股</b></td>
+<td>下周一 <b>2026-09-21 9:25 竞价无条件市价卖出</b>，预期回款约 <b>16,400 元</b>（按今日收盘 18.22 计）；保护限价 <b>17.30</b>（防竞价异常）；<b>09:40 前未成交立即撤单转市价全清</b>。成交后回填 trades.json（t005）并扣减 holdings.json。成交回填日＝红灯降级三条件第 3 条达成日。</td>
+</tr>
+<tr><td colspan="4" style="color:var(--red);font-weight:600">⚠️ 今日盘面反抽（+1.79%）与主力转正（+447.81 万）不改变任何结论：破止损第 5 日 + 8.13.6 超期第 2 日 + 持仓红线，纪律执行不因反弹顺延。禁补仓、禁摊平、禁做 T。</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>四、组合热度与熔断状态（8.17.7/8.17.9 · 详见 E）</h2>
+<table>
+<tr><th>检查</th><th>结果</th></tr>
+<tr><td>组合热度（≤3 只 / 同主线 ≤2）</td><td class="ok">合规：1 只 / 电力主线 1 只</td></tr>
+<tr><td>连败熔断</td><td class="no">❌ 2 条（汽车主线延续落空 / 情绪冰点落空）→ 连败 2 触发"明日只减仓不开新仓"；叠加红灯期本就禁开新仓 = <b>双保险生效</b>。下周一 9/21：只减仓，不开新仓。</td></tr>
+<tr><td>时间退出</td><td class="no">杭州热电已超 8.13.6 三日上限（执行债）</td></tr>
+<tr><td>盈亏比统计（8.22）</td><td class="no">N/A 第 6 日——t001~t004 卖出价未补录，8.22 否决权持续失效；t005 待成交后结算</td></tr>
+</table>
+</div>
+
+<div class="disc"><b>免责声明：</b>本报告为个人交易纪律辅助工具（框架 v1.6），全部内容仅为规则演算结果，不构成任何投资建议，不承诺收益。股市有风险，投资需谨慎，盈亏自负。数据为 2026-09-18 收盘快照（腾讯 15:24:54 + 东财双源一致），实时状态以 position.html 为准。</div>
+</div>
+</body>
+</html>
