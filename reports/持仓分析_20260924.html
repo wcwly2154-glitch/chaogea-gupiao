@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>持仓分析 2026-09-24 · 超哥A股研究台</title>
+<style>
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f4f6f9;color:#1c2833;margin:0;padding:16px;}
+.wrap{max-width:960px;margin:0 auto;}
+h1{font-size:20px;margin:4px 0 2px;} .sub{color:#5d6d7e;font-size:12px;margin-bottom:12px;}
+.card{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{padding:7px 8px;border-bottom:1px solid #eef1f4;text-align:left;vertical-align:top;}
+th{color:#5d6d7e;font-weight:600;font-size:12px;background:#f8fafc;}
+.up{color:#c0392b;font-weight:700;} .down{color:#1e8449;font-weight:700;}
+.warn{background:#fdecea;border-left:4px solid #c0392b;padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:12px;}
+.tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;background:#fdecea;color:#c0392b;font-weight:600;}
+.small{font-size:12px;color:#5d6d7e;} .disclaim{font-size:11px;color:#85929e;line-height:1.6;}
+h2{font-size:15px;margin:0 0 8px;}
+</style></head><body><div class="wrap">
+<h1>持仓分析 · 2026-09-24（周四）收盘快照</h1>
+<div class="sub">框架 v1.6 ｜ 生成 22:50 ｜ 唯一持仓口径：holdings.json shares&gt;0 ｜ 首页实时入口见 position.html（本页为当日静态快照）</div>
+
+<div class="warn">🚨 <b>红灯（市场面+持仓双触发）</b>：① 全市场跌 4047 家 &gt; 4000 阈值；② 杭州热电较成本 <b>-12.24%</b> 触发持仓红线（≥-7%）。<br>
+<b>置顶指令：下一交易日 9/28（周一，9/25 中秋休市）09:25 竞价无条件市价清仓杭州热电 900 股，保护限价 16.40 元，09:40 未成交转市价。</b>预计回款约 15,570 元（按 17.30 计）。</div>
+
+<div class="card"><h2>一、持仓明细（当日快照）</h2>
+<table>
+<tr><th>标的</th><th>持仓</th><th>成本</th><th>收盘</th><th>当日</th><th>浮动盈亏</th><th>R倍数</th><th>较成本</th><th>持仓天数</th></tr>
+<tr><td><b>杭州热电</b> 605011</td><td>900 股</td><td>19.712</td><td><b>17.30</b></td><td class="down">-1.59%</td><td class="down">-2,170.8 元</td><td class="down">-2.80R</td><td><span class="tag">-12.24% 红线</span></td><td>第 9 个交易日</td></tr>
+</table>
+<p class="small">价格口径：腾讯行情 16:14 收盘快照（单一来源，收盘价置信度高；盘中判定才需双源）。主力资金 +347.7 万（悟道 13:15 快照·开盘红口径）。</p>
+</div>
+
+<div class="card"><h2>二、纪律检查（v1.6 必做五项）</h2>
+<table>
+<tr><th>检查项</th><th>结论</th></tr>
+<tr><td><b>8.13.4 二波三板魔咒</b></td><td>不适用——非连板持仓。</td></tr>
+<tr><td><b>8.20 出货信号</b></td><td>部分命中——破位缩量阴跌形态，非高位长下影/天量；主力 +347.7 万转正按 9/18 纪律＝<b>减仓良机</b>：<b>禁补仓、禁摊平、禁做 T</b>。</td></tr>
+<tr><td><b>8.23 尾盘确认</b></td><td>不适用——无新买入。</td></tr>
+<tr><td><b>8.13.6 跟随纪律（3 日上限）</b></td><td><b>严重超期</b>：9/14 买入，持仓第 9 个交易日（上限 3 日）；破止损 18.85 第 8 个交易日（9/15 首破）；清仓指令自 9/15 起第 8 个交易日未执行（9/15 @18.78 → 今 17.30，拖延恶化 -7.9% ≈ -1,332 元）。</td></tr>
+<tr><td><b>8.29 板位衰减</b></td><td>不适用（非 ≥3 板连板股）。</td></tr>
+</table></div>
+
+<div class="card"><h2>三、操作建议</h2>
+<table>
+<tr><th>标的</th><th>动作</th><th>具体指令</th></tr>
+<tr><td>杭州热电 605011</td><td><span class="tag">无条件清仓</span></td><td><b>9/28（周一）09:25 竞价市价卖出 900 股（约 15,570 元），保护限价 16.40 元；09:40 未成交转市价；10:30 仍未成交降 1% 追单</b>。成交后 10 分钟内回填 trades.json 并扣减 holdings.json。禁反弹幻想：主力转正是出货窗口不是转多信号。</td></tr>
+</table>
+<p class="warn" style="margin-top:8px">⚠️ <b>数据债（最高优先级）</b>：9/21 09:25 清仓指令是否已实际成交无法从 trades.json 确认（无回填记录）。本页按 holdings.json 口径「仍在仓」报告。若实际已卖出，请立即补录卖出价，否则盈亏比统计（8.22）持续失效——当前已 N/A 第 8 个交易日。</p></div>
+
+<div class="card"><h2>四、组合层面（E 联动）</h2>
+<table>
+<tr><th>项</th><th>状态</th></tr>
+<tr><td>组合浮动盈亏</td><td class="down"><b>-2,170.8 元 / -2.80R</b></td></tr>
+<tr><td>持仓热度</td><td>1/3 合规（≤3 只）</td></tr>
+<tr><td>连败熔断</td><td>维持「只减仓、不开新仓」（9/18 触发后未解除；叠加红灯双保险）</td></tr>
+<tr><td>盈亏比（8.22）</td><td>N/A 第 8 日（t001-t004 卖出价未补录）</td></tr>
+</table></div>
+
+<div class="card"><p class="disclaim">免责声明：本报告为个人研究辅助与纪律框架记录，基于公开数据与既定规则生成，不构成任何投资建议，不承诺收益。数据可能有延迟或误差（快照时间见文中标注），据此操作风险自负。市场有风险，投资需谨慎。</p></div>
+</div></body></html>
