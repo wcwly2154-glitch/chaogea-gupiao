@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股盘中预警 · 2026-09-25（周五 · 中秋休市特刊）</title>
+<style>
+  :root{--bg:#0f1722;--panel:#15202f;--panel-2:#1c2a3d;--line:#243447;--txt:#e6edf3;--sub:#9aa9bb;--accent:#ffd400;--green:#22c55e;--red:#ef4444;--warn:#f97316;--ok:#22c55e;--bad:#ef4444;--purple:#a855f7;--teal:#14b8a6;--blue:#3b82f6;--gold:#fbbf24}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding:16px;max-width:1100px;margin:0 auto;font-size:14px}
+  h1{font-size:22px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  h2{font-size:16px;color:var(--accent);margin:24px 0 12px;padding-left:10px;border-left:3px solid var(--accent)}
+  h3{font-size:14px;color:var(--gold);margin:14px 0 8px}
+  .meta{color:var(--sub);font-size:12px;margin-bottom:16px;display:flex;gap:14px;flex-wrap:wrap}
+  .meta span{background:var(--panel);padding:4px 10px;border-radius:4px;border:1px solid var(--line)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .panel.warn{border-left:3px solid var(--warn)}
+  .panel.danger{border-left:3px solid var(--bad)}
+  .panel.good{border-left:3px solid var(--ok)}
+  .panel.info{border-left:3px solid var(--blue)}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+  .kpi{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .kpi .label{font-size:11px;color:var(--sub);margin-bottom:4px}
+  .kpi .val{font-size:18px;font-weight:600;color:var(--txt)}
+  .kpi.bad .val{color:var(--bad)}
+  .kpi.ok .val{color:var(--ok)}
+  .kpi.warn .val{color:var(--warn)}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:var(--panel-2);color:var(--accent);font-weight:600;font-size:12px}
+  tr:hover td{background:rgba(255,255,255,0.02)}
+  .tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;margin-right:4px;font-weight:500}
+  .tag-buy{background:var(--ok);color:#fff}
+  .tag-warn{background:var(--warn);color:#fff}
+  .tag-bad{background:var(--bad);color:#fff}
+  .tag-info{background:var(--blue);color:#fff}
+  .tag-purple{background:var(--purple);color:#fff}
+  .tag-teal{background:var(--teal);color:#fff}
+  .tag-gray{background:#4b5563;color:#fff}
+  .up{color:#ff5c5c}
+  .down{color:#22c55e}
+  .flat{color:var(--sub)}
+  ul{margin:8px 0 8px 20px}
+  li{margin-bottom:5px}
+  .alert-top{border:2px solid var(--bad)}
+  .disc{background:rgba(239,68,68,0.08);border:1px dashed var(--bad);border-radius:6px;padding:12px 14px;font-size:12px;color:#fca5a5;margin-top:20px}
+  .src{background:var(--panel-2);border:1px solid var(--teal);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--teal);margin-bottom:14px}
+  .mono{font-family:"SF Mono",Menlo,Consolas,monospace}
+  .small{font-size:12px;color:var(--sub)}
+  .act{background:rgba(255,212,0,0.07);border:1px solid var(--accent);border-radius:6px;padding:12px 14px;margin-top:10px}
+  .divider{height:1px;background:var(--line);margin:18px 0}
+</style>
+</head>
+<body>
+
+<h1>🔔 A股盘中预警 · 上午场（中秋休市特刊）</h1>
+<div class="meta">
+  <span>2026-09-25（周五）· <b>中秋休市日</b></span>
+  <span>快照基准：2026-09-24 16:14 收盘</span>
+  <span>框架 v1.6 · 8.12 衰退六维</span>
+  <span>信号灯 🔴 红灯第 9 日</span>
+</div>
+
+<div class="src">
+⚠️ <b>数据源：东财 + 腾讯（悟道 MCP 本档未挂载，且免费版 09:15–10:30 限流窗与本档重合）</b><br>
+<b>休市说明（执行规则第 1 条前置）</b>：2026-09-25（周五）为<b>中秋节</b>，A股 9/25–9/27 休市，<b>9/28（周一）开市</b>。腾讯行情最新快照时间戳 <span class="mono">20260924 161455</span>（＝9/24 收盘价），今日<b>无盘中实时数据</b>。本档按休市模式产出：不执行实时六维扫描，改为「<b>9/28 开盘前置风险清单</b>」，全部结论沿用 9/24 收盘基准。
+</div>
+
+<!-- ============ 置顶红灯 ============ -->
+<div class="panel danger alert-top">
+<h2 style="margin-top:0;border:none;padding:0">🔴 置顶预警 · 唯一持仓（红灯唯一来源）</h2>
+<table>
+<tr><th style="width:14%">标的</th><th style="width:10%">9/24收盘</th><th style="width:10%">成本</th><th style="width:10%">浮动盈亏</th><th style="width:10%">R倍数</th><th style="width:12%">硬止损</th><th>状态</th></tr>
+<tr>
+  <td><b>杭州热电 605011</b><br><span class="small">900 股</span></td>
+  <td class="down"><b>17.30</b><br><span class="small">-1.59%</span></td>
+  <td>19.712</td>
+  <td class="down"><b>-2,170.8 元</b><br><span class="small">-12.24%</span></td>
+  <td class="down"><b>-2.80R</b></td>
+  <td class="down">18.85<br><span class="small">已破 -8.22%</span></td>
+  <td>
+    <span class="tag tag-bad">破止损第 8 日</span>
+    <span class="tag tag-bad">8.13.6 超期第 9 个交易日</span>
+    <span class="tag tag-bad">执行缺口第 8 日</span>
+  </td>
+</tr>
+</table>
+<div class="act">
+<b>🔴 硬指令（唯一，9/28 周一执行）：9:25 竞价市价清仓 杭州热电 900 股</b>
+<ul>
+<li><b>保护限价 16.40</b>（防止一字低开被砸穿）；<b>09:40 前未成交 → 立即转市价</b>，不得继续挂单等待。</li>
+<li>按 9/24 收盘 17.30 静态估算回款 <b>约 15,570 元</b>（实际以 9/28 成交价为准），实亏 <b>约 -2,170.8 元 / -2.80R</b>。</li>
+<li><b>成交后必须立即回填</b>：<code>trades.json</code> 的 t005 写 <code>side=sell</code> + <code>exit_date / exit_price / exit_pnl</code>，并把 <code>holdings.json</code> 中 h003 <b>删除</b>（清仓）。回填完成＝红灯降级条件之一。</li>
+<li class="down"><b>反向解读禁令（9/18 教训）</b>：9/24 主力净额转正 +347.7 万，属<b>减仓良机</b>，<span class="tag tag-bad">禁补仓</span><span class="tag tag-bad">禁摊平</span><span class="tag tag-bad">禁做 T</span>。清仓前不因任何资金/板块信号改变处置。</li>
+</ul>
+</div>
+<p class="small" style="margin-top:8px">
+价格双源核验：腾讯 <span class="mono">qt.gtimg.cn</span> 17.30（快照 20260924 161455）＝ 东财 push2delay 基准 17.30，一致。<br>
+执行缺口成本：9/15 首次建议 18.78 → 9/24 收盘 17.30，拖延 8 个交易日，价格恶化 <b>-1,332 元</b>。
+</p>
+</div>
+
+<h2>一、信号灯引用（读自 site/status.json）</h2>
+<div class="panel danger">
+<div class="kpi-row">
+  <div class="kpi bad"><div class="label">顶层信号灯</div><div class="val">🔴 红灯</div></div>
+  <div class="kpi bad"><div class="label">连续红灯</div><div class="val">第 9 日</div></div>
+  <div class="kpi warn"><div class="label">宏观信号灯</div><div class="val">🟡 黄灯</div></div>
+  <div class="kpi"><div class="label">下一交易日</div><div class="val">9/28 周一</div></div>
+  <div class="kpi bad"><div class="label">新开仓额度</div><div class="val">0</div></div>
+</div>
+<p><b>红灯唯一来源＝杭州热电清仓未回填</b>。降级三条件（9/21 立）：<br>
+① 清仓成交并回填 trades/holdings <span class="tag tag-bad">未达成</span>
+② 收盘跌停 &lt;10 家 <span class="tag tag-bad">未达成（9/24 跌停 13）</span>
+③ 收盘涨停 &gt;40 家 <span class="tag tag-ok">达成（9/24 涨停 52）</span><br>
+→ 本档<b>维持 🔴 红灯第 9 日，不升不降</b>。宏观🟡黄灯 3 条未变（美 10Y 5.16–5.20% 创 2007 年来最高 / 10 月加息概率近 70% / 美元 101.3 四连涨 + 布油 100–107），缓解项：VIX 15.18 低位、伊朗愿谈判致布油日内破 98。</p>
+</div>
+
+<h2>二、8.12 衰退六维 · 休市模式（转为 9/28 开盘前置清单）</h2>
+<div class="panel info">
+<p class="small">休市日无实时触发，六维按 8.12 触发器改写为「9/28 开盘后需立即核对的条件」，对本窗唯一持仓（杭州热电）生效。</p>
+<table>
+<tr><th style="width:6%">维</th><th style="width:22%">触发器（8.12）</th><th style="width:14%">9/24 收盘状态</th><th style="width:10%">当前判定</th><th>9/28 触发阈值与动作</th></tr>
+<tr class="down"><td>1</td><td><b>跌破止损 → 🔴</b></td><td>17.30 vs 止损 18.85</td><td><span class="tag tag-bad">🔴 已触发</span></td><td><b>无条件清仓</b>；9:25 竞价市价，保护限价 16.40，09:40 未成交转市价。</td></tr>
+<tr><td>2</td><td>炸板 / 大幅冲高回落 → 🟠</td><td>9/24 炸板率 16.13%（52 涨停 / 10 炸板）</td><td><span class="tag tag-warn">🟠 观察</span></td><td>9/28 若炸板率 &gt;30% 或个股日内自高点回落 &gt;5% → 全市场禁新开仓，清仓优先级再提前。</td></tr>
+<tr><td>3</td><td>主线涨停 &lt;5 且龙头未板 → 🟠 降级</td><td>通用设备 6 家（≥5 ✅）但最高仅 2 板；汽车零部件 4 家</td><td><span class="tag tag-warn">🟠 未成型</span></td><td>见下方「三要素」表：高度梯队缺失 → 不成立主线，<b>不构成卡位依据</b>。</td></tr>
+<tr><td>4</td><td>主力净流出 &gt;1 亿 → 🟡 背离</td><td>全市场缩量下跌，成交 &lt;1.7 万亿</td><td><span class="tag tag-warn">🟡 背离</span></td><td>9/28 个股主力净流出 &gt;5,000 万 且价格跌 → 减仓；<b>杭州热电不适用（已决定清仓）</b>。</td></tr>
+<tr><td>5</td><td>新卡位 → 🟠</td><td>雷科防务 / 平潭发展（候选 2 只，<b>红灯冻结</b>）</td><td><span class="tag tag-warn">🟠 冻结</span></td><td>红灯期 <b>0 新开仓</b>，只看不做；需清仓回填 + 降级为 🟡 后才解冻复核。</td></tr>
+<tr><td>6</td><td>封板反复开板、换手 &gt;20% → 🟡</td><td>康强电子换手 30.86%、集泰 19.86%、福建水泥 15.38%</td><td><span class="tag tag-warn">🟡 封板不稳</span></td><td>9/28 高位股（≥3 板）出现换手 &gt;20% 且开板 → 按 8.29 板位衰减<b>禁新开仓</b>。</td></tr>
+</table>
+<p class="small"><b>结论：🔴×1（唯一持仓破位）· 🟠×3 · 🟡×2</b>。休市当日无新增预警；全部风险集中于 9/28 开盘一字动作。</p>
+</div>
+
+<h2>三、龙头矩阵（9/24 收盘基准）</h2>
+<div class="panel">
+<div class="kpi-row">
+  <div class="kpi"><div class="label">涨停</div><div class="val">52</div></div>
+  <div class="kpi bad"><div class="label">跌停</div><div class="val">13</div></div>
+  <div class="kpi warn"><div class="label">炸板率</div><div class="val">16.13%</div></div>
+  <div class="kpi ok"><div class="label">1进2 晋级</div><div class="val">20.51%</div></div>
+  <div class="kpi bad"><div class="label">下跌家数</div><div class="val">4,047</div></div>
+  <div class="kpi"><div class="label">最高板</div><div class="val">5 板</div></div>
+</div>
+<table>
+<tr><th>板位</th><th>家数</th><th>代表标的</th><th>框架判定（8.29 板位衰减）</th></tr>
+<tr><td>5 板</td><td>1</td><td>新华文轩 601811（出版 · 封单 1.36 亿 · 成交 2.53 亿）</td><td><span class="tag tag-bad">≥3 板禁新开仓</span>容量不足（&lt;20 亿）</td></tr>
+<tr><td>4 板</td><td>3</td><td>泰慕士 001234（封单 3.61 亿）/ 新华传媒 600825（封单 17.61 亿 · 成交仅 0.47 亿）/ 奥佳华 002614（换手 12.99%）</td><td><span class="tag tag-bad">≥3 板禁新开仓</span>；新华传媒封单厚但成交极低＝一字锁筹，非接力标的</td></tr>
+<tr><td>3 板</td><td>1</td><td>天威视讯 002238（成交 7.23 亿 · 换手 10.82% · 封单仅 0.13 亿）</td><td><span class="tag tag-bad">≥3 板禁新开仓</span>；封单薄弱，9/28 开板概率高</td></tr>
+<tr><td><b>2 板</b></td><td><b>8</b></td><td>华茂股份 / 雪龙集团 / 东方中科（通用设备 · 换手 7.88%）/ 康强电子（半导体 · 换手 30.86%）/ 金辰股份系 / 集泰股份（换手 19.86%）/ 上工申贝（换手 12.08%）/ 福建水泥（换手 15.38%）</td><td>8.29「首板二板 35.7% vs 3 板+ 16.8%」→ <b>仅 2 板及以下可评估</b>；但红灯期一律冻结</td></tr>
+<tr><td>1 板</td><td>39（75%）</td><td>含雷科防务（军工电子 · 成交 19.77 亿 · 换手 17.21%）</td><td>首板占比 75% ＝ <b>资金做广度不做高度</b>（与 9/18 同构）</td></tr>
+</table>
+<h3>行业分布（涨停家数）</h3>
+<p>通用设备 <b>6</b> ｜ 汽车零部件 <b>4</b> ｜ 出版 3 ｜ 医疗服务 3 ｜ 服装家纺 2 ｜ 军工电子 2 ｜ 半导体 2 ｜ 化学制品 2 ｜ 广告营销 2 ｜ 水泥 2 ｜ 林业 2 ｜ IT服务 2</p>
+<h3>8.12 第 3 条「主线三要素」核验（9/18 立）</h3>
+<table>
+<tr><th style="width:16%">候选主线</th><th style="width:18%">① 资金侧</th><th style="width:18%">② 涨停侧（≥5 家）</th><th style="width:20%">③ 高度梯队</th><th>结论</th></tr>
+<tr>
+  <td><b>通用设备</b></td>
+  <td>✅ +5.23 亿（行业榜第 14）</td>
+  <td>✅ 6 家涨停</td>
+  <td class="down">❌ 最高仅 2 板（东方中科），板块内无 3 板+</td>
+  <td><span class="tag tag-warn">🟠 2/3 成型进行中</span> 与 9/21 医药同构 → <b>不构成卡位依据，禁追高</b></td>
+</tr>
+<tr>
+  <td><b>汽车零部件</b></td>
+  <td>✅ +9.90 亿（<b>全场第 1</b>）</td>
+  <td class="down">❌ 4 家（&lt;5）</td>
+  <td class="down">❌ 最高 2 板（雪龙集团）</td>
+  <td><span class="tag tag-warn">🟠 1/3</span> ＝ 9/18「资金第 1 但涨停 &lt;5」<b>配置型资金主导 + 游资缺席</b>，非打板标的</td>
+</tr>
+<tr>
+  <td><b>国防军工/军工电子</b></td>
+  <td>✅ +8.84 亿 / +7.50 亿（第 2、3）</td>
+  <td class="down">❌ 2 家</td>
+  <td class="down">❌ 全首板</td>
+  <td><span class="tag tag-warn">🟠 1/3</span> 同上，分层行情</td>
+</tr>
+</table>
+<p class="small"><b>三要素无一齐备 → 9/28 开盘主线仍处真空，不具备打板/接力条件。</b>这与红灯期 0 新开仓自洽。</p>
+</div>
+
+<h2>四、关注股信号（全部冻结 · 只看不做）</h2>
+<div class="panel warn">
+<table>
+<tr><th style="width:16%">标的</th><th style="width:12%">9/24 状态</th><th style="width:26%">席位/基因</th><th style="width:16%">买区 / 止损</th><th>9/28 动作</th></tr>
+<tr>
+  <td><b>雷科防务 002413</b><br><span class="small">军工电子</span></td>
+  <td>首板 · 成交 <b>19.77 亿</b><br>换手 17.21% · 封单 1.06 亿</td>
+  <td>8.30 黄金共振：G1 作手新一净买 6,421 万 + G4 深股通买一 4,805 万 + 机构 2,835 万；<b>QDR 0%</b>（无量化污染）</td>
+  <td class="mono">8.61 / 8.79 / 8.97<br>止损 8.34</td>
+  <td><span class="tag tag-bad">红灯冻结</span> 成交差 0.23 亿未达 8.31 容量门槛。仅登记，<b>禁止下单</b>；待清仓回填 + 降级 🟡 后复核</td>
+</tr>
+<tr>
+  <td><b>平潭发展 000592</b><br><span class="small">林业 / 海峡两岸</span></td>
+  <td>所在林业板块 +6.39 亿、<b>涨幅 +5.83%（唯一资金与涨幅同向板块）</b></td>
+  <td>海峡两岸身位第一 · 榜净买 4.75 亿全场第 1 · G1 陈小群买二 9,082 万；<b>QDR 37.9% HIGH 降权</b></td>
+  <td class="mono">8.43 / 8.60 / 8.78<br>止损 8.17</td>
+  <td><span class="tag tag-bad">红灯冻结</span> 8.31 硬逻辑为「政策催化弱相关」＋量化占比偏高 → <b>降权观察</b></td>
+</tr>
+</table>
+<p><span class="tag tag-bad">禁入 5 只（≥3 板）</span> 新华文轩 5 板 / 新华传媒、泰慕士、奥佳华 4 板 / 天威视讯 3 板<br>
+<span class="tag tag-gray">淘汰 6 只</span> QDR≥50%×5（雪龙 67.7% / 华脉 64.3% / 福建水泥 58.7% / 泉阳泉 57.6% / 祥和 55.6%，全月新高）+ G0 福建水泥（国泰海通松江中山东路现身买方，双重否决）</p>
+</div>
+
+<h2>五、板块轮动（9/24 主力净额 · 面向 9/28）</h2>
+<div class="panel">
+<table>
+<tr><th style="width:6%">#</th><th style="width:22%">板块</th><th style="width:14%">主力净额</th><th style="width:12%">涨跌幅</th><th>解读</th></tr>
+<tr><td>1</td><td>汽车零部件</td><td class="up">+9.90 亿</td><td class="down">-0.64%</td><td>资金第 1 但板块下跌 + 涨停仅 4 家 → <b>配置型承接，非情绪主线</b></td></tr>
+<tr><td>2</td><td>国防军工</td><td class="up">+8.84 亿</td><td class="down">-0.94%</td><td>同上，雷科防务所在方向，但宽度不足</td></tr>
+<tr><td>3</td><td>军工电子</td><td class="up">+7.50 亿</td><td class="down">-0.74%</td><td>—</td></tr>
+<tr><td>4</td><td>风电设备 / 零部件</td><td class="up">+6.97 / +6.93 亿</td><td class="up">+2.15% / +2.67%</td><td><b>资金 + 涨幅同向</b>，但涨停家数未入前排 → 趋势中军候选，红灯期不参与</td></tr>
+<tr><td>5</td><td>林业</td><td class="up">+6.39 亿</td><td class="up">+5.83%</td><td><b>全场最强同向</b>（平潭发展所在），催化＝海峡两岸，硬逻辑偏弱</td></tr>
+<tr><td>6</td><td>煤炭</td><td class="up">+5.50 亿</td><td class="up">+0.66%</td><td>防守属性，与 8.25「趋势中军波段」契合但非主线</td></tr>
+<tr><td>7</td><td>通用设备</td><td class="up">+5.23 亿</td><td class="down">-0.71%</td><td>涨停 6 家最多但资金仅第 14 → <b>纯游资无主力背书镜像判据</b>（9/18 立）</td></tr>
+</table>
+<p class="small"><b>轮动判读</b>：9/24 为「缩量普跌 + 资金抱团防御/低位」结构（跌 4,047 家、成交 &lt;1.7 万亿）。<b>资金与涨幅双正向的只有风电、林业、煤炭</b>，三者均属 8.25 定义的「趋势中军波段」方向，但红灯期 + 无高度梯队 → 一律不参与，仅作 9/28 观察名单。</p>
+</div>
+
+<h2>六、条件化建议（9/28 周一执行）</h2>
+<div class="act">
+<ol>
+<li><b>【最高优先级 · 无条件】9:25 竞价市价清仓 杭州热电 900 股</b>，保护限价 16.40，09:40 未成交转市价。成交即回填 trades.json（t005 sell + exit_*）并删除 holdings.json h003。</li>
+<li><b>0 新开仓</b>：红灯期内雷科防务、平潭发展及全部候选/萌芽<b>只看不做</b>；不因假期外围利好或开盘反弹破例。</li>
+<li><b>9/28 盘中三档动作</b>：
+  <ul>
+  <li>清仓成交 + 收盘跌停 &lt;10 + 收盘涨停 &gt;40 → <b>下一交易日（9/29）降 🟡 黄灯</b>；</li>
+  <li>跌停 ≥10 或 涨停 &lt;40 → <b>红灯延续</b>，继续空仓；</li>
+  <li>跌停 &gt;50 家 → 直接判定系统性风险，清仓后的空仓状态保持至少 3 个交易日。</li>
+  </ul>
+</li>
+<li><b>假期外盘风险（3 天休市敞口）</b>：美 10Y 5.20%、10 月加息概率近 70%、布油 100–107 美元。9/28 若低开，杭州热电按<b>出货窗口</b>对待，不得因「低开等反弹」推迟清仓。</li>
+<li><b>数据债（最高优先级）</b>：t001–t004 卖出价至今未回填，盈亏比已 N/A 第 9 日；9/28 清仓成交后请一并与杭州热电成交价补录，否则框架盈亏比模块无法闭环。</li>
+</ol>
+</div>
+
+<div class="divider"></div>
+
+<div class="disc">
+<b>⚠️ 投资风险免责声明</b><br>
+本报告由《超哥A股研究台》自动化工作流生成，数据源为东方财富公开接口与腾讯行情（本档悟道 MCP 未挂载，已标注）。2026-09-25 为中秋休市日，所有行情均为 <b>2026-09-24 收盘静态快照</b>，非实时盘中数据，可能与 9/28 开盘实际情况存在偏差。<br>
+本报告仅为个人研究记录与交易纪律执行提示，<b>不构成任何投资建议、要约或收益承诺</b>。A股市场风险极高，历史规律与席位信号均为概率统计，不保证未来有效；文中所有价格、止损位、买卖区间均为框架推演值，实际成交以券商系统为准。<br>
+<b>据此操作，风险自担，盈亏自负。</b>请独立决策、严格控制仓位，并以自有闲置资金参与。
+</div>
+
+<p class="small" style="text-align:center;margin-top:16px;color:var(--sub)">
+《超哥A股研究台》· 盘中预警上午场 · 框架 v1.6（8.12 衰退六维 / 8.25 生态位 / 8.29 板位衰减 / 8.30 共振）<br>
+生成时间 2026-09-25 19:05 · 下一交易时段：9/28（周一）9:25
+</p>
+
+</body>
+</html>
