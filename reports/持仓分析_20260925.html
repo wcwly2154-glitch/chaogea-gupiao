@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓分析·休市特刊 2026-09-25 | 超哥A股研究台</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f6f8;color:#1a1a2e;line-height:1.7;padding:20px}
+  .wrap{max-width:960px;margin:0 auto}
+  .header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;border-radius:12px;padding:24px 28px;margin-bottom:16px}
+  .header h1{font-size:22px;margin-bottom:6px}
+  .header .meta{font-size:13px;opacity:.75}
+  .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-right:8px}
+  .b-red{background:#e53935;color:#fff}
+  .b-holiday{background:#ff9800;color:#fff}
+  .b-gray{background:#607d8b;color:#fff}
+  .card{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .card h2{font-size:16px;margin-bottom:12px;padding-left:10px;border-left:4px solid #1a73e8}
+  .card h2.warn{border-left-color:#e53935}
+  .alert{background:#fdecea;border:1px solid #f5c6cb;border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:14px}
+  .alert strong{color:#c62828}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+  th{background:#eef2f7;padding:9px 10px;text-align:left;font-weight:600;white-space:nowrap}
+  td{padding:9px 10px;border-bottom:1px solid #eef0f3}
+  tr:hover td{background:#f8fafd}
+  .down{color:#00a04d;font-weight:600}
+  .up{color:#e53935;font-weight:600}
+  .kv{display:flex;flex-wrap:wrap;gap:10px;font-size:13.5px;margin:8px 0}
+  .kv span{background:#f0f4f8;border-radius:6px;padding:4px 12px}
+  ul{padding-left:22px;font-size:14px;margin:6px 0}
+  li{margin-bottom:7px}
+  .note{font-size:12.5px;color:#78909c;margin-top:12px;padding-top:10px;border-top:1px dashed #dfe4ea}
+  .footer{font-size:12px;color:#90a4ae;text-align:center;padding:16px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <h1>📊 持仓分析 · 盘后休市特刊 <span class="badge b-holiday">中秋休市日</span><span class="badge b-red">🔴 红灯第9日</span></h1>
+    <div class="meta">2026-09-25（周五）19:20 盘后窗口补跑 ｜ 基准 = 9/24 收盘（本日无交易）｜ 框架 v1.6 ｜ 下一交易日 <b>9/28（周一）</b></div>
+  </div>
+
+  <div class="card">
+    <h2 class="warn">🚨 置顶硬指令（9/28 开盘执行）</h2>
+    <div class="alert">
+      <strong>9/28（周一）09:25 竞价无条件市价清仓：杭州热电 605011 · 900 股（保护限价 16.40 元，09:40 未成交转市价）。</strong><br>
+      成交后立即回填 trades.json（t005 卖出价）并删除 holdings h003 → 红灯自动降级。执行缺口已第 9 日（9/15 @18.78 首令 → 现 17.30，拖延恶化约 -1,332 元），<strong>禁等反弹</strong>——9/24 四大指数全部收在全天最低点＝尾盘 30 分钟单边跳水零反抽，9/28 惯性向下概率高。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>一、持仓明细（唯一持仓 · 双源验证）</h2>
+    <table>
+      <tr><th>标的</th><th>持仓</th><th>成本</th><th>收盘(9/24)</th><th>浮动盈亏</th><th>R倍数</th><th>止损</th><th>状态</th></tr>
+      <tr>
+        <td><b>杭州热电</b> 605011</td>
+        <td>900 股</td>
+        <td>19.712</td>
+        <td class="down">17.30（-1.59%）</td>
+        <td class="down"><b>-2,170.80 元</b></td>
+        <td class="down"><b>-2.80R</b></td>
+        <td>18.85（已破·第8日）</td>
+        <td><span class="badge b-red">清仓指令</span></td>
+      </tr>
+    </table>
+    <div class="kv">
+      <span>较成本 <b class="down">-12.24%</b> → 触发 -7% 持仓红线（红灯唯一来源）</span>
+      <span>双源一致：腾讯 9/24 16:14 快照 + 新浪 9/24 15:34，均收 17.30</span>
+      <span>组合浮亏 -2,170.80 元 / -2.80R</span>
+    </div>
+    <div class="note">9/21 清仓指令是否已成交无法确认（trades.json 无回填）——请核对券商成交记录后补录；若 9/21 已成交，本报告持仓数据作废，红灯立即降级。</div>
+  </div>
+
+  <div class="card">
+    <h2>二、五项框架检查</h2>
+    <table>
+      <tr><th>检查项</th><th>结论</th></tr>
+      <tr><td><b>8.13.4 二波三板魔咒</b></td><td>不适用（无二波板结构）。</td></tr>
+      <tr><td><b>8.20 出货信号</b></td><td>9/24 主力净额转正 +347.7 万（f184 +7.51%）＝<b class="down">减仓良机，禁补仓、禁摊平、禁做 T</b>（9/18 纪律）。不得误读为转多信号。</td></tr>
+      <tr><td><b>8.23 尾盘确认</b></td><td>不适用——清仓指令为竞价市价执行（9:25），非尾盘确认类买入。</td></tr>
+      <tr><td><b>8.13.6 跟随纪律</b></td><td>超期——9/14 席位信号买入，跟随上限 3 个交易日，现第 10 个交易日。第 3 日无条件处理早已触发，<b>执行缺口是本持仓最大风险源</b>。</td></tr>
+      <tr><td><b>8.29 板位衰减</b></td><td>不适用（当前无板）。历史 2 板+二波失败回落，禁止任何加仓与摊平。</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>三、9/28 开盘前置清单</h2>
+    <ul>
+      <li><b>① 持仓</b>：9:25 竞价市价清仓杭州热电 900 股（限价 16.40，09:40 转市价）→ 成交即回填 → 空仓观望。</li>
+      <li><b>② 新开仓</b>：0。红灯第 9 日 + 连败熔断后续——候选全部冻结<b>只看不做</b>：雷科防务（G1+G4 黄金共振·QDR 0%·买区 8.61/8.79/8.97）、平潭发展（海峡两岸身位第一·QDR 37.9% 降权·买区 8.43/8.60/8.78）。冻结解除条件＝持仓回填后红灯降级 + 当日市场面复核。</li>
+      <li><b>③ 开盘惯性预判</b>：9/24 崩盘日（跌 4047 家、涨停 52、1进2 仅 20.51%）+ 尾盘单边跳水 → 若 9/28 低开，反弹按出货窗口对待，不接飞刀。</li>
+      <li><b>④ 宏观升级触发器</b>：美股 9/25 夜盘标普 &lt;-1% 或 VIX&gt;18、美 10Y &gt;5.25% 持续、布油重上 108 美元 → 宏观黄灯转红。</li>
+      <li><b>⑤ 数据债</b>：t001-t004 + 杭州热电卖出价回填（盈亏比 N/A 已第 9 日，为最高优先级）。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>四、交易日志与熔断状态（E）</h2>
+    <div class="kv">
+      <span>今日新交易：0 笔（休市）</span>
+      <span>连败熔断：未触发（9/24 对账后连败清零；红灯期 0 新开仓双保险）</span>
+      <span>组合热度：1/3 合规</span>
+      <span>盈亏比：<b>N/A 第 9 日</b>（卖出价未回填）</span>
+    </div>
+    <div class="note">持仓分析入口固定走动态页 <b>position.html</b>（本报告为当日快照存档）。龙头池与席位雷达基准仍为 9/24 版（目标交易日 9/28）：见 site/reports/龙头池与买点_20260924.html。</div>
+  </div>
+
+  <div class="footer">
+    免责声明：本报告为个人研究记录，不构成任何投资建议。股市有风险，交易决策自负。数据源：腾讯/新浪行情（双源交叉验证）、holdings.json、trades.json。
+  </div>
+</div>
+</body>
+</html>
