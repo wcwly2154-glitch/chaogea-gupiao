@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股盘中预警 · 下午场 2026-09-25（中秋休市特刊）</title>
+<style>
+  :root{--bg:#0f1722;--panel:#15202f;--panel-2:#1c2a3d;--line:#243447;--txt:#e6edf3;--sub:#9aa9bb;--accent:#ffd400;--green:#22c55e;--red:#ef4444;--warn:#f97316;--ok:#22c55e;--bad:#ef4444;--purple:#a855f7;--teal:#14b8a6;--blue:#3b82f6;--gold:#fbbf24}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding:16px;max-width:1100px;margin:0 auto;font-size:14px}
+  h1{font-size:22px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  h2{font-size:16px;color:var(--accent);margin:24px 0 12px;padding-left:10px;border-left:3px solid var(--accent)}
+  h3{font-size:14px;color:var(--gold);margin:14px 0 8px}
+  .meta{color:var(--sub);font-size:12px;margin-bottom:16px;display:flex;gap:14px;flex-wrap:wrap}
+  .meta span{background:var(--panel);padding:4px 10px;border-radius:4px;border:1px solid var(--line)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .panel.warn{border-left:3px solid var(--warn)}
+  .panel.danger{border-left:3px solid var(--bad)}
+  .panel.good{border-left:3px solid var(--ok)}
+  .panel.info{border-left:3px solid var(--blue)}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+  .kpi{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .kpi .label{font-size:11px;color:var(--sub);margin-bottom:4px}
+  .kpi .val{font-size:18px;font-weight:600;color:var(--txt)}
+  .kpi.bad .val{color:var(--bad)}
+  .kpi.ok .val{color:var(--ok)}
+  .kpi.warn .val{color:var(--warn)}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:var(--panel-2);color:var(--accent);font-weight:600;font-size:12px}
+  tr:hover td{background:rgba(255,255,255,0.02)}
+  .tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;margin-right:4px;font-weight:500}
+  .tag-buy{background:var(--ok);color:#fff}
+  .tag-warn{background:var(--warn);color:#fff}
+  .tag-bad{background:var(--bad);color:#fff}
+  .tag-info{background:var(--blue);color:#fff}
+  .tag-purple{background:var(--purple);color:#fff}
+  .tag-teal{background:var(--teal);color:#fff}
+  .tag-gray{background:#4b5563;color:#fff}
+  .up{color:#ff5c5c}
+  .down{color:#22c55e}
+  .flat{color:var(--sub)}
+  ul{margin:8px 0 8px 20px}
+  li{margin-bottom:5px}
+  .alert-top{border:2px solid var(--bad)}
+  .disc{background:rgba(239,68,68,0.08);border:1px dashed var(--bad);border-radius:6px;padding:12px 14px;font-size:12px;color:#fca5a5;margin-top:20px}
+  .src{background:var(--panel-2);border:1px solid var(--teal);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--teal);margin-bottom:14px}
+  .mono{font-family:"SF Mono",Menlo,Consolas,monospace}
+  .small{font-size:12px;color:var(--sub)}
+  .act{background:rgba(255,212,0,0.07);border:1px solid var(--accent);border-radius:6px;padding:12px 14px;margin-top:10px}
+  .divider{height:1px;background:var(--line);margin:18px 0}
+</style>
+</head>
+<body>
+
+<h1>🔔 A股盘中预警 · 下午场（中秋休市特刊）</h1>
+<div class="meta">
+  <span>2026-09-25（周五）· <b style="color:#ef4444">中秋休市日·非交易日</b></span>
+  <span>生成 19:06（13:30 窗口迟滞补跑）</span>
+  <span>数据基准：<b>2026-09-24 15:00 收盘</b>（节前最后交易日）</span>
+  <span>框架 v1.6 · 8.12 衰退六维</span>
+  <span>悟道 0 次 / 东财+腾讯+新浪 三源</span>
+</div>
+
+<div class="panel danger">
+  <b style="color:#ef4444">⛔ 非交易日声明：</b>今日 9/25 为中秋节，A 股 9/25–9/27 休市，<b>9/28（周一）开市</b>。腾讯/东财/新浪三源快照时间字段均停留在 <span class="mono">2026-09-24 16:14</span>，无当日盘中数据。
+  本场按上午场先例改为「休市特刊」：六维监测与四项午后专项<b>全部以 9/24 收盘为基准</b>，产出面向 <b>9/28 开盘</b>的前置清单与先手候选，不做虚构的当日分时描述。
+</div>
+
+<div class="panel info">
+  <b>📡 信号灯引用（读自 site/status.json，19:05）</b>
+  <div class="kpi-row" style="margin-top:10px">
+    <div class="kpi bad"><div class="label">顶层信号灯</div><div class="val">🔴 红灯</div><div class="small">第 9 日维持</div></div>
+    <div class="kpi warn"><div class="label">宏观信号灯</div><div class="val">🟡 黄灯</div><div class="small">3 条警戒</div></div>
+    <div class="kpi bad"><div class="label">维持红灯唯一依据</div><div class="val">1 条</div><div class="small">杭州热电清仓未回填</div></div>
+    <div class="kpi bad"><div class="label">新开仓额度</div><div class="val">0</div><div class="small">红灯期冻结</div></div>
+  </div>
+  <div class="small">宏观🟡三条：①美 10Y 5.16%–5.20% 创 2007 年来最高（30Y 5.48%）；②10 月加息概率逼近 70%；③美元 101.3 四连涨 + 布油反弹 100–107 美元。缓解项：VIX 15.18 低位、伊朗 9/25 愿谈判→布油日内破 98、习特会谈积极、3 天假期缓冲。<br>
+  <b style="color:#fbbf24">升降级判定：维持 🔴，不上调不降级。</b>降级三条件（清仓回填 / 主线成型 / 连板梯队修复）仍 2/3 未达标——唯一阻塞项＝杭州热电 900 股清仓未成交回填（第 9 日）。</div>
+</div>
+
+<!-- ============ 🔴 置顶 ============ -->
+<div class="panel alert-top danger">
+  <h2 style="margin-top:0;border:none;padding:0">🚨 置顶 🔴 预警：杭州热电（605011）— 唯一持仓</h2>
+  <table>
+    <tr><th style="width:22%">项目</th><th>数值</th></tr>
+    <tr><td>持仓</td><td>900 股 @ 19.712 元（成本 17,740.80 元）· t005 · 9/14 建仓</td></tr>
+    <tr><td>收盘价（三源一致）</td><td><b style="color:#22c55e;font-size:16px">17.30 元</b>　腾讯 <span class="mono">2026-09-24 16:14:55</span> ／ 东财 f43=1730 ／ 新浪 17.300 <span class="tag tag-teal">三源交叉通过</span></td></tr>
+    <tr><td>当日涨跌</td><td class="down">-0.28 元 ／ -1.59%（换手 1.36%，成交 9,513 万元）</td></tr>
+    <tr><td>浮动盈亏</td><td class="down"><b>-2,170.80 元 ／ -2.80R</b>（R 额 775.8 元）</td></tr>
+    <tr><td>距成本</td><td class="down">-12.24%（≥ -7% 红线，触发第 8 日）</td></tr>
+    <tr><td>止损 18.85</td><td class="down"><b>已破 -8.22%</b>，破位第 <b>9</b> 个交易日</td></tr>
+    <tr><td>8.13.6 跟随上限 3 日</td><td class="down"><b>超期第 10 个交易日</b>（严重违规）</td></tr>
+    <tr><td>主力资金</td><td>东财 f184 主力净占比 <b class="up">+7.51%</b>（净流入，与 9/24 13:15 快照 +347.7 万同向）</td></tr>
+  </table>
+  <div class="act">
+    <b style="color:#ffd400">硬指令（不变，执行缺口第 9 日）：9/28（周一）09:25 竞价市价清仓 900 股</b><br>
+    · <b>保护限价 16.40 元</b>（低于 9/24 最低 17.27 约 5%，防闪崩跳空）　· <b>09:40 前未成交 → 立即转市价全清</b>，不得继续挂单等待<br>
+    · 预估回款约 <b>15,570 元</b>（按 17.30）／ 保护限价成交约 <b>14,760 元</b>；实亏区间 <b>-2,171 ~ -2,981 元（-2.80R ~ -3.84R）</b><br>
+    · 成交后<b>立即</b>回填 trades.json（t005：side=sell、exit_date=2026-09-28、exit_price、exit_pnl、r_multiple）并删除 holdings.json h003 → <b>红灯当日自动降级</b><br>
+    <b style="color:#ef4444">⚠️ 反向解读纪律（9/18 立）：主力净流入 +7.51% ＝ 出货窗口 / 减仓良机，不是持有、补仓或做 T 的理由。禁补仓、禁摊平、禁做 T。</b><br>
+    <b style="color:#f97316">⚠️ 下午场新增依据（见「尾盘强弱」）：9/24 四大指数全部收在全天最低点，尾盘 30 分钟单边跳水无反抽 → 9/28 早盘惯性向下概率高，任何「等反弹再卖」的念头都必须压制，一律按竞价市价执行。</b>
+  </div>
+</div>
+
+<!-- ============ 午后专项 ============ -->
+<h2>🌇 午后专项（下午场专属 · 以 9/24 收盘为基准）</h2>
+
+<h3>① 午后资金是否回流今日主线？—— <span style="color:#f97316">结构性回流，但回的是「逆势主题」不是「主线」</span></h3>
+<div class="panel">
+  <table>
+    <tr><th>时段（最后封板时间）</th><th>封板家数</th><th>占比</th><th>质量</th></tr>
+    <tr><td>上午 ≤10:59</td><td>32</td><td>61.5%</td><td>常规</td></tr>
+    <tr><td>午间 11:00–13:59</td><td>6</td><td>11.5%</td><td>承接型（雷科防务 13:09、宁波东力 13:22）</td></tr>
+    <tr><td><b>午后/尾盘 ≥14:00</b></td><td><b>14</b></td><td><b>26.9%</b></td><td><b style="color:#ff5c5c">主导＝海峡两岸/福建本地股</b></td></tr>
+  </table>
+  <div class="small">涨停池共 52 家。全天炸板次数累计 58 次、涉及 30 家（炸板率 16.13%）。<b>午后不是资金撤离：14:00 后仍有 14 家新封板，占全天涨停 26.9%</b>——但这些票几乎全部集中在同一个主题上，其余板块午后无增量承接。</div>
+  <div class="divider"></div>
+  <table>
+    <tr><th>股票</th><th>代码</th><th>板</th><th>最后封板</th><th>换手%</th><th>封单(万元)</th><th>炸板</th><th>行业</th></tr>
+    <tr style="background:rgba(255,92,92,0.08)"><td><b>平潭发展</b></td><td>000592</td><td>1</td><td>14:23:42</td><td>17.0</td><td><b style="color:#ff5c5c">35,654</b></td><td>0</td><td>林业Ⅱ</td></tr>
+    <tr style="background:rgba(255,92,92,0.08)"><td>厦门港务</td><td>000905</td><td>1</td><td>14:39:00</td><td><b>5.6</b></td><td>11,848</td><td>0</td><td>航运港口</td></tr>
+    <tr style="background:rgba(255,92,92,0.08)"><td>海峡创新</td><td>300300</td><td>1</td><td>14:25:36</td><td>24.3</td><td>9,769</td><td>2</td><td>IT服务Ⅱ</td></tr>
+    <tr style="background:rgba(255,92,92,0.08)"><td>漳州发展</td><td>000753</td><td>1</td><td>14:39:48</td><td>8.7</td><td>7,952</td><td>0</td><td>综合Ⅱ</td></tr>
+    <tr style="background:rgba(255,92,92,0.08)"><td>福建水泥</td><td>600802</td><td>2</td><td>14:24:13</td><td>15.4</td><td>7,630</td><td>0</td><td>水泥</td></tr>
+    <tr style="background:rgba(255,92,92,0.08)"><td>福建金森</td><td>002679</td><td>1</td><td>14:45:51</td><td>10.6</td><td>6,531</td><td>0</td><td>林业Ⅱ</td></tr>
+    <tr><td>新华都</td><td>002264</td><td>1</td><td>14:50:24</td><td>14.8</td><td>6,845</td><td>0</td><td>广告营销</td></tr>
+    <tr><td>国统股份</td><td>002205</td><td>1</td><td>14:20:12</td><td>9.4</td><td>4,114</td><td>1</td><td>水泥</td></tr>
+    <tr><td>厦工股份</td><td>600815</td><td>1</td><td>14:54:14</td><td>16.7</td><td>1,959</td><td>3</td><td>工程机械</td></tr>
+    <tr><td>路桥信息</td><td>920748</td><td>1</td><td>14:47:01</td><td>10.5</td><td>1,194</td><td>1</td><td>IT服务Ⅱ</td></tr>
+    <tr><td>内蒙新华</td><td>603230</td><td>1</td><td>14:11:17</td><td>20.4</td><td>1,664</td><td><b style="color:#ef4444">6</b></td><td>出版</td></tr>
+    <tr><td>昆船智能</td><td>301311</td><td>1</td><td>14:28:21</td><td>14.1</td><td>691</td><td>1</td><td>通用设备</td></tr>
+    <tr><td>合富中国</td><td>603122</td><td>1</td><td>14:48:59</td><td>19.0</td><td>2,335</td><td>1</td><td>医疗服务</td></tr>
+    <tr><td>电科思仪</td><td>301689</td><td>1</td><td><b>15:00:00</b></td><td><b style="color:#ef4444">56.7</b></td><td>145</td><td>2</td><td>通用设备</td></tr>
+  </table>
+  <div class="small"><b>判读：</b>午后资金回流方向极其明确——<b>14:20–14:55 这一波「海峡两岸/福建本地股」尾盘集中封板，且炸板次数多为 0、封单厚（平潭 3.57 亿全场最大、厦门港务 1.18 亿、漳州 7,952 万）</b>，是主动买盘而非被动承接。反例：内蒙新华（炸板 6 次）、电科思仪（15:00 才封、换手 56.7%、封单仅 145 万）＝劣质尾盘板，明日不计入先手。</div>
+</div>
+
+<h3>② 尾盘 30 分钟强弱 —— <span style="color:#22c55e">四大指数全部收在全天最低点（加速跳水，无反抽）</span></h3>
+<div class="panel danger">
+  <table>
+    <tr><th>指数</th><th>收盘</th><th>涨跌%</th><th>当日最高</th><th>当日最低</th><th>收盘位置</th></tr>
+    <tr><td>上证指数</td><td class="down">3888.37</td><td class="down">-1.22</td><td>3930.50</td><td>3888.37</td><td class="down"><b>= 全天最低</b></td></tr>
+    <tr><td>深证成指</td><td class="down">13316.97</td><td class="down">-2.34</td><td>13577.86</td><td>13316.97</td><td class="down"><b>= 全天最低</b></td></tr>
+    <tr><td>创业板指</td><td class="down">3288.95</td><td class="down">-2.68</td><td>3371.61</td><td>3288.95</td><td class="down"><b>= 全天最低</b></td></tr>
+    <tr><td>科创50</td><td class="down">1621.87</td><td class="down">-2.35</td><td>1653.39</td><td>1621.87</td><td class="down"><b>= 全天最低</b></td></tr>
+  </table>
+  <div class="act" style="border-color:#ef4444;background:rgba(239,68,68,0.07)">
+    <b style="color:#ef4444">判明日惯性：向下（C 分支＝跳水，已确认，非预测）</b><br>
+    四大指数<b>无一例外收在全天最低价</b>＝尾盘 30 分钟是单边抛压、没有任何抄底反抽；叠加跌 4047 家（涨跌比 1:3.7）、成交 &lt;1.7 万亿缩量 → <b>缩量阴跌式跳水，承接完全缺席</b>。<br>
+    <b>对 9/28 的三条推论：</b>① 早盘大概率低开，跳空缺口需要时间修复；② 节前避险 + 中秋三天休市，假期外围（美股 9/25 夜盘、10Y 美债、布油）是额外变量；③ <b>指数层面的弱势 ≠ 结构性机会消失</b>——尾盘零炸板的海峡两岸票是唯一逆势增量，属「分裂市先手」，与指数惯性分开处理。
+  </div>
+</div>
+
+<h3>③ 午后新崛起板块 —— <span style="color:#fbbf24">海峡两岸/福建本地股 🌱 萌芽（8.12 三要素 2/3）</span></h3>
+<div class="panel warn">
+  <table>
+    <tr><th>8.12 三要素</th><th>数据</th><th>判定</th></tr>
+    <tr><td>资金侧</td><td>海峡两岸主力净额 <b>+20.48 亿</b>，全场断层第 1（第二梯队无 10 亿级）</td><td class="up">✅ 达标</td></tr>
+    <tr><td>涨停侧（行业 ≥5 家）</td><td><b>12 家</b>涨停（平潭/海峡创新/厦门港务/漳州发展/福建金森/福建水泥/路桥信息/厦工/新华都等）</td><td class="up">✅ 达标</td></tr>
+    <tr><td>高度梯队</td><td>板块内最高仅 <b>2 板</b>（福建水泥）；全场最高 5 板（新华文轩·出版）与本主题无关</td><td class="down">❌ 缺位</td></tr>
+  </table>
+  <div class="small">
+    <b>判定：🌱 萌芽（成型进行中），不构成「已成型主线」。</b>按 9/18 与 9/21 两次先例，三要素缺一即降级——高度梯队缺位意味着没有赚钱效应的高位标尺，接力链条一旦断在 2 板就结束。<br>
+    <b>催化质量偏弱：</b>福建「美丽中国」方案属区域性政策，非产业级硬逻辑（对比 8.31 要求的「硬逻辑」），且发生在崩盘日逆势 → <b>一日游风险显著</b>。<br>
+    <b>镜像排除项：</b>通用设备 6 家涨停（全场行业第 1）但板块主力净额未进前 100 → 纯游资无主力背书，按 9/18 镜像判据<b>一律排除</b>；汽车零部 4 家涨停 + 资金第 1，但涨停未达 5 家门槛 → 分层行情，不构成打板标的；芯片/半导体 2 家涨停 + 资金退潮 → 降级出局。
+  </div>
+</div>
+
+<h3>④ 持仓的尾盘处理建议</h3>
+<div class="panel">
+  <table>
+    <tr><th>标的</th><th>动作</th><th>数量</th><th>价格/金额</th><th>时间兜底</th></tr>
+    <tr><td><b>杭州热电 605011</b></td><td><span class="tag tag-bad">清仓卖出</span></td><td><b>900 股（全部）</b></td><td>市价，保护限价 <b>16.40 元</b>；预估回款 15,570 元（限价成交 14,760 元）</td><td><b>9/28 09:25 竞价下单 → 09:40 未成交转市价</b></td></tr>
+  </table>
+  <ul>
+    <li><b>不加仓、不补仓、不做 T</b>——主力净流入 +7.51% 只说明盘中有人接，不改变 -12.24% 的红线事实与超期状态。</li>
+    <li><b>不等反弹</b>——尾盘四大指数收全天最低，9/28 惯性向下，"等一个更好的价格"已被 9 个交易日证伪（9/15 @18.78 → 9/24 @17.30，拖延成本约 -1,332 元）。</li>
+    <li>清仓完成后 <b>空仓观望</b>，红灯当日自动降级；在降级确认前 <b>0 新开仓</b>。</li>
+  </ul>
+</div>
+
+<!-- ============ 六维 ============ -->
+<h2>🔍 衰退六维监测（8.12 · 9/24 基准，9/28 开盘前置版）</h2>
+<div class="panel">
+  <table>
+    <tr><th style="width:26%">维度</th><th style="width:12%">信号</th><th>实测（9/24 收盘）</th></tr>
+    <tr><td>① 跌破止损</td><td><span class="tag tag-bad">🔴</span></td><td><b>杭州热电 17.30 vs 止损 18.85，破位 -8.22%，第 9 日</b> → 红灯直接触发</td></tr>
+    <tr><td>② 炸板 / 冲高回落</td><td><span class="tag tag-warn">🟠</span></td><td>炸板 30 家 / 58 次，炸板率 16.13%；四大指数<b>全部自当日高点单边回落收全天最低</b>（创业板 -2.68%、科创50 -2.35%）＝全域冲高回落</td></tr>
+    <tr><td>③ 主线涨停 &lt;5 且龙头未板</td><td><span class="tag tag-warn">🟠 降级</span></td><td>无一条主线三要素齐备：海峡两岸 12 涨停但最高 2 板、通用设备 6 涨停但资金未进前 100、汽车零部资金第 1 但涨停 4 家 → <b>主线真空</b></td></tr>
+    <tr><td>④ 主力净流出 &gt;1 亿</td><td><span class="tag tag-info">🟡 背离</span></td><td>市场级：除海峡两岸 +20.48 亿外，其余板块无 10 亿级净流入，整体承接不足；个股级：杭州热电主力 <b>净流入</b> +7.51% → 属<b>反向背离</b>（资金进、股价跌＝出货窗口，非买入信号）</td></tr>
+    <tr><td>⑤ 新卡位（8.12 触发器）</td><td><span class="tag tag-warn">🟠</span></td><td>雷科防务 13:09 封板（G1 作手新一 + G4 深股通 + 机构＝黄金共振，QDR 0%，成交 19.77 亿差 0.23 亿到 20 亿线）→ 本日唯一可进池候选，但<b>红灯期冻结，只看不做</b></td></tr>
+    <tr><td>⑥ 封板反复 / 换手 &gt;20%</td><td><span class="tag tag-info">🟡</span></td><td>高换手警戒：电科思仪 56.7%、康强电子 30.9%、华脉科技 27.7%、海峡创新 24.3%、内蒙新华 20.4% → 均列为换手警戒，不作为先手</td></tr>
+  </table>
+  <div class="small"><b>合计：1 🔴 + 3 🟠 + 2 🟡</b>。与上场（9/21：1🔴+2🟠+1🟡）相比恶化一档——新增的 🟠 来自「全域冲高回落收全天最低」。</div>
+</div>
+
+<!-- ============ 龙头矩阵 ============ -->
+<h2>📊 龙头矩阵（9/24 收盘 · 连板梯队）</h2>
+<div class="panel">
+  <div class="kpi-row">
+    <div class="kpi"><div class="label">涨停总数</div><div class="val">52</div></div>
+    <div class="kpi bad"><div class="label">跌家数</div><div class="val">4047</div><div class="small">涨跌比 1:3.7</div></div>
+    <div class="kpi warn"><div class="label">炸板率</div><div class="val">16.13%</div></div>
+    <div class="kpi"><div class="label">最高板</div><div class="val">5 板</div><div class="small">新华文轩（出版）</div></div>
+    <div class="kpi bad"><div class="label">1进2 晋级</div><div class="val">20.51%</div><div class="small">中性偏低</div></div>
+    <div class="kpi bad"><div class="label">成交额</div><div class="val">&lt;1.7 万亿</div><div class="small">缩量</div></div>
+  </div>
+  <table>
+    <tr><th>板位</th><th>家数</th><th>代表</th><th>8.29 板位衰减判定</th></tr>
+    <tr><td>5 板</td><td>1</td><td>新华文轩（出版，与主线无关）</td><td class="down">≥3 板禁新开仓</td></tr>
+    <tr><td>4 板</td><td>3</td><td>泰慕士（服装）、新华传媒（出版）、奥佳华（家电）</td><td class="down">≥3 板禁新开仓</td></tr>
+    <tr><td>3 板</td><td>1</td><td>天威视讯（电视广播，13:10 炸板 3 次）</td><td class="down">≥3 板禁新开仓</td></tr>
+    <tr><td>2 板</td><td>8</td><td>华茂股份、雪龙集团、东方中科、康强电子、金辰股份、集泰股份、上工申贝、<b>福建水泥</b></td><td class="flat">可观察（8.29：2板 35.7%）</td></tr>
+    <tr><td>1 板</td><td>39</td><td>平潭发展、雷科防务、海峡创新、厦门港务等</td><td class="flat">先手候选区（35.7%）</td></tr>
+  </table>
+  <div class="small"><b>梯队断层：</b>2 板以上仅 13 家、3 板以上仅 5 家，且最高 5 板（出版）与资金主线（海峡两岸）完全不重叠 → <b>高度与主线分离</b>，这是 9/28 最需要警惕的结构性缺陷。</div>
+</div>
+
+<!-- ============ 明日先手 ============ -->
+<h2>🎯 9/28（周一）先手候选 —— <span style="color:#ef4444">全部冻结：红灯期 0 新开仓，只看不做</span></h2>
+<div class="panel">
+  <table>
+    <tr><th>顺位</th><th>标的</th><th>代码</th><th>入选依据（尾盘专项）</th><th>风险 / 否决项</th><th>观察买区（仅登记）</th></tr>
+    <tr>
+      <td>1</td><td><b>平潭发展</b></td><td>000592</td>
+      <td>尾盘 14:23 封板、<b>封单 3.57 亿全场最大</b>、<b>零炸板</b>、换手 17.0%、海峡两岸身位第一、榜净买 4.75 亿全场第 1、G1 陈小群买二 9,082 万</td>
+      <td><span class="tag tag-warn">QDR 37.9% HIGH 降权</span><span class="tag tag-gray">换手 17% 偏高</span></td>
+      <td class="mono">8.43 / 8.60 / 8.78<br>止损 8.17</td>
+    </tr>
+    <tr>
+      <td>2</td><td><b>厦门港务</b></td><td>000905</td>
+      <td>尾盘 14:39 封板、封单 1.18 亿、<b>零炸板</b>、<b>换手仅 5.6%（全场尾盘板中最健康）</b>，低换手 + 厚封单＝筹码锁定好</td>
+      <td><span class="tag tag-info">无席位数据（未上榜）</span><span class="tag tag-gray">主题相关性待验</span></td>
+      <td class="mono">待 9/28 盘前重算</td>
+    </tr>
+    <tr>
+      <td>3</td><td>漳州发展</td><td>000753</td>
+      <td>尾盘 14:39 封板、封单 7,952 万、零炸板、换手 8.7%</td>
+      <td><span class="tag tag-gray">综合Ⅱ，主业杂</span></td>
+      <td class="mono">待 9/28 盘前重算</td>
+    </tr>
+    <tr>
+      <td>观察</td><td>雷科防务</td><td>002413</td>
+      <td>午后 13:09 封板、成交 19.77 亿（差 0.23 亿到 8.31 的 20 亿线）、G1+G4+机构黄金共振、QDR 0%</td>
+      <td><span class="tag tag-warn">换手 17.2%、炸板 2 次</span></td>
+      <td class="mono">8.61 / 8.79 / 8.97<br>止损 8.34</td>
+    </tr>
+    <tr>
+      <td>观察</td><td>福建金森</td><td>002679</td>
+      <td>尾盘 14:45 封板、零炸板、封单 6,531 万、换手 10.6%</td>
+      <td><span class="tag tag-gray">林业，容量偏小</span></td>
+      <td class="mono">待 9/28 盘前重算</td>
+    </tr>
+  </table>
+  <div class="act">
+    <b style="color:#ffd400">9/28 开盘前置清单（按序执行）</b>
+    <ol style="margin:8px 0 0 20px">
+      <li><b>09:25 竞价</b>：市价清仓杭州热电 900 股（保护限价 16.40，09:40 转市价）→ <b>成交后立即回填 trades.json + 删除 holdings.json h003</b>。</li>
+      <li><b>09:25–09:33</b>：观察海峡两岸票（平潭/厦门港务/漳州）竞价表现——<b>高开 5% 以上不追</b>；<b>平开或低开且 9:33 后不破前收</b>才纳入当日候选。</li>
+      <li><b>09:30–10:00</b>：查 9/25–9/27 假期外围（美股 9/25 夜盘标普、VIX 是否 &gt;18、美 10Y 是否 &gt;5.25%、布油是否重上 108）→ 任一触发则宏观转红，当日<b>连观察都不做</b>。</li>
+      <li><b>14:45</b>：按 8.23 尾盘确认，若海峡两岸出现「3 板 + 板块内涨停 ≥5 家 + 资金仍前 3」→ 高度梯队补齐，可升为「主线成型」；否则维持 🌱 萌芽，继续 0 新开仓。</li>
+      <li><b>硬约束不变</b>：8.29 ≥3 板禁新开仓；8.31 容量需 ≥20 亿；8.30 一票否决（拉萨+量化 / G0 / QDR≥50% / 量化独买）。</li>
+    </ol>
+  </div>
+</div>
+
+<h2>✅ 条件化建议（9/28）</h2>
+<div class="panel good">
+  <table>
+    <tr><th style="width:24%">条件</th><th>动作</th></tr>
+    <tr><td>杭州热电竞价成交</td><td>回填 t005 → 红灯当日降级为 🟡 → 空仓观望，text 改「空仓观望」，不再出现任何个股名</td></tr>
+    <tr><td>杭州热电低开 &lt;16.40</td><td>直接市价全清，不以「保护限价未到」为由拖延；回款约 14,760 元以下，实亏扩大至约 -2,981 元 / -3.84R，属纪律成本，接受</td></tr>
+    <tr><td>海峡两岸高开 &gt;5%</td><td><span class="tag tag-bad">不追</span>尾盘板次日高开多为出货；按 8.22 盈亏比 &lt;2.5 不成立</td></tr>
+    <tr><td>海峡两岸低开破 9/24 涨停价</td><td>主题降级为「一日游」，从先手候选删除</td></tr>
+    <tr><td>指数低开且跌家数 &gt;3000</td><td>维持 🔴，0 新开仓，候选继续冻结</td></tr>
+    <tr><td>清仓后新主线三要素齐备</td><td>仍需等宏观 🟡 转绿或至少维持，且单票 ≤20% 仓位（8.10）；首仓不超过总仓 10%（红灯刚降级期）</td></tr>
+  </table>
+</div>
+
+<div class="src">
+  <b>数据源：</b>东财涨停池 push2ex/getTopicZTPool（date=20260924，tc=52）· 东财 push2delay 个股接口（f43/f184）· 腾讯 qt.gtimg.cn（快照时间字段 2026-09-24 16:14 确认休市）· 新浪 hq.sinajs.cn（2026-09-24 15:34）· 悟道 MCP 0 次（休市日无增量）· 妙想未调用（watchlist 为空池）<br>
+  <b>价格三源交叉：</b>杭州热电 17.30 —— 腾讯 17.30 / 东财 17.30 / 新浪 17.300，<b>一致通过</b>。
+</div>
+
+<div class="disc">
+  <b>免责声明：</b>本报告为个人研究辅助与纪律框架记录，基于公开数据与既定规则（框架 v1.6 · 8.12 / 8.22 / 8.23 / 8.29 / 8.30 / 8.31）自动生成，<b>不构成任何投资建议，不承诺收益</b>。今日为中秋休市日，全部数据基准为 2026-09-24 收盘，存在延迟与口径差异（快照时间已在正文标注）；席位与资金数据来自第三方接口，可能存在统计口径不同。据此操作风险自负，市场有风险，投资需谨慎。
+</div>
+
+</body>
+</html>
