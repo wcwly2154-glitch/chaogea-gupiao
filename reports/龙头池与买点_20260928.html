@@ -89,6 +89,19 @@ ul{margin:6px 0 6px 22px;}li{margin:4px 0;}
 </table>
 <div class="note"><b>⚠️ 一票否决逐条检查（v1.6，全池扫描结果）</b>：QDR ≥50% → 雪龙集团 67.7%、福建水泥 58.7%（均连续第 2 日）→ 2 只否决；G0 黑名单现身 → 福建水泥（国泰海通松江中山东路）→ 已含；G5 拉萨占买方 ≥40% → 今日榜未出，以 9/24 数据无新增；≥3 板新开仓 → 新华传媒 5 板禁入。今日 17:35 席位雷达补跑后若有新增否决，明早盘前窗更新。</div>
 
+<h2>⑧ 席位雷达补跑（17:35 · 当日榜已出 · 33 只合并解析）</h2>
+<div class="note"><b>补跑说明</b>：15:20 盘后总管执行时悟道 dragon_tiger 返 0 条（出榜延迟），17:35 补跑成功拉取当日榜 40 条（含多榜重复），按代码去重合并 33 只，seat_analyzer v1.6 基因库解析完毕，明细已落盘 <span class="mono">site/seat_log.json</span>（累计 92 条）。</div>
+<table>
+<tr><th>标的</th><th>基因分类</th><th>LBS</th><th>QDR</th><th>共振</th><th>次日操作含义</th></tr>
+<tr><td><b>跨境通</b> <span class="mono" style="font-size:11px">002640</span></td><td>G1+G4+G5 同框</td><td class="mono">C</td><td class="mono">0% CLEAN</td><td>🟡 黄金组合</td><td class="up">可进候选池（delta +0.117 全场最高）→ <b>红灯冻结，仅记录不建仓</b></td></tr>
+<tr><td><b>我爱我家</b> <span class="mono" style="font-size:11px">000560</span></td><td>G1+G4</td><td class="mono">C</td><td class="mono">0% CLEAN</td><td>🟡 黄金组合</td><td class="up">可进候选池 → 红灯冻结，仅记录不建仓</td></tr>
+<tr><td><b>巨力索具</b> <span class="mono" style="font-size:11px">002342</span></td><td>G1+G4</td><td class="mono">C</td><td class="mono">0% CLEAN</td><td>🟡 黄金组合</td><td class="up">可进候选池（双榜同判）→ 红灯冻结，仅记录不建仓</td></tr>
+<tr><td><b>善水科技</b> <span class="mono" style="font-size:11px">301190</span></td><td>G3+G1+G4</td><td class="mono">C</td><td class="mono">30.0% HIGH</td><td>⚠️ 量化参与度高</td><td>谨慎试错仓 ≤10%；冲高分批止盈，不留隔夜重仓（红灯期禁开）</td></tr>
+<tr><td><b>百纳千成</b> <span class="mono" style="font-size:11px">300291</span></td><td>G1+G4+G5</td><td class="mono">C</td><td class="mono">0% CLEAN</td><td>🟡 黄金组合但 delta 负</td><td>⚠️ 谨慎（delta -0.093 与共振背离）→ 红灯冻结</td></tr>
+<tr><td colspan="6" class="note" style="text-align:left">其余 27 只（福建金森/奥佳华/中岩大地/平潭发展/超声电子/博纳影业/洛轴股份等）：全部 LBS-C 档（实证次日上涨 43.7%）→ 不入池，仅作流动性参考。今日全场 <b>无 LBS-A</b>（买一+净买≥5000万+无卖出的组合缺席），status.json forecast 不追加新条目。</td></tr>
+</table>
+<div class="note"><b>❌ 补跑新增一票否决（8.30，点名剔除候选池）</b>：① <b>众泰汽车 000980</b> —— G0 黑名单席位国泰海通紫阳东路现身买方（买 1996 万），且 QDR 25.4% 量化在场，双重高危；② <b>凯达重工 920025</b> —— 拉萨占买方 ≥40%，三榜同判（无人接力）；③ <b>世纪数码 920229</b> —— 拉萨占买方 ≥40%。以上 3 只一律剔除候选池，禁新开仓；若已持仓 → 次日开盘前减仓 ≥50%。QDR ≥50% 新增：无（全场最高善水科技 30.0%）。当前<b>红灯第 11 日</b>，候选区全冻结禁买，本节全部结论仅作次日观察记录。</div>
+
 <h2>④ 萌芽可买区（1 只 · 冻结观察）</h2>
 <table>
 <tr><th>标的</th><th>今日表现</th><th>信号</th><th>买区(元)</th><th>止损</th><th>备注</th></tr>
