@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓分析 2026-09-28 · 超哥 A 股研究台</title>
+<style>
+:root{--bg:#f7f8fa;--card:#ffffff;--text:#1c2333;--sub:#6b7689;--line:#e3e7ee;--up:#d93a3a;--down:#1d9e6e;--gold:#b8860b;--accent:#2b6cb0;--red:#c53030;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);padding:18px 14px;max-width:820px;margin:0 auto;font-size:14px;line-height:1.7;}
+h1{font-size:21px;margin:4px 0 4px;}
+h2{font-size:15px;margin:20px 0 8px;padding-left:9px;border-left:4px solid var(--accent);}
+.sub{color:var(--sub);font-size:12px;margin-bottom:12px;line-height:1.7;}
+a{color:var(--accent);text-decoration:none;}
+table{width:100%;border-collapse:collapse;font-size:13px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);margin:8px 0;}
+th{background:#eef1f6;color:var(--sub);font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px;white-space:nowrap;}
+td{padding:8px 10px;border-bottom:1px solid #eef0f4;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.up{color:var(--up);font-weight:700;}.down{color:var(--down);font-weight:700;}
+.warn{background:#fff5f5;border:1.5px solid #feb2b2;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.9;margin:10px 0;}
+.warn b{color:var(--red);}
+.note{background:#fffaf0;border:1px solid #f6d98a;border-radius:10px;padding:10px 13px;font-size:13px;line-height:1.8;margin:10px 0;}
+.disc{font-size:11px;color:#8b96ab;line-height:1.7;margin-top:18px;padding-top:10px;border-top:1px dashed var(--line);}
+.mono{font-family:monospace;}
+ul{margin:6px 0 6px 22px;}li{margin:4px 0;}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;margin-left:4px;background:#eef1f6;color:var(--sub);}
+.tag.red{background:#fff0f0;color:var(--red);font-weight:700;}
+</style>
+</head>
+<body>
+<a href="index.html">← 返回研究台</a> · <a href="position.html">实时持仓（动态页）</a>
+<h1>📋 持仓分析 · 2026-09-28（周一）收盘快照</h1>
+<div class="sub">框架 v1.6 · 崩盘日（创业板 -4.53%）· 本页为当日静态快照，实时持仓入口固定为 <b>position.html</b> · 生成于 2026-09-28 15:20 窗口</div>
+
+<div class="warn"><b>🚨 崩盘日 + 持仓红线（第 11 个交易日红灯）</b><br>
+今日创业板 <b>-4.53%</b>、深成指 -3.44%、科创50 -4.06%、沪指 -1.67%；全市场 <b>874 涨 / 4298 跌</b>（&gt;4000 阈值）、<b>跌停 56 家 &gt; 涨停 33 家</b>（罕见倒挂）。持仓红线由杭州热电触发。今日唯一硬指令：<b>明日（9/29）09:25 竞价市价清仓杭州热电 900 股，不设保护限价</b>——历史 9 次限价指令全部未执行，限价已成拖延借口，本次直接市价。</div>
+
+<h2>一、市场收盘全景（崩盘日）</h2>
+<table>
+<tr><th>指数</th><th>收盘</th><th>涨跌</th><th>备注</th></tr>
+<tr><td>上证指数</td><td class="mono">3823.62</td><td class="down">-1.67%</td><td>全天低 3806.67，尾盘小幅反抽未收全天最低</td></tr>
+<tr><td>深证成指</td><td class="mono">12858.75</td><td class="down">-3.44%</td><td>跌破 9/24 低点</td></tr>
+<tr><td>创业板指</td><td class="mono">3139.82</td><td class="down">-4.53%</td><td><b>跌破 -3% 崩盘阈值</b>，9/24「收全天最低→惯性向下」预警兑现</td></tr>
+<tr><td>科创50</td><td class="mono">1555.98</td><td class="down">-4.06%</td><td>CPO/科技风暴眼</td></tr>
+</table>
+<table>
+<tr><th>情绪指标</th><th>数值</th><th>解读</th></tr>
+<tr><td>涨跌家数</td><td class="mono">874 / 4298 / 平115</td><td class="up">跌&gt;4000 阈值触发</td></tr>
+<tr><td>涨停 / 跌停</td><td class="mono">33 / <b>56</b></td><td class="up">跌停&gt;50 阈值触发；跌停&gt;涨停为极端弱势</td></tr>
+<tr><td>炸板率 / 1进2 / 连板晋级</td><td class="mono">25% / <b>7.69%</b> / 13.46%</td><td class="up">1进2 冰点=接力环境恶化到极致，8.25 生态位判断（打板终结）再确认</td></tr>
+<tr><td>连板分布</td><td class="mono">1板26 / 2板3 / 3板2 / 5板1</td><td>高度 5 板（新华传媒·出版）</td></tr>
+<tr><td>两市成交</td><td class="mono">约 1.70 万亿</td><td>较 9/24 持平偏缩，恐慌未放量=承接弱</td></tr>
+<tr><td>板块资金</td><td class="mono">唯一净流入：疫苗概念 +3.74亿（涨幅-0.41%）</td><td class="up">防御性配置资金，无涨停梯队 → 全场无主线（8.12 三要素 1/3）</td></tr>
+</table>
+
+<h2>二、当前持仓（holdings.json · shares&gt;0）</h2>
+<table>
+<tr><th>标的</th><th>持仓</th><th>成本</th><th>收盘</th><th>当日</th><th>浮动盈亏</th><th>R 倍数</th><th>持仓天数</th></tr>
+<tr>
+<td><b>杭州热电</b> <span class="tag red">XD 除息</span><br><span class="mono" style="font-size:11px">605011 · 电力</span></td>
+<td class="mono">900 股</td>
+<td class="mono">19.712</td>
+<td class="mono">17.36</td>
+<td class="up">+0.64%<br><span style="font-size:10px;color:var(--sub)">（vs 除息参考价 17.25）</span></td>
+<td class="up">-2,071.8 元<span style="font-size:10px;color:var(--sub)"><br>（价差-2,116.8 + 红利+45.0）</span></td>
+<td class="up"><b>-2.67R</b></td>
+<td class="mono">第 10 个交易日</td>
+</tr>
+</table>
+<div class="note"><b>📌 XD 除息说明（9/28 生效）</b>：今日除息，每股分红 0.05 元（10 派 0.5 元，待红利到账核实）；9/24 收盘 17.30 → 除息参考价 17.25。持仓成本 19.712 不调整，红利 900×0.05=45 元（税前，视持有期或补扣税）计入总盈亏。硬止损相应除息调整：18.85 → <b>18.80</b>。今日高 17.58 / 低 17.08，收盘 17.36 仍<b>深破调整后止损 18.80 约 7.7%</b>。</div>
+
+<h2>三、纪律检查五项（v1.6 硬规则逐条）</h2>
+<table>
+<tr><th>#</th><th>规则</th><th>判定</th><th>结论</th></tr>
+<tr><td>1</td><td>8.13.4 二波三板魔咒</td><td>不适用</td><td>持仓非连板结构（低吸接力入场），无板位</td></tr>
+<tr><td>2</td><td>8.20 出货信号</td><td class="up">⚠️ 命中</td><td>今日主力净额 <b>+755.4 万</b>（15:05 快照）转正 + 破止损超期 = <b>减仓良机窗口，不是持有理由</b>。禁补仓、禁摊平、禁做 T（9/18 纪律原文重申）</td></tr>
+<tr><td>3</td><td>8.23 尾盘确认</td><td>不适用</td><td>存量持仓无新买入建议</td></tr>
+<tr><td>4</td><td>8.13.6 跟随纪律（持仓上限 3 交易日）</td><td class="up">❌ 严重超期</td><td>席位信号买入（低吸接力）持仓第 <b>10 个交易日</b> = 超限 7 个交易日；执行缺口第 <b>9 日</b>（9/15 起每日重申清仓均未执行）</td></tr>
+<tr><td>5</td><td>8.29 板位衰减（≥3 板禁加仓）</td><td>不适用</td><td>无板位；但任何情况下本仓位只减不加</td></tr>
+</table>
+
+<h2>四、明日（9/29 周二）操作指令 · 唯一一条</h2>
+<div class="warn">
+<b>杭州热电 605011：09:25 集合竞价市价清仓 900 股（约回笼 15,600 元）。</b><br>
+① <b>不设保护限价</b>——9/15 至今 9 次限价指令（18.70/17.30/17.00/16.40）全部未执行，浮亏从 -838.8 元扩大到 -2,071.8 元（+147%），执行缺口成本 -1,233 元。本次直接市价单，成交价即市场价。<br>
+② 成交后立即回填 trades.json（t005 exit）并删除 holdings.json h003 → 顶层红灯唯一持仓来源解除，市场面单独评估。<br>
+③ 若竞价跌停无法成交 → 09:30 后连续竞价挂现价卖出，当日必须离场，不等反弹。<br>
+④ 空仓后进入观望期：创业板单日 -4.53% 巨阴，情绪修复前（涨停≥50 且 1进2≥15% 且跌停&lt;20）不新开仓。
+</div>
+
+<h2>五、组合层面</h2>
+<table>
+<tr><th>检查项</th><th>状态</th></tr>
+<tr><td>持仓只数（≤3）</td><td>1 只 ✅ 合规</td></tr>
+<tr><td>同主线集中度（≤2）</td><td>电力单票 ✅ 合规</td></tr>
+<tr><td>总仓位（≤50%）</td><td>清仓后 0% ✅</td></tr>
+<tr><td>连败熔断</td><td>预测连败 0（本日对账 ❌0）；但红灯禁开新仓独立生效</td></tr>
+<tr><td>盈亏比（8.22）</td><td class="up">N/A 第 10 日——t001-t004 卖出价仍未回填（最高优先级数据债）</td></tr>
+</table>
+
+<div class="disc">
+<b>免责声明</b>：本报告为个人研究纪律框架的自动化产出，仅供研究参考，不构成任何投资建议；不承诺收益，不代客交易。数据源：腾讯行情（快照 20260928152102）、悟道 MCP、东财接口。市场有风险，投资需谨慎，盈亏自负。
+</div>
+</body>
+</html>
