@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持仓分析 2026-09-29 · 超哥A股研究台</title>
+<style>
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f6f8;color:#1a1a1a;margin:0;padding:24px;}
+  .wrap{max-width:960px;margin:0 auto;}
+  h1{font-size:22px;margin:0 0 4px;}
+  .sub{color:#666;font-size:13px;margin-bottom:16px;}
+  .banner{background:#fff3f0;border:1px solid #f5c6ba;border-left:5px solid #d93025;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14px;line-height:1.7;}
+  .banner b{color:#d93025;}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:16px;font-size:13.5px;}
+  th{background:#2c3e50;color:#fff;padding:9px 10px;text-align:left;font-weight:600;font-size:12.5px;}
+  td{padding:9px 10px;border-bottom:1px solid #eef0f2;}
+  tr:last-child td{border-bottom:none;}
+  .num{font-variant-numeric:tabular-nums;font-weight:600;}
+  .neg{color:#00a854;} .pos{color:#d93025;}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11.5px;font-weight:600;}
+  .tag-red{background:#fdecea;color:#d93025;}
+  .tag-gray{background:#eceff1;color:#546e7a;}
+  .sec{font-size:15px;font-weight:700;margin:20px 0 8px;padding-left:9px;border-left:4px solid #2c3e50;}
+  .card{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:14px 16px;margin-bottom:14px;font-size:13.5px;line-height:1.8;}
+  .disclaim{color:#888;font-size:12px;line-height:1.7;border-top:1px dashed #ccc;padding-top:10px;margin-top:18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>持仓分析 · 2026-09-29（周二）收盘</h1>
+<div class="sub">框架 v1.6 ｜ 生成 15:20 收盘窗 ｜ 快照数据（实时入口见 position.html）｜ 仅覆盖 holdings.json 中 shares&gt;0 持仓</div>
+
+<div class="banner">
+<b>🔴 红灯第 12 日（唯一来源=持仓红线）。</b>市场面 6 阈值今日全部未触发（修复日：沪指 +0.18%、涨 3315/跌 1821 大逆转、涨停 57、跌停 10、炸板率 12.31%）。<br>
+<b>⚠️ 硬指令（第 11 次下达·升级为市价铁律）：9/30 09:25 竞价【市价单】清仓杭州热电 900 股 · 不设限价 · 当日必须离场。</b>成交即回填 t005 并删除 h003 → 红灯持仓来源解除。
+</div>
+
+<div class="sec">一、持仓总览</div>
+<table>
+<tr><th>标的</th><th>持仓</th><th>成本</th><th>收盘</th><th>当日</th><th>浮动盈亏</th><th>R 倍数</th><th>持仓天数</th><th>状态判定</th></tr>
+<tr>
+  <td><b>杭州热电</b><br><span style="color:#999;font-size:11px">605011 · 电力</span></td>
+  <td class="num">900 股</td>
+  <td class="num">19.712</td>
+  <td class="num">17.46</td>
+  <td class="num pos">+0.58%<br><span style="font-size:11px">高17.89 低17.12</span></td>
+  <td class="num neg">-2,206.8 元<br><span style="font-size:11px">价差-2,251.8+红利45.0</span></td>
+  <td class="num neg">-2.84R</td>
+  <td class="num">12 个交易日<br><span style="font-size:11px">9/14 买入</span></td>
+  <td><span class="tag tag-red">深破止损·清仓</span></td>
+</tr>
+<tr><td colspan="9" style="font-size:12px;color:#666">组合浮亏 -2,206.8 元 / -2.84R ｜ 今日缩量反弹（成交 1.29 亿，较昨日大幅缩量）｜ 数据源：腾讯行情 15:20 快照（20260929152029），双源校验口径沿用</td></tr>
+</table>
+
+<div class="sec">二、止损与执行缺口（最高优先级）</div>
+<div class="card">
+<b>止损位：18.80（9/28 除息调整，原 18.85）</b> → 收盘 17.46 <b class="neg">深破止损 -7.11%</b>，破位第 12 个交易日。<br>
+<b>执行缺口（机制性失败，框架第 1 大教训）：</b>清仓指令自 9/15 首次下达（建议价 18.90）至今第 10 个交易日 0 成交，价格恶化 (18.90→17.46)=<b class="neg">-7.6%，缺口金额约 -1,296 元</b>。9 次限价单 0 执行 → <b>限价=拖延借口，一律市价</b>（9/28 evolution_log 已固化）。<br>
+<b>今日盘面：</b>+0.58% 缩量反抽属超跌修复，非反转信号；主力资金明细接口今日限流未能二次验证，按"破位+超期"纪律处理，<b>禁补仓、禁摊平、禁做 T</b>。
+</div>
+
+<div class="sec">三、五项必做检查（v1.6）</div>
+<table>
+<tr><th>检查项</th><th>结论</th><th>说明</th></tr>
+<tr><td>① 8.13.4 二波三板魔咒</td><td><span class="tag tag-gray">不适用</span></td><td>当前非二波连板结构（9/28 除息日小幅收红）。</td></tr>
+<tr><td>② 8.20 出货信号</td><td><span class="tag tag-gray">未新触发</span></td><td>换手 0.90% 无天量滞涨；9/18 主力转正出货窗口已按纪律处理。破位本质未变。</td></tr>
+<tr><td>③ 8.23 尾盘确认</td><td><span class="tag tag-gray">不适用</span></td><td>无新买入建议。</td></tr>
+<tr><td>④ 8.13.6 跟随纪律</td><td><span class="tag tag-red">超期第 12 交易日</span></td><td>远超 3 日上限 → 无条件处理（清仓指令维持）。</td></tr>
+<tr><td>⑤ 8.29 板位衰减</td><td><span class="tag tag-gray">不适用</span></td><td>非连板持仓。</td></tr>
+</table>
+
+<div class="sec">四、操作指令</div>
+<div class="card">
+<b>杭州热电 605011：9/30 09:25 竞价【市价单】卖出 900 股（金额约 15,700 元，按今日收盘估算），不设限价。</b>竞价跌停无法成交则 09:30 后连续竞价当日离场。成交后回填 trades.json（t005 卖出价/R 倍数/持仓天数）并删除 holdings h003。<br>
+<span style="color:#888;font-size:12px">注：本报告为当日收盘快照。实时持仓请以 position.html（动态页）为准。</span>
+</div>
+
+<div class="sec">五、数据债登记</div>
+<div class="card" style="font-size:13px">
+t001 翠微股份 / t002 黄河旋风 / t003 黑猫股份 / t004 方正科技 卖出价未回填 + t005 待成交 → <b>结算盈亏比 N/A 第 11 日</b>。回填是恢复 E 模块盈亏比判定的唯一路径。
+</div>
+
+<div class="disclaim">免责声明：本报告为个人交易纪律辅助工具，全部数据来自公开行情接口快照，不构成任何投资建议。股市有风险，入市需谨慎；据此操作，盈亏自负。</div>
+</div>
+</body>
+</html>
